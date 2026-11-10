@@ -1,0 +1,312 @@
+[
+  {
+    "id": "limgrave",
+    "name": "Limgrave",
+    "requires": []
+  },
+  {
+    "id": "stormveil_castle",
+    "name": "Stormveil Castle",
+    "requires": []
+  },
+  {
+    "id": "liurnia",
+    "name": "Liurnia",
+    "requires": []
+  },
+  {
+    "id": "academy_of_raya_lucaria",
+    "name": "Academy of Raya Lucaria",
+    "requires": []
+  },
+  {
+    "id": "caelid",
+    "name": "Caelid",
+    "requires": []
+  },
+  {
+    "id": "dragonbarrow",
+    "name": "Dragonbarrow",
+    "requires": []
+  },
+  {
+    "id": "leyndell",
+    "name": "Leyndell",
+    "requires": []
+  },
+  {
+    "id": "divine_tower_of_liurnia",
+    "name": "Divine Tower of Liurnia",
+    "requires": []
+  },
+  {
+    "id": "volcano_manor",
+    "name": "Volcano Manor",
+    "requires": []
+  },
+  {
+    "id": "mountaintops_of_the_giants",
+    "name": "Mountaintops of the Giants",
+    "requires": []
+  },
+  {
+    "id": "belurat",
+    "name": "Belurat",
+    "requires": []
+  },
+  {
+    "id": "castle_ensis",
+    "name": "Castle Ensis",
+    "requires": []
+  },
+  {
+    "id": "scadu_altus",
+    "name": "Scadu Altus",
+    "requires": []
+  },
+  {
+    "id": "charos_hidden_grave",
+    "name": "Charo's Hidden Grave",
+    "requires": []
+  },
+  {
+    "id": "weeping_peninsula",
+    "name": "Weeping Peninsula",
+    "requires": []
+  },
+  {
+    "id": "siofra_river",
+    "name": "Siofra River",
+    "requires": []
+  },
+  {
+    "id": "ainsel_river_liurnia",
+    "name": "Ainsel River (Liurnia)",
+    "requires": []
+  },
+  {
+    "id": "ruin_strewn_precipice",
+    "name": "Ruin-Strewn Precipice",
+    "requires": []
+  },
+  {
+    "id": "altus_plateau",
+    "name": "Altus Plateau",
+    "requires": []
+  },
+  {
+    "id": "subterranean_shunning_grounds",
+    "name": "Subterranean Shunning-Grounds",
+    "requires": []
+  },
+  {
+    "id": "nokron_eternal_city",
+    "name": "Nokron, Eternal City",
+    "requires": []
+  },
+  {
+    "id": "ainsel_river_ranni_deeproot",
+    "name": "Ainsel River (Ranni/Deeproot)",
+    "requires": []
+  },
+  {
+    "id": "farum_azula",
+    "name": "Farum Azula",
+    "requires": []
+  },
+  {
+    "id": "haligtree",
+    "name": "Haligtree",
+    "requires": []
+  },
+  {
+    "id": "mohgwyn",
+    "name": "Mohgwyn",
+    "requires": []
+  },
+  {
+    "id": "ashen_leyndell",
+    "name": "Ashen Leyndell",
+    "requires": []
+  },
+  {
+    "id": "shadow_keep_main_plaza",
+    "name": "Shadow Keep (Main Plaza)",
+    "requires": []
+  },
+  {
+    "id": "shadow_keep_specimen_storehouse",
+    "name": "Shadow Keep (Specimen Storehouse)",
+    "requires": []
+  },
+  {
+    "id": "shadow_keep_church_district",
+    "name": "Shadow Keep (Church District)",
+    "requires": []
+  },
+  {
+    "id": "cerulean_coast",
+    "name": "Cerulean Coast",
+    "requires": []
+  },
+  {
+    "id": "ancient_ruins_of_rauh",
+    "name": "Ancient Ruins of Rauh",
+    "requires": []
+  },
+  {
+    "id": "shadow_keep_storehouse_loft",
+    "name": "Shadow Keep (Storehouse Loft)",
+    "requires": []
+  },
+  {
+    "id": "midras_manse",
+    "name": "Midra's Manse",
+    "requires": []
+  },
+  {
+    "id": "jagged_peak",
+    "name": "Jagged Peak",
+    "requires": []
+  },
+  {
+    "id": "cathedral_of_manus_metyr",
+    "name": "Cathedral of Manus Metyr",
+    "requires": []
+  },
+  {
+    "id": "enir_ilim",
+    "name": "Enir-Ilim",
+    "requires": []
+  },
+  {
+    "id": "stormhill",
+    "name": "Stormhill",
+    "requires": []
+  },
+  {
+    "id": "liurnia_after_caria_manor",
+    "name": "Liurnia (After Caria Manor)",
+    "requires": []
+  },
+  {
+    "id": "capital_outskirts",
+    "name": "Capital Outskirts",
+    "requires": []
+  },
+  {
+    "id": "deeproot_depths",
+    "name": "Deeproot Depths",
+    "requires": []
+  },
+  {
+    "id": "mt_gelmir",
+    "name": "Mt. Gelmir",
+    "requires": []
+  },
+  {
+    "id": "lake_of_rot",
+    "name": "Lake of Rot",
+    "requires": []
+  },
+  {
+    "id": "moonlight_altar",
+    "name": "Moonlight Altar",
+    "requires": []
+  },
+  {
+    "id": "chapel_of_anticipation",
+    "name": "Chapel of Anticipation",
+    "requires": []
+  },
+  {
+    "id": "forbidden_lands",
+    "name": "Forbidden Lands",
+    "requires": []
+  },
+  {
+    "id": "consecrated_snowfield",
+    "name": "Consecrated Snowfield",
+    "requires": []
+  },
+  {
+    "id": "gravesite_plain",
+    "name": "Gravesite Plain",
+    "requires": []
+  },
+  {
+    "id": "rauh_base",
+    "name": "Rauh Base",
+    "requires": []
+  },
+  {
+    "id": "foot_of_the_jagged_peak",
+    "name": "Foot of the Jagged Peak",
+    "requires": []
+  },
+  {
+    "id": "ellac_river",
+    "name": "Ellac River",
+    "requires": []
+  },
+  {
+    "id": "hinterland",
+    "name": "Hinterland",
+    "requires": []
+  },
+  {
+    "id": "manus_metyr",
+    "name": "Manus Metyr",
+    "requires": []
+  },
+  {
+    "id": "ainsel_river",
+    "name": "Ainsel River",
+    "requires": []
+  },
+  {
+    "id": "roundtable_hold",
+    "name": "Roundtable Hold",
+    "requires": []
+  },
+  {
+    "id": "lower_scadu_altus",
+    "name": "Lower Scadu Altus",
+    "requires": []
+  },
+  {
+    "id": "scaduview",
+    "name": "Scaduview",
+    "requires": []
+  },
+  {
+    "id": "abyssal_woods",
+    "name": "Abyssal Woods",
+    "requires": []
+  },
+  {
+    "id": "base_game",
+    "name": "Base game unlocked",
+    "requires": [["setting:startMode=normal"], ["setting:startMode=dlcWithBaseGame"]]
+  },
+  {
+    "id": "altus_access",
+    "name": "Altus Plateau access",
+    "requires": [["check:boss_magma_wyrm_makar_ruin_strewn_precipice"], ["Dectus Medallion (Left)", "Dectus Medallion (Right)"], ["check:other_abductor_virgins_volcano_manor"]]
+  },
+  {
+    "id": "leyndell_access",
+    "name": "Leyndell access",
+    "requires": [["check:other_fias_champions_deeproot_depths"], ["check:extra_draconic_tree_sentinel_capital_outskirts", "Great Runes x$leyndellRunes"]]
+  },
+  {
+    "id": "mountaintops_access",
+    "name": "Mountaintops access",
+    "requires": [["check:boss_morgott_the_omen_king_leyndell", "Rold Medallion"], ["!setting:mountaintopsRunes=0", "Great Runes x$mountaintopsRunes"]]
+  },
+  {
+    "id": "dlc_access",
+    "name": "Shadow of the Erdtree access",
+    "requires": [["check:boss_mohg_lord_of_blood_mohgwyn"], ["setting:startMode=dlcOnly"], ["setting:startMode=dlcWithBaseGame"]]
+  }
+]

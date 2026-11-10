@@ -1,0 +1,9 @@
+<Project>
+  <!-- Shared by every C# project: who made it, and its licence (see LICENSE and THIRD_PARTY_NOTICES.md). -->
+  <PropertyGroup>
+    <Authors>Moordoor</Authors>
+    <Company>Moordoor</Company>
+    <Copyright>Copyright (c) 2026 Moordoor. GPL-3.0.</Copyright>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+  </PropertyGroup>
+</Project>

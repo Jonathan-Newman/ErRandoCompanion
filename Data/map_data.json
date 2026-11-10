@@ -1,0 +1,7450 @@
+{
+ "maps": [
+  {
+   "id": "base",
+   "name": "The Lands Between",
+   "image": "map_base.jpg",
+   "width": 4850,
+   "height": 4775,
+   "area": 60,
+   "worldLeft": 7040.0,
+   "worldTop": 16512.0,
+   "worldWidth": 9700,
+   "worldHeight": 9550,
+   "labels": [
+    {
+     "name": "Altus Plateau",
+     "u": 0.31462,
+     "v": 0.31128
+    },
+    {
+     "name": "Caelid",
+     "u": 0.57798,
+     "v": 0.70679
+    },
+    {
+     "name": "Capital Outskirts",
+     "u": 0.46219,
+     "v": 0.35326
+    },
+    {
+     "name": "Consecrated Snowfield",
+     "u": 0.51773,
+     "v": 0.19453
+    },
+    {
+     "name": "Flame Peak",
+     "u": 0.65188,
+     "v": 0.30827
+    },
+    {
+     "name": "Greyoll's Dragonbarrow",
+     "u": 0.60803,
+     "v": 0.62789
+    },
+    {
+     "name": "Limgrave",
+     "u": 0.43019,
+     "v": 0.74039
+    },
+    {
+     "name": "Liurnia of the Lakes",
+     "u": 0.23054,
+     "v": 0.51563
+    },
+    {
+     "name": "Moonlight Altar",
+     "u": 0.16495,
+     "v": 0.63665
+    },
+    {
+     "name": "Mountaintops of the Giants",
+     "u": 0.6622,
+     "v": 0.27004
+    },
+    {
+     "name": "Mt. Gelmir",
+     "u": 0.23153,
+     "v": 0.30096
+    },
+    {
+     "name": "Stormhill",
+     "u": 0.37095,
+     "v": 0.68654
+    },
+    {
+     "name": "Weeping Peninsula",
+     "u": 0.40629,
+     "v": 0.85427
+    }
+   ]
+  },
+  {
+   "id": "underground",
+   "name": "Underground",
+   "image": "map_underground.jpg",
+   "width": 4850,
+   "height": 4775,
+   "area": 60,
+   "worldLeft": 7040.0,
+   "worldTop": 16512.0,
+   "worldWidth": 9700,
+   "worldHeight": 9550,
+   "labels": [
+    {
+     "name": "Ainsel River",
+     "u": 0.23232,
+     "v": 0.45291
+    },
+    {
+     "name": "Deeproot Depths",
+     "u": 0.43624,
+     "v": 0.32056
+    },
+    {
+     "name": "Mohgwyn",
+     "u": 0.63316,
+     "v": 0.73482
+    },
+    {
+     "name": "Nokron Eternal City",
+     "u": 0.51357,
+     "v": 0.62702
+    },
+    {
+     "name": "Siofra River",
+     "u": 0.46109,
+     "v": 0.68695
+    }
+   ]
+  },
+  {
+   "id": "dlc",
+   "name": "Land of Shadow",
+   "image": "map_dlc.jpg",
+   "width": 4100,
+   "height": 4300,
+   "area": 61,
+   "worldLeft": 10690.0,
+   "worldTop": 13062.0,
+   "worldWidth": 4100,
+   "worldHeight": 4300,
+   "labels": [
+    {
+     "name": "Abyssal Woods",
+     "u": 0.63059,
+     "v": 0.56272
+    },
+    {
+     "name": "Cerulean Coast",
+     "u": 0.35854,
+     "v": 0.81362
+    },
+    {
+     "name": "Foot of the Jagged Peak",
+     "u": 0.54585,
+     "v": 0.65628
+    },
+    {
+     "name": "Gravesite Plain",
+     "u": 0.29735,
+     "v": 0.52768
+    },
+    {
+     "name": "Jagged Peak",
+     "u": 0.76439,
+     "v": 0.70093
+    },
+    {
+     "name": "Rauh Base",
+     "u": 0.23606,
+     "v": 0.25327
+    },
+    {
+     "name": "Scadu Altus",
+     "u": 0.50869,
+     "v": 0.33309
+    },
+    {
+     "name": "Scaduview",
+     "u": 0.56572,
+     "v": 0.15294
+    }
+   ]
+  }
+ ],
+ "pins": [
+  {
+   "id": "key_dectus_medallion_left_limgrave",
+   "map": "base",
+   "u": 0.48776,
+   "v": 0.76787,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11771.3,
+    "y": 91.02,
+    "z": 9178.86
+   },
+   "mapId": "m60_46_36_00",
+   "local": {
+    "x": -4.7,
+    "y": 91.02,
+    "z": -37.14
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_rusty_key_stormveil_castle",
+   "map": "base",
+   "u": 0.32098,
+   "v": 0.70511,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10153.5,
+    "y": 340.72,
+    "z": 9778.2
+   },
+   "mapId": "m10_00_00_00",
+   "local": {
+    "x": -217.88,
+    "y": 67.11,
+    "z": 76.53
+   },
+   "entrance": {
+    "x": 10371.38,
+    "y": 273.61,
+    "z": 9701.67
+   }
+  },
+  {
+   "id": "key_haligtree_secret_medallion_right_liurnia",
+   "map": "base",
+   "u": 0.18739,
+   "v": 0.61544,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8857.69,
+    "y": 285.92,
+    "z": 10634.58
+   },
+   "mapId": "m60_35_42_00",
+   "local": {
+    "x": -102.31,
+    "y": 285.92,
+    "z": -117.42
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_glintstone_key_liurnia",
+   "map": "base",
+   "u": 0.16581,
+   "v": 0.51599,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8648.32,
+    "y": 238.43,
+    "z": 11584.3
+   },
+   "mapId": "m60_34_45_00",
+   "local": {
+    "x": -55.68,
+    "y": 238.43,
+    "z": 64.3
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_imbued_sword_key_liurnia",
+   "map": "base",
+   "u": 0.15201,
+   "v": 0.4771,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8514.54,
+    "y": 379.25,
+    "z": 11955.72
+   },
+   "mapId": "m60_33_47_00",
+   "local": {
+    "x": 66.54,
+    "y": 379.25,
+    "z": -76.28
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_imbued_sword_key_academy_of_raya_lucaria",
+   "map": "base",
+   "u": 0.18568,
+   "v": 0.51896,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8841.11,
+    "y": 406.01,
+    "z": 11555.92
+   },
+   "mapId": "m14_00_00_00",
+   "local": {
+    "x": -6.83,
+    "y": 95.44,
+    "z": -158.36
+   },
+   "entrance": {
+    "x": 8847.94,
+    "y": 310.58,
+    "z": 11714.28
+   }
+  },
+  {
+   "id": "key_dark_moon_ring_academy_of_raya_lucaria",
+   "map": "base",
+   "u": 0.19035,
+   "v": 0.50356,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8886.37,
+    "y": 464.64,
+    "z": 11702.95
+   },
+   "mapId": "m14_00_00_00",
+   "local": {
+    "x": 38.43,
+    "y": 154.06,
+    "z": -11.32
+   },
+   "entrance": {
+    "x": 8847.94,
+    "y": 310.58,
+    "z": 11714.28
+   }
+  },
+  {
+   "id": "key_imbued_sword_key_caelid",
+   "map": "base",
+   "u": 0.58572,
+   "v": 0.68715,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12721.49,
+    "y": 83.28,
+    "z": 9949.76
+   },
+   "mapId": "m60_50_39_00",
+   "local": {
+    "x": -78.51,
+    "y": 83.28,
+    "z": -34.24
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_dectus_medallion_right_dragonbarrow",
+   "map": "base",
+   "u": 0.61759,
+   "v": 0.66939,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13030.61,
+    "y": 285.61,
+    "z": 10119.36
+   },
+   "mapId": "m60_51_39_00",
+   "local": {
+    "x": -25.39,
+    "y": 285.61,
+    "z": 135.36
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_rold_medallion_leyndell",
+   "map": "base",
+   "u": 0.46789,
+   "v": 0.39188,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11578.5,
+    "y": 1152.48,
+    "z": 12769.54
+   },
+   "mapId": "m11_00_00_00",
+   "local": {
+    "x": 41.82,
+    "y": 64.96,
+    "z": -421.9
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "key_stargazer_heirloom_cursemark_of_death_divine_tower_of_liurnia",
+   "map": "base",
+   "u": 0.34491,
+   "v": 0.53759,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10385.6,
+    "y": 697.8,
+    "z": 11377.99
+   },
+   "mapId": "m34_11_00_00",
+   "local": {
+    "x": 428.2,
+    "y": 297.3,
+    "z": 75.69
+   },
+   "entrance": {
+    "x": 9957.4,
+    "y": 400.5,
+    "z": 11302.3
+   }
+  },
+  {
+   "id": "key_drawing_room_key_volcano_manor",
+   "map": "base",
+   "u": 0.22962,
+   "v": 0.30424,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9267.29,
+    "y": 984.32,
+    "z": 13606.54
+   },
+   "mapId": "m16_00_00_00",
+   "local": {
+    "x": 39.39,
+    "y": 5.37,
+    "z": -71.32
+   },
+   "entrance": {
+    "x": 9217.74,
+    "y": 977.78,
+    "z": 13693.75
+   }
+  },
+  {
+   "id": "key_haligtree_secret_medallion_left_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.62923,
+   "v": 0.17202,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13143.57,
+    "y": 1664.26,
+    "z": 14869.22
+   },
+   "mapId": "m60_51_58_00",
+   "local": {
+    "x": 87.57,
+    "y": 1664.26,
+    "z": 21.22
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_margit_the_fell_omen_stormveil_castle",
+   "map": "base",
+   "u": 0.34152,
+   "v": 0.71494,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10352.76,
+    "y": 271.01,
+    "z": 9684.32
+   },
+   "mapId": "m10_00_00_00",
+   "local": {
+    "x": -18.62,
+    "y": -2.6,
+    "z": -17.35
+   },
+   "entrance": {
+    "x": 10371.38,
+    "y": 273.61,
+    "z": 9701.67
+   }
+  },
+  {
+   "id": "boss_godrick_the_grafted_stormveil_castle",
+   "map": "base",
+   "u": 0.31915,
+   "v": 0.67665,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10135.74,
+    "y": 347.36,
+    "z": 10049.96
+   },
+   "mapId": "m10_00_00_00",
+   "local": {
+    "x": -235.65,
+    "y": 73.76,
+    "z": 348.29
+   },
+   "entrance": {
+    "x": 10371.38,
+    "y": 273.61,
+    "z": 9701.67
+   }
+  },
+  {
+   "id": "boss_leonine_misbegotten_weeping_peninsula",
+   "map": "base",
+   "u": 0.40593,
+   "v": 0.9256,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10977.54,
+    "y": 0.47,
+    "z": 7672.55
+   },
+   "mapId": "m60_43_30_00",
+   "local": {
+    "x": -30.46,
+    "y": 0.47,
+    "z": -7.45
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_royal_knight_loretta_liurnia",
+   "map": "base",
+   "u": 0.19465,
+   "v": 0.37816,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8928.15,
+    "y": 430.95,
+    "z": 12900.61
+   },
+   "mapId": "m60_35_50_00",
+   "local": {
+    "x": -31.85,
+    "y": 430.95,
+    "z": 100.61
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_red_wolf_of_radagon_academy_of_raya_lucaria",
+   "map": "base",
+   "u": 0.20177,
+   "v": 0.52571,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8997.17,
+    "y": 420.76,
+    "z": 11491.43
+   },
+   "mapId": "m14_00_00_00",
+   "local": {
+    "x": 149.23,
+    "y": 110.18,
+    "z": -222.85
+   },
+   "entrance": {
+    "x": 8847.94,
+    "y": 310.58,
+    "z": 11714.28
+   }
+  },
+  {
+   "id": "boss_rennala_academy_of_raya_lucaria",
+   "map": "base",
+   "u": 0.19367,
+   "v": 0.50482,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8918.59,
+    "y": -528.15,
+    "z": 11690.95
+   },
+   "mapId": "m14_00_00_00",
+   "local": {
+    "x": 70.65,
+    "y": -838.73,
+    "z": -23.33
+   },
+   "entrance": {
+    "x": 8847.94,
+    "y": 310.58,
+    "z": 11714.28
+   }
+  },
+  {
+   "id": "boss_ancestor_spirit_siofra_river",
+   "map": "underground",
+   "u": 0.55544,
+   "v": 0.74784,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12427.79,
+    "y": -1317.62,
+    "z": 9370.18
+   },
+   "mapId": "m12_08_00_00",
+   "local": {
+    "x": 1546.1,
+    "y": -1736.05,
+    "z": 1053.29
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "boss_dragonking_soldier_of_nokstella_ainsel_river_liurnia",
+   "map": "underground",
+   "u": 0.23984,
+   "v": 0.46621,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 9366.47,
+    "y": 43.87,
+    "z": 12059.7
+   },
+   "mapId": "m12_01_00_00",
+   "local": {
+    "x": -49.64,
+    "y": -224.29,
+    "z": 84.33
+   },
+   "entrance": {
+    "x": 9817.01,
+    "y": 252.62,
+    "z": 11852.68
+   }
+  },
+  {
+   "id": "boss_magma_wyrm_makar_ruin_strewn_precipice",
+   "map": "base",
+   "u": 0.24517,
+   "v": 0.3764,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9418.11,
+    "y": 518.63,
+    "z": 12917.39
+   },
+   "mapId": "m39_20_00_00",
+   "local": {
+    "x": -102.69,
+    "y": 353.03,
+    "z": -1299.21
+   },
+   "entrance": {
+    "x": 9641.8,
+    "y": 647.6,
+    "z": 12696.6
+   }
+  },
+  {
+   "id": "boss_elemer_of_the_briar_altus_plateau",
+   "map": "base",
+   "u": 0.29797,
+   "v": 0.27555,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9930.28,
+    "y": 768.3,
+    "z": 13880.51
+   },
+   "mapId": "m60_39_54_00",
+   "local": {
+    "x": -53.72,
+    "y": 768.3,
+    "z": 56.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_godfrey_first_elden_lord_leyndell",
+   "map": "base",
+   "u": 0.45001,
+   "v": 0.38816,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11405.12,
+    "y": 1118.53,
+    "z": 12805.08
+   },
+   "mapId": "m11_00_00_00",
+   "local": {
+    "x": -131.56,
+    "y": 31.01,
+    "z": -386.36
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "boss_morgott_the_omen_king_leyndell",
+   "map": "base",
+   "u": 0.46621,
+   "v": 0.39032,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11578.5,
+    "y": 1152.48,
+    "z": 12769.54
+   },
+   "mapId": "m11_00_00_00",
+   "local": {
+    "x": 41.82,
+    "y": 64.96,
+    "z": -421.9
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "boss_mohg_the_omen_subterranean_shunning_grounds",
+   "map": "base",
+   "u": 0.4712,
+   "v": 0.35617,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11610.67,
+    "y": 788.97,
+    "z": 13110.54
+   },
+   "mapId": "m35_00_00_00",
+   "local": {
+    "x": 73.99,
+    "y": -298.55,
+    "z": -80.89
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "boss_starscourge_radahn_caelid",
+   "map": "base",
+   "u": 0.64148,
+   "v": 0.71264,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13262.31,
+    "y": 34.6,
+    "z": 9706.31
+   },
+   "mapId": "m60_13_09_02",
+   "local": {
+    "x": -433.69,
+    "y": 34.6,
+    "z": 106.31
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_mimic_tear_nokron_eternal_city",
+   "map": "underground",
+   "u": 0.5022,
+   "v": 0.73519,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 11911.34,
+    "y": -222.88,
+    "z": 9490.91
+   },
+   "mapId": "m12_02_00_00",
+   "local": {
+    "x": 1029.65,
+    "y": -641.31,
+    "z": 1174.02
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "boss_regal_ancestor_spirit_nokron_eternal_city",
+   "map": "underground",
+   "u": 0.51809,
+   "v": 0.65794,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12065.52,
+    "y": -1119.98,
+    "z": 10228.67
+   },
+   "mapId": "m12_09_00_00",
+   "local": {
+    "x": 1183.83,
+    "y": -1538.41,
+    "z": 1911.78
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "boss_valiant_gargoyles_nokron_eternal_city",
+   "map": "underground",
+   "u": 0.52041,
+   "v": 0.65892,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12088.0,
+    "y": -168.36,
+    "z": 10219.35
+   },
+   "mapId": "m12_02_00_00",
+   "local": {
+    "x": 1206.31,
+    "y": -586.79,
+    "z": 1902.46
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "boss_godskin_noble_volcano_manor",
+   "map": "base",
+   "u": 0.23159,
+   "v": 0.31869,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9286.41,
+    "y": 985.98,
+    "z": 13468.46
+   },
+   "mapId": "m16_00_00_00",
+   "local": {
+    "x": 58.51,
+    "y": 7.02,
+    "z": -209.4
+   },
+   "entrance": {
+    "x": 9217.74,
+    "y": 977.78,
+    "z": 13693.75
+   }
+  },
+  {
+   "id": "boss_rykard_volcano_manor",
+   "map": "base",
+   "u": 0.23528,
+   "v": 0.30896,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9322.22,
+    "y": 539.44,
+    "z": 13561.4
+   },
+   "mapId": "m16_00_00_00",
+   "local": {
+    "x": 94.32,
+    "y": -439.51,
+    "z": -116.46
+   },
+   "entrance": {
+    "x": 9217.74,
+    "y": 977.78,
+    "z": 13693.75
+   }
+  },
+  {
+   "id": "boss_astel_naturalborn_of_the_void_ainsel_river_ranni_deeproot",
+   "map": "underground",
+   "u": 0.16137,
+   "v": 0.64402,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 8605.24,
+    "y": -106.14,
+    "z": 10361.61
+   },
+   "mapId": "m12_04_00_00",
+   "local": {
+    "x": -98.76,
+    "y": -106.14,
+    "z": -134.39
+   },
+   "entrance": {
+    "x": 8704.0,
+    "y": 0.0,
+    "z": 10496.0
+   }
+  },
+  {
+   "id": "boss_commander_niall_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.62825,
+   "v": 0.17903,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13134.02,
+    "y": 1632.0,
+    "z": 14802.25
+   },
+   "mapId": "m60_51_57_00",
+   "local": {
+    "x": 78.02,
+    "y": 1632.0,
+    "z": 210.25
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_fire_giant_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.65849,
+   "v": 0.32562,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13427.33,
+    "y": 1775.52,
+    "z": 13402.32
+   },
+   "mapId": "m60_13_13_02",
+   "local": {
+    "x": -268.67,
+    "y": 1775.52,
+    "z": -293.68
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_godskin_duo_farum_azula",
+   "map": "base",
+   "u": 0.54719,
+   "v": 0.27093,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12347.73,
+    "y": 1165.86,
+    "z": 13924.61
+   },
+   "mapId": "m13_00_00_00",
+   "local": {
+    "x": -3.55,
+    "y": -52.2,
+    "z": 406.52
+   },
+   "entrance": {
+    "x": 13019.29,
+    "y": 344.39,
+    "z": 11008.32
+   }
+  },
+  {
+   "id": "boss_dragonlord_placidusax_farum_azula",
+   "map": "base",
+   "u": 0.54904,
+   "v": 0.279,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12365.73,
+    "y": 2227.74,
+    "z": 13847.59
+   },
+   "mapId": "m13_00_00_00",
+   "local": {
+    "x": 14.45,
+    "y": 1009.68,
+    "z": 329.5
+   },
+   "entrance": {
+    "x": 13019.29,
+    "y": 344.39,
+    "z": 11008.32
+   }
+  },
+  {
+   "id": "boss_maliketh_the_black_blade_farum_azula",
+   "map": "base",
+   "u": 0.56796,
+   "v": 0.27431,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12549.25,
+    "y": 1155.52,
+    "z": 13892.32
+   },
+   "mapId": "m13_00_00_00",
+   "local": {
+    "x": 197.98,
+    "y": -62.54,
+    "z": 374.23
+   },
+   "entrance": {
+    "x": 13019.29,
+    "y": 344.39,
+    "z": 11008.32
+   }
+  },
+  {
+   "id": "boss_loretta_knight_of_the_haligtree_haligtree",
+   "map": "base",
+   "u": 0.59672,
+   "v": 0.11115,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12828.2,
+    "y": 1058.51,
+    "z": 15450.54
+   },
+   "mapId": "m15_00_00_00",
+   "local": {
+    "x": 174.37,
+    "y": 431.75,
+    "z": 307.9
+   },
+   "entrance": {
+    "x": 12653.82,
+    "y": 626.76,
+    "z": 15142.65
+   }
+  },
+  {
+   "id": "boss_malenia_haligtree",
+   "map": "base",
+   "u": 0.57679,
+   "v": 0.09456,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12634.86,
+    "y": 679.1,
+    "z": 15608.92
+   },
+   "mapId": "m15_00_00_00",
+   "local": {
+    "x": -18.97,
+    "y": 52.34,
+    "z": 466.27
+   },
+   "entrance": {
+    "x": 12653.82,
+    "y": 626.76,
+    "z": 15142.65
+   }
+  },
+  {
+   "id": "boss_mohg_lord_of_blood_mohgwyn",
+   "map": "underground",
+   "u": 0.57158,
+   "v": 0.71086,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12584.3,
+    "y": -131.03,
+    "z": 9723.31
+   },
+   "mapId": "m12_05_00_00",
+   "local": {
+    "x": 1528.3,
+    "y": -501.03,
+    "z": 1245.31
+   },
+   "entrance": {
+    "x": 11056.0,
+    "y": 370.0,
+    "z": 8478.0
+   }
+  },
+  {
+   "id": "boss_hourah_loux_ashen_leyndell",
+   "map": "base",
+   "u": 0.46801,
+   "v": 0.39681,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11575.89,
+    "y": 1093.35,
+    "z": 12766.31
+   },
+   "mapId": "m11_05_00_00",
+   "local": {
+    "x": 39.23,
+    "y": 5.83,
+    "z": -425.13
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "boss_elden_beast_ashen_leyndell",
+   "map": "base",
+   "u": 0.48562,
+   "v": 0.41961,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11750.52,
+    "y": 367.54,
+    "z": 12504.75
+   },
+   "mapId": "m19_00_00_00",
+   "local": {
+    "x": 213.86,
+    "y": -719.98,
+    "z": -686.69
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "other_bloodhound_knight_darriwil_limgrave",
+   "map": "base",
+   "u": 0.43369,
+   "v": 0.80522,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11246.8,
+    "y": 105.65,
+    "z": 8822.17
+   },
+   "mapId": "m60_44_35_00",
+   "local": {
+    "x": -17.2,
+    "y": 105.65,
+    "z": -137.83
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_flying_dragon_agheel_limgrave",
+   "map": "base",
+   "u": 0.40145,
+   "v": 0.75716,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10934.11,
+    "y": 64.99,
+    "z": 9281.09
+   },
+   "mapId": "m60_43_36_00",
+   "local": {
+    "x": -73.89,
+    "y": 64.99,
+    "z": 65.09
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_limgrave",
+   "map": "base",
+   "u": 0.41592,
+   "v": 0.74719,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11074.38,
+    "y": 90.88,
+    "z": 9376.35
+   },
+   "mapId": "m60_43_37_00",
+   "local": {
+    "x": 66.38,
+    "y": 90.88,
+    "z": -95.65
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tibia_mariner_limgrave",
+   "map": "base",
+   "u": 0.45824,
+   "v": 0.68342,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11484.95,
+    "y": 92.19,
+    "z": 9985.29
+   },
+   "mapId": "m60_45_39_00",
+   "local": {
+    "x": -35.05,
+    "y": 92.19,
+    "z": 1.29
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tree_sentinel_limgrave",
+   "map": "base",
+   "u": 0.38143,
+   "v": 0.75908,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10739.86,
+    "y": 88.96,
+    "z": 9262.77
+   },
+   "mapId": "m60_42_36_00",
+   "local": {
+    "x": -12.14,
+    "y": 88.96,
+    "z": 46.77
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ulcerated_tree_spirit_limgrave",
+   "map": "base",
+   "u": 0.40088,
+   "v": 0.76906,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10928.5,
+    "y": -95.59,
+    "z": 9167.47
+   },
+   "mapId": "m18_00_00_00",
+   "local": {
+    "x": 29.5,
+    "y": -111.59,
+    "z": 53.47
+   },
+   "entrance": {
+    "x": 10898.0,
+    "y": 15.0,
+    "z": 9116.0
+   }
+  },
+  {
+   "id": "other_demi_human_chiefs_limgrave",
+   "map": "base",
+   "u": 0.35948,
+   "v": 0.77444,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10526.94,
+    "y": -29.33,
+    "z": 9116.11
+   },
+   "mapId": "m31_15_00_00",
+   "local": {
+    "x": 30.94,
+    "y": -29.33,
+    "z": -99.89
+   },
+   "entrance": {
+    "x": 10496.0,
+    "y": 0.0,
+    "z": 9216.0
+   }
+  },
+  {
+   "id": "other_erdtree_burial_watchdog_limgrave",
+   "map": "base",
+   "u": 0.36683,
+   "v": 0.72949,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10598.27,
+    "y": 94.7,
+    "z": 9545.35
+   },
+   "mapId": "m30_02_00_00",
+   "local": {
+    "x": 102.27,
+    "y": 94.7,
+    "z": 73.35
+   },
+   "entrance": {
+    "x": 10496.0,
+    "y": 0.0,
+    "z": 9472.0
+   }
+  },
+  {
+   "id": "other_grave_warden_duelist_limgrave",
+   "map": "base",
+   "u": 0.40734,
+   "v": 0.7007,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10991.24,
+    "y": 46.1,
+    "z": 9820.35
+   },
+   "mapId": "m30_04_00_00",
+   "local": {
+    "x": -16.76,
+    "y": 46.1,
+    "z": 92.35
+   },
+   "entrance": {
+    "x": 11094.0,
+    "y": 67.0,
+    "z": 9790.0
+   }
+  },
+  {
+   "id": "other_beastman_of_farum_azula_limgrave",
+   "map": "base",
+   "u": 0.37023,
+   "v": 0.72871,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10631.23,
+    "y": 88.18,
+    "z": 9552.8
+   },
+   "mapId": "m31_03_00_00",
+   "local": {
+    "x": -120.77,
+    "y": 88.18,
+    "z": 80.8
+   },
+   "entrance": {
+    "x": 10752.0,
+    "y": 0.0,
+    "z": 9472.0
+   }
+  },
+  {
+   "id": "other_guardian_golem_limgrave",
+   "map": "base",
+   "u": 0.41674,
+   "v": 0.66799,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11082.42,
+    "y": -9.86,
+    "z": 10132.68
+   },
+   "mapId": "m31_17_00_00",
+   "local": {
+    "x": 74.42,
+    "y": -9.86,
+    "z": 148.68
+   },
+   "entrance": {
+    "x": 11008.0,
+    "y": 0.0,
+    "z": 9984.0
+   }
+  },
+  {
+   "id": "other_stonedigger_troll_limgrave",
+   "map": "base",
+   "u": 0.38554,
+   "v": 0.73726,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10779.7,
+    "y": -30.43,
+    "z": 9471.21
+   },
+   "mapId": "m32_01_00_00",
+   "local": {
+    "x": 27.7,
+    "y": -30.43,
+    "z": -0.79
+   },
+   "entrance": {
+    "x": 10879.0,
+    "y": 69.0,
+    "z": 9464.0
+   }
+  },
+  {
+   "id": "other_deathbird_stormhill",
+   "map": "base",
+   "u": 0.39573,
+   "v": 0.70465,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10878.59,
+    "y": 183.08,
+    "z": 9782.58
+   },
+   "mapId": "m60_42_38_00",
+   "local": {
+    "x": 126.59,
+    "y": 183.08,
+    "z": 54.58
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_bell_bearing_hunter_stormhill",
+   "map": "base",
+   "u": 0.38388,
+   "v": 0.7009,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10763.62,
+    "y": 188.01,
+    "z": 9818.45
+   },
+   "mapId": "m60_42_38_00",
+   "local": {
+    "x": 11.62,
+    "y": 188.01,
+    "z": 90.45
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_crucible_knight_stormhill",
+   "map": "base",
+   "u": 0.37418,
+   "v": 0.73042,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10669.55,
+    "y": 160.52,
+    "z": 9536.52
+   },
+   "mapId": "m60_42_37_00",
+   "local": {
+    "x": -82.45,
+    "y": 160.52,
+    "z": 64.52
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_black_knife_assassin_stormhill",
+   "map": "base",
+   "u": 0.38739,
+   "v": 0.68132,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10797.72,
+    "y": 177.48,
+    "z": 10005.42
+   },
+   "mapId": "m30_11_00_00",
+   "local": {
+    "x": -210.28,
+    "y": 177.48,
+    "z": 21.42
+   },
+   "entrance": {
+    "x": 11008.0,
+    "y": 0.0,
+    "z": 9984.0
+   }
+  },
+  {
+   "id": "other_ancient_hero_of_zamor_weeping_peninsula",
+   "map": "base",
+   "u": 0.36955,
+   "v": 0.83298,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10624.63,
+    "y": 19.94,
+    "z": 8557.08
+   },
+   "mapId": "m60_42_33_00",
+   "local": {
+    "x": -127.37,
+    "y": 19.94,
+    "z": 109.08
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_deathbird_weeping_peninsula",
+   "map": "base",
+   "u": 0.42412,
+   "v": 0.86995,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11153.92,
+    "y": 42.98,
+    "z": 8204.02
+   },
+   "mapId": "m60_44_32_00",
+   "local": {
+    "x": -110.08,
+    "y": 42.98,
+    "z": 12.02
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_erdtree_avatar_weeping_peninsula",
+   "map": "base",
+   "u": 0.40332,
+   "v": 0.84242,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10952.25,
+    "y": 83.07,
+    "z": 8466.9
+   },
+   "mapId": "m60_43_33_00",
+   "local": {
+    "x": -55.75,
+    "y": 83.07,
+    "z": 18.9
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_weeping_peninsula",
+   "map": "base",
+   "u": 0.43918,
+   "v": 0.86085,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11300.03,
+    "y": 41.77,
+    "z": 8290.87
+   },
+   "mapId": "m60_44_32_00",
+   "local": {
+    "x": 36.03,
+    "y": 41.77,
+    "z": 98.87
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_cemetery_shade_weeping_peninsula",
+   "map": "base",
+   "u": 0.40927,
+   "v": 0.83753,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11009.88,
+    "y": 46.72,
+    "z": 8513.57
+   },
+   "mapId": "m30_00_00_00",
+   "local": {
+    "x": 1.88,
+    "y": 46.72,
+    "z": 65.57
+   },
+   "entrance": {
+    "x": 10913.0,
+    "y": 56.0,
+    "z": 8522.0
+   }
+  },
+  {
+   "id": "other_erdtree_burial_watchdog_weeping_peninsula",
+   "map": "base",
+   "u": 0.45829,
+   "v": 0.83389,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11485.44,
+    "y": 23.12,
+    "z": 8548.33
+   },
+   "mapId": "m30_01_00_00",
+   "local": {
+    "x": -34.56,
+    "y": 23.12,
+    "z": -155.67
+   },
+   "entrance": {
+    "x": 11461.0,
+    "y": 38.5,
+    "z": 8635.0
+   }
+  },
+  {
+   "id": "other_runebear_weeping_peninsula",
+   "map": "base",
+   "u": 0.42032,
+   "v": 0.83277,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11117.09,
+    "y": -39.93,
+    "z": 8559.07
+   },
+   "mapId": "m31_01_00_00",
+   "local": {
+    "x": -146.91,
+    "y": -39.93,
+    "z": -144.93
+   },
+   "entrance": {
+    "x": 11158.0,
+    "y": -3.0,
+    "z": 8661.0
+   }
+  },
+  {
+   "id": "other_miranda_the_blighted_bloom_weeping_peninsula",
+   "map": "base",
+   "u": 0.35061,
+   "v": 0.84724,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10440.94,
+    "y": -28.92,
+    "z": 8420.82
+   },
+   "mapId": "m31_02_00_00",
+   "local": {
+    "x": -311.06,
+    "y": -28.92,
+    "z": -27.18
+   },
+   "entrance": {
+    "x": 10752.0,
+    "y": 0.0,
+    "z": 8448.0
+   }
+  },
+  {
+   "id": "other_scaly_misbegotten_weeping_peninsula",
+   "map": "base",
+   "u": 0.41766,
+   "v": 0.84706,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11091.31,
+    "y": -24.55,
+    "z": 8422.56
+   },
+   "mapId": "m32_00_00_00",
+   "local": {
+    "x": 83.31,
+    "y": -24.55,
+    "z": -25.44
+   },
+   "entrance": {
+    "x": 11044.0,
+    "y": 28.0,
+    "z": 8380.0
+   }
+  },
+  {
+   "id": "other_adan_thief_of_fire_liurnia",
+   "map": "base",
+   "u": 0.27745,
+   "v": 0.64294,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9731.28,
+    "y": 257.37,
+    "z": 10371.93
+   },
+   "mapId": "m60_38_41_00",
+   "local": {
+    "x": 3.28,
+    "y": 257.37,
+    "z": -124.07
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_bols_carian_knight_liurnia",
+   "map": "base",
+   "u": 0.13981,
+   "v": 0.52583,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8396.17,
+    "y": 244.95,
+    "z": 11490.35
+   },
+   "mapId": "m60_33_45_00",
+   "local": {
+    "x": -51.83,
+    "y": 244.95,
+    "z": -29.65
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_erdtree_avatar_south_liurnia",
+   "map": "base",
+   "u": 0.14953,
+   "v": 0.57308,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8490.49,
+    "y": 291.7,
+    "z": 11039.13
+   },
+   "mapId": "m60_33_43_00",
+   "local": {
+    "x": 42.49,
+    "y": 291.7,
+    "z": 31.13
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_glintstone_dragon_smarag_liurnia",
+   "map": "base",
+   "u": 0.16629,
+   "v": 0.5184,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8653.05,
+    "y": 237.87,
+    "z": 11561.26
+   },
+   "mapId": "m60_34_45_00",
+   "local": {
+    "x": -50.95,
+    "y": 237.87,
+    "z": 41.26
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_omenkiller_liurnia",
+   "map": "base",
+   "u": 0.19407,
+   "v": 0.60499,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8922.49,
+    "y": 269.15,
+    "z": 10734.32
+   },
+   "mapId": "m60_35_42_00",
+   "local": {
+    "x": -37.51,
+    "y": 269.15,
+    "z": -17.68
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_bell_bearing_hunter_liurnia",
+   "map": "base",
+   "u": 0.24573,
+   "v": 0.49489,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9423.54,
+    "y": 398.29,
+    "z": 11785.81
+   },
+   "mapId": "m60_37_46_00",
+   "local": {
+    "x": -48.46,
+    "y": 398.29,
+    "z": 9.81
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_death_rite_bird_liurnia",
+   "map": "base",
+   "u": 0.21711,
+   "v": 0.51857,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9145.93,
+    "y": 237.56,
+    "z": 11559.68
+   },
+   "mapId": "m60_36_45_00",
+   "local": {
+    "x": -70.07,
+    "y": 237.56,
+    "z": 39.68
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_deathbird_liurnia",
+   "map": "base",
+   "u": 0.24472,
+   "v": 0.59283,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9413.81,
+    "y": 237.65,
+    "z": 10850.44
+   },
+   "mapId": "m60_37_42_00",
+   "local": {
+    "x": -58.19,
+    "y": 237.65,
+    "z": 98.44
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_liurnia_south_liurnia",
+   "map": "base",
+   "u": 0.29043,
+   "v": 0.57724,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9857.12,
+    "y": 253.21,
+    "z": 10999.38
+   },
+   "mapId": "m60_39_43_00",
+   "local": {
+    "x": -126.88,
+    "y": 253.21,
+    "z": -8.62
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tibia_mariner_liurnia",
+   "map": "base",
+   "u": 0.29509,
+   "v": 0.55386,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9902.41,
+    "y": 294.79,
+    "z": 11222.64
+   },
+   "mapId": "m60_39_44_00",
+   "local": {
+    "x": -81.59,
+    "y": 294.79,
+    "z": -41.36
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_erdtree_avatar_north_liurnia",
+   "map": "base",
+   "u": 0.274,
+   "v": 0.45308,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9697.83,
+    "y": 404.11,
+    "z": 12185.08
+   },
+   "mapId": "m60_38_48_00",
+   "local": {
+    "x": -30.17,
+    "y": 404.11,
+    "z": -102.92
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_liurnia_north_liurnia",
+   "map": "base",
+   "u": 0.22697,
+   "v": 0.43928,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9241.62,
+    "y": 321.6,
+    "z": 12316.91
+   },
+   "mapId": "m60_36_48_00",
+   "local": {
+    "x": 25.62,
+    "y": 321.6,
+    "z": 28.91
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_onyx_lord_liurnia_after_caria_manor",
+   "map": "base",
+   "u": 0.23681,
+   "v": 0.38755,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9337.09,
+    "y": 379.59,
+    "z": 12810.94
+   },
+   "mapId": "m60_36_50_00",
+   "local": {
+    "x": 121.09,
+    "y": 379.59,
+    "z": 10.94
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_spiritcaller_snail_liurnia",
+   "map": "base",
+   "u": 0.15435,
+   "v": 0.57256,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8537.22,
+    "y": 194.44,
+    "z": 11044.07
+   },
+   "mapId": "m30_03_00_00",
+   "local": {
+    "x": 89.22,
+    "y": 194.44,
+    "z": 36.07
+   },
+   "entrance": {
+    "x": 8448.0,
+    "y": 0.0,
+    "z": 11008.0
+   }
+  },
+  {
+   "id": "other_black_knife_assassin_liurnia",
+   "map": "base",
+   "u": 0.27868,
+   "v": 0.44055,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9743.15,
+    "y": 411.5,
+    "z": 12304.75
+   },
+   "mapId": "m30_05_00_00",
+   "local": {
+    "x": -240.85,
+    "y": 411.5,
+    "z": 16.75
+   },
+   "entrance": {
+    "x": 9911.0,
+    "y": 427.0,
+    "z": 12400.0
+   }
+  },
+  {
+   "id": "other_cemetery_shade_liurnia",
+   "map": "base",
+   "u": 0.28411,
+   "v": 0.42967,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9795.83,
+    "y": 406.2,
+    "z": 12408.64
+   },
+   "mapId": "m30_05_00_00",
+   "local": {
+    "x": -188.17,
+    "y": 406.2,
+    "z": 120.64
+   },
+   "entrance": {
+    "x": 9911.0,
+    "y": 427.0,
+    "z": 12400.0
+   }
+  },
+  {
+   "id": "other_erdtree_burial_watchdog_liurnia",
+   "map": "base",
+   "u": 0.30566,
+   "v": 0.63191,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10004.86,
+    "y": 194.32,
+    "z": 10477.28
+   },
+   "mapId": "m30_06_00_00",
+   "local": {
+    "x": 20.86,
+    "y": 194.32,
+    "z": -18.72
+   },
+   "entrance": {
+    "x": 9984.0,
+    "y": 0.0,
+    "z": 10496.0
+   }
+  },
+  {
+   "id": "other_cleanrot_knight_liurnia",
+   "map": "base",
+   "u": 0.31361,
+   "v": 0.67421,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10082.03,
+    "y": 199.76,
+    "z": 10073.29
+   },
+   "mapId": "m31_04_00_00",
+   "local": {
+    "x": 98.03,
+    "y": 199.76,
+    "z": -166.71
+   },
+   "entrance": {
+    "x": 9994.0,
+    "y": 240.0,
+    "z": 10205.0
+   }
+  },
+  {
+   "id": "other_bloodhound_knight_liurnia",
+   "map": "base",
+   "u": 0.23326,
+   "v": 0.63235,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9302.66,
+    "y": 160.97,
+    "z": 10473.03
+   },
+   "mapId": "m31_05_00_00",
+   "local": {
+    "x": -169.34,
+    "y": 160.97,
+    "z": -22.97
+   },
+   "entrance": {
+    "x": 9472.0,
+    "y": 0.0,
+    "z": 10496.0
+   }
+  },
+  {
+   "id": "other_crystalians_liurnia",
+   "map": "base",
+   "u": 0.19126,
+   "v": 0.51179,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8895.19,
+    "y": 216.59,
+    "z": 11624.37
+   },
+   "mapId": "m31_06_00_00",
+   "local": {
+    "x": 191.19,
+    "y": 216.59,
+    "z": 104.37
+   },
+   "entrance": {
+    "x": 8778.0,
+    "y": 240.0,
+    "z": 11638.0
+   }
+  },
+  {
+   "id": "other_crystalian_liurnia",
+   "map": "base",
+   "u": 0.25207,
+   "v": 0.46682,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9485.05,
+    "y": 110.76,
+    "z": 12053.88
+   },
+   "mapId": "m32_02_00_00",
+   "local": {
+    "x": 13.05,
+    "y": 110.76,
+    "z": 21.88
+   },
+   "entrance": {
+    "x": 9360.0,
+    "y": 244.0,
+    "z": 12058.0
+   }
+  },
+  {
+   "id": "other_dragonkin_soldier_siofra_river",
+   "map": "underground",
+   "u": 0.5239,
+   "v": 0.67612,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12121.79,
+    "y": -330.02,
+    "z": 10055.05
+   },
+   "mapId": "m12_02_00_00",
+   "local": {
+    "x": 1240.1,
+    "y": -748.45,
+    "z": 1738.16
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "other_commander_oneil_caelid",
+   "map": "base",
+   "u": 0.56482,
+   "v": 0.70507,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12518.78,
+    "y": 65.86,
+    "z": 9778.57
+   },
+   "mapId": "m60_49_38_00",
+   "local": {
+    "x": -25.22,
+    "y": 65.86,
+    "z": 50.57
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_decaying_ekzykes_caelid",
+   "map": "base",
+   "u": 0.53607,
+   "v": 0.74164,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12239.91,
+    "y": 114.95,
+    "z": 9429.33
+   },
+   "mapId": "m60_48_37_00",
+   "local": {
+    "x": -48.09,
+    "y": 114.95,
+    "z": -42.67
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nox_swordstress_and_priest_caelid",
+   "map": "base",
+   "u": 0.57712,
+   "v": 0.6745,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12638.02,
+    "y": 83.52,
+    "z": 10070.54
+   },
+   "mapId": "m60_49_39_00",
+   "local": {
+    "x": 94.02,
+    "y": 83.52,
+    "z": 86.54
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_putrid_avatar_caelid",
+   "map": "base",
+   "u": 0.50409,
+   "v": 0.64602,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11929.67,
+    "y": 126.08,
+    "z": 10342.55
+   },
+   "mapId": "m60_47_40_00",
+   "local": {
+    "x": -102.33,
+    "y": 126.08,
+    "z": 102.55
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_death_rite_bird_caelid",
+   "map": "base",
+   "u": 0.57899,
+   "v": 0.73555,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12656.22,
+    "y": 102.14,
+    "z": 9487.51
+   },
+   "mapId": "m60_49_37_00",
+   "local": {
+    "x": 112.22,
+    "y": 102.14,
+    "z": 15.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_caelid",
+   "map": "base",
+   "u": 0.55482,
+   "v": 0.73806,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12421.74,
+    "y": 102.51,
+    "z": 9463.51
+   },
+   "mapId": "m60_49_37_00",
+   "local": {
+    "x": -122.26,
+    "y": 102.51,
+    "z": -8.49
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_crucible_knight_and_misbegotten_warrior_caelid",
+   "map": "base",
+   "u": 0.63024,
+   "v": 0.76018,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13153.35,
+    "y": 105.5,
+    "z": 9252.3
+   },
+   "mapId": "m60_51_36_00",
+   "local": {
+    "x": 97.35,
+    "y": 105.5,
+    "z": 36.3
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_godskin_apostle_caelid",
+   "map": "base",
+   "u": 0.57537,
+   "v": 0.63996,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12621.11,
+    "y": 36.31,
+    "z": 10400.35
+   },
+   "mapId": "m34_13_00_00",
+   "local": {
+    "x": 77.11,
+    "y": 36.31,
+    "z": -95.65
+   },
+   "entrance": {
+    "x": 12544.0,
+    "y": 0.0,
+    "z": 10496.0
+   }
+  },
+  {
+   "id": "other_erdtree_burial_watchdog_caelid",
+   "map": "base",
+   "u": 0.50192,
+   "v": 0.66031,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11908.6,
+    "y": 73.29,
+    "z": 10206.05
+   },
+   "mapId": "m30_14_00_00",
+   "local": {
+    "x": -123.4,
+    "y": 73.29,
+    "z": -33.95
+   },
+   "entrance": {
+    "x": 12032.0,
+    "y": 0.0,
+    "z": 10240.0
+   }
+  },
+  {
+   "id": "other_cemetery_shade_caelid",
+   "map": "base",
+   "u": 0.55232,
+   "v": 0.7354,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12413.71,
+    "y": 24.2,
+    "z": 9474.03
+   },
+   "mapId": "m30_15_00_00",
+   "local": {
+    "x": 125.71,
+    "y": 24.2,
+    "z": 258.03
+   },
+   "entrance": {
+    "x": 12288.0,
+    "y": 0.0,
+    "z": 9216.0
+   }
+  },
+  {
+   "id": "other_putrid_tree_spirit_caelid",
+   "map": "base",
+   "u": 0.6331,
+   "v": 0.63929,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13181.08,
+    "y": -25.24,
+    "z": 10406.77
+   },
+   "mapId": "m30_16_00_00",
+   "local": {
+    "x": -130.92,
+    "y": -25.24,
+    "z": -89.23
+   },
+   "entrance": {
+    "x": 13312.0,
+    "y": 0.0,
+    "z": 10496.0
+   }
+  },
+  {
+   "id": "other_cleanrot_knights_caelid",
+   "map": "base",
+   "u": 0.55894,
+   "v": 0.6681,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12461.73,
+    "y": 86.97,
+    "z": 10131.64
+   },
+   "mapId": "m31_20_00_00",
+   "local": {
+    "x": 173.73,
+    "y": 86.97,
+    "z": 147.64
+   },
+   "entrance": {
+    "x": 12288.0,
+    "y": 0.0,
+    "z": 9984.0
+   }
+  },
+  {
+   "id": "other_frenzied_duelist_caelid",
+   "map": "base",
+   "u": 0.49745,
+   "v": 0.70527,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11865.31,
+    "y": 13.05,
+    "z": 9776.64
+   },
+   "mapId": "m31_21_00_00",
+   "local": {
+    "x": -166.69,
+    "y": 13.05,
+    "z": 48.64
+   },
+   "entrance": {
+    "x": 11776.0,
+    "y": 0.0,
+    "z": 9728.0
+   }
+  },
+  {
+   "id": "other_magma_wyrm_caelid",
+   "map": "base",
+   "u": 0.48614,
+   "v": 0.66694,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11755.54,
+    "y": 89.6,
+    "z": 10142.68
+   },
+   "mapId": "m32_07_00_00",
+   "local": {
+    "x": -20.46,
+    "y": 89.6,
+    "z": 158.68
+   },
+   "entrance": {
+    "x": 11776.0,
+    "y": 0.0,
+    "z": 9984.0
+   }
+  },
+  {
+   "id": "other_fallingstar_beast_caelid",
+   "map": "base",
+   "u": 0.5607,
+   "v": 0.65846,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12478.78,
+    "y": 123.91,
+    "z": 10223.75
+   },
+   "mapId": "m32_08_00_00",
+   "local": {
+    "x": -65.22,
+    "y": 123.91,
+    "z": 239.75
+   },
+   "entrance": {
+    "x": 12544.0,
+    "y": 0.0,
+    "z": 9984.0
+   }
+  },
+  {
+   "id": "other_battlemage_hugues_dragonbarrow",
+   "map": "base",
+   "u": 0.55836,
+   "v": 0.68444,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12456.1,
+    "y": 164.01,
+    "z": 9975.55
+   },
+   "mapId": "m60_49_39_00",
+   "local": {
+    "x": -87.9,
+    "y": 164.01,
+    "z": -8.45
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_black_blade_kindred_dragonbarrow",
+   "map": "base",
+   "u": 0.61888,
+   "v": 0.57835,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13043.09,
+    "y": 336.92,
+    "z": 10988.79
+   },
+   "mapId": "m60_51_43_00",
+   "local": {
+    "x": -12.91,
+    "y": 336.92,
+    "z": -19.21
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_flying_dragon_greyll_dragonbarrow",
+   "map": "base",
+   "u": 0.63489,
+   "v": 0.61555,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13198.41,
+    "y": 248.47,
+    "z": 10633.47
+   },
+   "mapId": "m60_52_41_00",
+   "local": {
+    "x": -113.59,
+    "y": 248.47,
+    "z": 137.47
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_bell_bearing_hunter_dragonbarrow",
+   "map": "base",
+   "u": 0.53209,
+   "v": 0.63725,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12201.25,
+    "y": 225.57,
+    "z": 10426.22
+   },
+   "mapId": "m60_48_41_00",
+   "local": {
+    "x": -86.75,
+    "y": 225.57,
+    "z": -69.78
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_dragonbarrow",
+   "map": "base",
+   "u": 0.64745,
+   "v": 0.61783,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13320.29,
+    "y": 221.36,
+    "z": 10611.72
+   },
+   "mapId": "m60_52_41_00",
+   "local": {
+    "x": 8.29,
+    "y": 221.36,
+    "z": 115.72
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_putrid_avatar_dragonbarrow",
+   "map": "base",
+   "u": 0.62406,
+   "v": 0.6494,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13093.41,
+    "y": 209.37,
+    "z": 10310.23
+   },
+   "mapId": "m60_51_40_00",
+   "local": {
+    "x": 37.41,
+    "y": 209.37,
+    "z": 70.23
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_beastman_of_farum_azula_dragonbarrow",
+   "map": "base",
+   "u": 0.62393,
+   "v": 0.65454,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13092.15,
+    "y": 104.71,
+    "z": 10261.16
+   },
+   "mapId": "m31_10_00_00",
+   "local": {
+    "x": 36.15,
+    "y": 104.71,
+    "z": 21.16
+   },
+   "entrance": {
+    "x": 13056.0,
+    "y": 0.0,
+    "z": 10240.0
+   }
+  },
+  {
+   "id": "other_putrid_crystalians_dragonbarrow",
+   "map": "base",
+   "u": 0.57896,
+   "v": 0.66905,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12655.9,
+    "y": 127.07,
+    "z": 10122.61
+   },
+   "mapId": "m31_11_00_00",
+   "local": {
+    "x": -144.1,
+    "y": 127.07,
+    "z": 138.61
+   },
+   "entrance": {
+    "x": 12800.0,
+    "y": 0.0,
+    "z": 9984.0
+   }
+  },
+  {
+   "id": "other_ancient_dragon_lansseax_altus_plateau",
+   "map": "base",
+   "u": 0.26214,
+   "v": 0.35671,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9582.76,
+    "y": 712.58,
+    "z": 13105.4
+   },
+   "mapId": "m60_37_51_00",
+   "local": {
+    "x": 110.76,
+    "y": 712.58,
+    "z": 49.4
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_fallingstar_beast_altus_plateau",
+   "map": "base",
+   "u": 0.3607,
+   "v": 0.37725,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10538.84,
+    "y": 834.15,
+    "z": 12909.24
+   },
+   "mapId": "m60_41_50_00",
+   "local": {
+    "x": 42.84,
+    "y": 834.15,
+    "z": 109.24
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_godefroy_the_grafted_altus_plateau",
+   "map": "base",
+   "u": 0.2988,
+   "v": 0.3977,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9938.38,
+    "y": 709.59,
+    "z": 12713.93
+   },
+   "mapId": "m60_39_50_00",
+   "local": {
+    "x": -45.62,
+    "y": 709.59,
+    "z": -86.07
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_godskin_apostle_altus_plateau",
+   "map": "base",
+   "u": 0.37902,
+   "v": 0.25874,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10716.46,
+    "y": 968.16,
+    "z": 14041.06
+   },
+   "mapId": "m60_42_55_00",
+   "local": {
+    "x": -35.54,
+    "y": 968.16,
+    "z": -38.94
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_black_knife_assassin_altus_plateau",
+   "map": "base",
+   "u": 0.33522,
+   "v": 0.33431,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10291.64,
+    "y": 884.0,
+    "z": 13319.32
+   },
+   "mapId": "m60_40_52_00",
+   "local": {
+    "x": 51.64,
+    "y": 884.0,
+    "z": 7.32
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_deathbird_altus_plateau",
+   "map": "base",
+   "u": 0.43286,
+   "v": 0.29952,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11238.72,
+    "y": 1026.06,
+    "z": 13651.63
+   },
+   "mapId": "m60_44_53_00",
+   "local": {
+    "x": -25.28,
+    "y": 1026.06,
+    "z": 83.63
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_altus_plateau",
+   "map": "base",
+   "u": 0.30177,
+   "v": 0.37348,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9967.15,
+    "y": 756.99,
+    "z": 12945.27
+   },
+   "mapId": "m60_39_51_00",
+   "local": {
+    "x": -16.85,
+    "y": 756.99,
+    "z": -110.73
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tibia_mariner_altus_plateau",
+   "map": "base",
+   "u": 0.27297,
+   "v": 0.33769,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9687.84,
+    "y": 792.94,
+    "z": 13287.07
+   },
+   "mapId": "m60_38_52_00",
+   "local": {
+    "x": -40.16,
+    "y": 792.94,
+    "z": -24.93
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tree_sentinel_duo_altus_plateau",
+   "map": "base",
+   "u": 0.36568,
+   "v": 0.36517,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10587.09,
+    "y": 851.27,
+    "z": 13024.65
+   },
+   "mapId": "m60_41_51_00",
+   "local": {
+    "x": 91.09,
+    "y": 851.27,
+    "z": -31.35
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_wormface_altus_plateau",
+   "map": "base",
+   "u": 0.34829,
+   "v": 0.30522,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10418.46,
+    "y": 785.15,
+    "z": 13597.15
+   },
+   "mapId": "m60_41_53_00",
+   "local": {
+    "x": -77.54,
+    "y": 785.15,
+    "z": 29.15
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ancient_hero_of_zamor_altus_plateau",
+   "map": "base",
+   "u": 0.36397,
+   "v": 0.33359,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10570.53,
+    "y": 742.2,
+    "z": 13326.23
+   },
+   "mapId": "m30_08_00_00",
+   "local": {
+    "x": 330.53,
+    "y": 742.2,
+    "z": 14.23
+   },
+   "entrance": {
+    "x": 10240.0,
+    "y": 0.0,
+    "z": 13312.0
+   }
+  },
+  {
+   "id": "other_perfumer_tricia_and_misbegotten_warrior_altus_plateau",
+   "map": "base",
+   "u": 0.22516,
+   "v": 0.33647,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9224.09,
+    "y": 618.3,
+    "z": 13298.75
+   },
+   "mapId": "m30_12_00_00",
+   "local": {
+    "x": 8.09,
+    "y": 618.3,
+    "z": 242.75
+   },
+   "entrance": {
+    "x": 9216.0,
+    "y": 0.0,
+    "z": 13056.0
+   }
+  },
+  {
+   "id": "other_omenkiller_and_giant_miranda_flower_altus_plateau",
+   "map": "base",
+   "u": 0.34751,
+   "v": 0.34271,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10410.82,
+    "y": 790.63,
+    "z": 13239.11
+   },
+   "mapId": "m31_18_00_00",
+   "local": {
+    "x": -85.18,
+    "y": 790.63,
+    "z": 183.11
+   },
+   "entrance": {
+    "x": 10496.0,
+    "y": 0.0,
+    "z": 13056.0
+   }
+  },
+  {
+   "id": "other_black_knife_assassin_altus_plateau_2",
+   "map": "base",
+   "u": 0.26423,
+   "v": 0.33641,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9602.99,
+    "y": 623.47,
+    "z": 13299.3
+   },
+   "mapId": "m31_19_00_00",
+   "local": {
+    "x": 130.99,
+    "y": 623.47,
+    "z": -12.7
+   },
+   "entrance": {
+    "x": 9472.0,
+    "y": 0.0,
+    "z": 13312.0
+   }
+  },
+  {
+   "id": "other_necromancer_garris_altus_plateau",
+   "map": "base",
+   "u": 0.26189,
+   "v": 0.33981,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9580.32,
+    "y": 627.26,
+    "z": 13266.81
+   },
+   "mapId": "m31_19_00_00",
+   "local": {
+    "x": 108.32,
+    "y": 627.26,
+    "z": -45.19
+   },
+   "entrance": {
+    "x": 9472.0,
+    "y": 0.0,
+    "z": 13312.0
+   }
+  },
+  {
+   "id": "other_stonedigger_troll_altus_plateau",
+   "map": "base",
+   "u": 0.27277,
+   "v": 0.32374,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9685.86,
+    "y": 677.52,
+    "z": 13420.29
+   },
+   "mapId": "m32_04_00_00",
+   "local": {
+    "x": -298.14,
+    "y": 677.52,
+    "z": -147.71
+   },
+   "entrance": {
+    "x": 9984.0,
+    "y": 0.0,
+    "z": 13568.0
+   }
+  },
+  {
+   "id": "other_crystalians_altus_plateau",
+   "map": "base",
+   "u": 0.3627,
+   "v": 0.3394,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10558.15,
+    "y": 777.63,
+    "z": 13270.75
+   },
+   "mapId": "m32_05_00_00",
+   "local": {
+    "x": 62.15,
+    "y": 777.63,
+    "z": -41.25
+   },
+   "entrance": {
+    "x": 10496.0,
+    "y": 0.0,
+    "z": 13312.0
+   }
+  },
+  {
+   "id": "other_bell_bearing_hunter_capital_outskirts",
+   "map": "base",
+   "u": 0.40678,
+   "v": 0.30822,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10985.73,
+    "y": 993.35,
+    "z": 13568.5
+   },
+   "mapId": "m60_43_53_00",
+   "local": {
+    "x": -22.27,
+    "y": 993.35,
+    "z": 0.5
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_onyx_lord_capital_outskirts",
+   "map": "base",
+   "u": 0.40397,
+   "v": 0.40921,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10958.54,
+    "y": 711.36,
+    "z": 12604.08
+   },
+   "mapId": "m34_12_00_00",
+   "local": {
+    "x": -49.46,
+    "y": 711.36,
+    "z": -195.92
+   },
+   "entrance": {
+    "x": 11008.0,
+    "y": 0.0,
+    "z": 12800.0
+   }
+  },
+  {
+   "id": "other_crucible_knight_duo_capital_outskirts",
+   "map": "base",
+   "u": 0.45074,
+   "v": 0.32461,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11412.14,
+    "y": 761.45,
+    "z": 13411.94
+   },
+   "mapId": "m30_10_00_00",
+   "local": {
+    "x": -107.86,
+    "y": 761.45,
+    "z": 355.94
+   },
+   "entrance": {
+    "x": 11520.0,
+    "y": 0.0,
+    "z": 13056.0
+   }
+  },
+  {
+   "id": "other_grave_warden_duelist_capital_outskirts",
+   "map": "base",
+   "u": 0.4623,
+   "v": 0.32681,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11524.35,
+    "y": 954.4,
+    "z": 13390.96
+   },
+   "mapId": "m30_13_00_00",
+   "local": {
+    "x": 4.35,
+    "y": 954.4,
+    "z": 78.96
+   },
+   "entrance": {
+    "x": 11520.0,
+    "y": 0.0,
+    "z": 13312.0
+   }
+  },
+  {
+   "id": "other_fell_twins_leyndell",
+   "map": "base",
+   "u": 0.52382,
+   "v": 0.38193,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12121.07,
+    "y": 712.02,
+    "z": 12864.58
+   },
+   "mapId": "m34_14_00_00",
+   "local": {
+    "x": 584.39,
+    "y": -373.48,
+    "z": -326.86
+   },
+   "entrance": {
+    "x": 11536.68,
+    "y": 1085.5,
+    "z": 13191.44
+   }
+  },
+  {
+   "id": "other_esgar_priest_of_blood_leyndell",
+   "map": "base",
+   "u": 0.44256,
+   "v": 0.37984,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11332.83,
+    "y": 933.67,
+    "z": 12884.57
+   },
+   "mapId": "m35_00_00_00",
+   "local": {
+    "x": -203.85,
+    "y": -153.85,
+    "z": -306.87
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "other_crucible_knight_siluria_deeproot_depths",
+   "map": "underground",
+   "u": 0.41058,
+   "v": 0.33948,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 11022.58,
+    "y": 273.58,
+    "z": 13269.99
+   },
+   "mapId": "m12_03_00_00",
+   "local": {
+    "x": -884.21,
+    "y": 96.67,
+    "z": -320.67
+   },
+   "entrance": {
+    "x": 9817.01,
+    "y": 252.62,
+    "z": 11852.68
+   }
+  },
+  {
+   "id": "other_fias_champions_deeproot_depths",
+   "map": "underground",
+   "u": 0.4619,
+   "v": 0.32565,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 11536.68,
+    "y": 326.38,
+    "z": 13387.21
+   },
+   "mapId": "m12_03_00_00",
+   "local": {
+    "x": -370.11,
+    "y": 149.47,
+    "z": -203.45
+   },
+   "entrance": {
+    "x": 9817.01,
+    "y": 252.62,
+    "z": 11852.68
+   }
+  },
+  {
+   "id": "other_demi_human_queen_maggie_mt_gelmir",
+   "map": "base",
+   "u": 0.25193,
+   "v": 0.31778,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9483.74,
+    "y": 901.42,
+    "z": 13477.21
+   },
+   "mapId": "m60_37_53_00",
+   "local": {
+    "x": 11.74,
+    "y": 901.42,
+    "z": -90.79
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_full_grown_fallingstar_beast_mt_gelmir",
+   "map": "base",
+   "u": 0.23411,
+   "v": 0.28526,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9310.84,
+    "y": 1047.5,
+    "z": 13787.79
+   },
+   "mapId": "m60_36_54_00",
+   "local": {
+    "x": 94.84,
+    "y": 1047.5,
+    "z": -36.21
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_magma_wyrm_mt_gelmir",
+   "map": "base",
+   "u": 0.19812,
+   "v": 0.31669,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8961.8,
+    "y": 823.67,
+    "z": 13487.6
+   },
+   "mapId": "m60_35_53_00",
+   "local": {
+    "x": 1.8,
+    "y": 823.67,
+    "z": -80.4
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ulcerated_tree_spirit_mt_gelmir",
+   "map": "base",
+   "u": 0.24728,
+   "v": 0.28912,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9438.57,
+    "y": 856.73,
+    "z": 13750.92
+   },
+   "mapId": "m60_37_54_00",
+   "local": {
+    "x": -33.43,
+    "y": 856.73,
+    "z": -73.08
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_erdtree_burial_watchdog_mt_gelmir",
+   "map": "base",
+   "u": 0.264,
+   "v": 0.31145,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9600.8,
+    "y": 820.61,
+    "z": 13537.63
+   },
+   "mapId": "m30_07_00_00",
+   "local": {
+    "x": -127.2,
+    "y": 820.61,
+    "z": 225.63
+   },
+   "entrance": {
+    "x": 9728.0,
+    "y": 0.0,
+    "z": 13312.0
+   }
+  },
+  {
+   "id": "other_red_wolf_of_the_champion_mt_gelmir",
+   "map": "base",
+   "u": 0.2356,
+   "v": 0.2973,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9325.29,
+    "y": 646.24,
+    "z": 13672.8
+   },
+   "mapId": "m30_09_00_00",
+   "local": {
+    "x": -146.71,
+    "y": 646.24,
+    "z": 104.8
+   },
+   "entrance": {
+    "x": 9472.0,
+    "y": 0.0,
+    "z": 13568.0
+   }
+  },
+  {
+   "id": "other_kindred_of_rot_mt_gelmir",
+   "map": "base",
+   "u": 0.23808,
+   "v": 0.28147,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9349.36,
+    "y": 719.6,
+    "z": 13823.97
+   },
+   "mapId": "m31_07_00_00",
+   "local": {
+    "x": -122.64,
+    "y": 719.6,
+    "z": 255.97
+   },
+   "entrance": {
+    "x": 9472.0,
+    "y": 0.0,
+    "z": 13568.0
+   }
+  },
+  {
+   "id": "other_demi_human_queen_margot_mt_gelmir",
+   "map": "base",
+   "u": 0.24413,
+   "v": 0.26252,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9408.09,
+    "y": 1013.03,
+    "z": 14004.93
+   },
+   "mapId": "m31_09_00_00",
+   "local": {
+    "x": -63.91,
+    "y": 1013.03,
+    "z": -75.07
+   },
+   "entrance": {
+    "x": 9472.0,
+    "y": 0.0,
+    "z": 14080.0
+   }
+  },
+  {
+   "id": "other_abductor_virgins_volcano_manor",
+   "map": "base",
+   "u": 0.24989,
+   "v": 0.32438,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9463.96,
+    "y": 846.01,
+    "z": 13414.21
+   },
+   "mapId": "m16_00_00_00",
+   "local": {
+    "x": 236.06,
+    "y": -132.94,
+    "z": -263.64
+   },
+   "entrance": {
+    "x": 9217.74,
+    "y": 977.78,
+    "z": 13693.75
+   }
+  },
+  {
+   "id": "other_dragonkin_soldier_lake_of_rot",
+   "map": "underground",
+   "u": 0.22255,
+   "v": 0.5083,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 9198.73,
+    "y": -48.92,
+    "z": 11657.7
+   },
+   "mapId": "m12_01_00_00",
+   "local": {
+    "x": -217.38,
+    "y": -317.07,
+    "z": -317.67
+   },
+   "entrance": {
+    "x": 9817.01,
+    "y": 252.62,
+    "z": 11852.68
+   }
+  },
+  {
+   "id": "other_alecto_black_knife_ringleader_moonlight_altar",
+   "map": "base",
+   "u": 0.14097,
+   "v": 0.59411,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8407.41,
+    "y": 346.7,
+    "z": 10838.26
+   },
+   "mapId": "m60_33_42_00",
+   "local": {
+    "x": -40.59,
+    "y": 346.7,
+    "z": 86.26
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_glintstone_dragon_adula_moonlight_altar",
+   "map": "base",
+   "u": 0.18477,
+   "v": 0.60628,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8832.24,
+    "y": 401.77,
+    "z": 10722.07
+   },
+   "mapId": "m60_34_42_00",
+   "local": {
+    "x": 128.24,
+    "y": 401.77,
+    "z": -29.93
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_grafted_scion_chapel_of_anticipation",
+   "map": "base",
+   "u": 0.28615,
+   "v": 0.69631,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9815.63,
+    "y": 322.93,
+    "z": 9862.19
+   },
+   "mapId": "m10_01_00_00",
+   "local": {
+    "x": -41.75,
+    "y": 21.33,
+    "z": -39.47
+   },
+   "entrance": {
+    "x": 10371.38,
+    "y": 273.61,
+    "z": 9701.67
+   }
+  },
+  {
+   "id": "other_black_blade_kindred_forbidden_lands",
+   "map": "base",
+   "u": 0.56534,
+   "v": 0.32896,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12523.84,
+    "y": 1048.49,
+    "z": 13370.42
+   },
+   "mapId": "m60_49_52_00",
+   "local": {
+    "x": -20.16,
+    "y": 1048.49,
+    "z": 58.42
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_forbidden_lands",
+   "map": "base",
+   "u": 0.53135,
+   "v": 0.3569,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12194.11,
+    "y": 973.96,
+    "z": 13103.56
+   },
+   "mapId": "m60_48_51_00",
+   "local": {
+    "x": -93.89,
+    "y": 973.96,
+    "z": 47.56
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_borealis_the_freezing_fog_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.68636,
+   "v": 0.21176,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13697.68,
+    "y": 1620.36,
+    "z": 14489.73
+   },
+   "mapId": "m60_13_14_02",
+   "local": {
+    "x": 1.68,
+    "y": 1620.36,
+    "z": -230.27
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_roundtable_knight_vyke_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.66758,
+   "v": 0.24003,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13515.5,
+    "y": 1668.43,
+    "z": 14219.69
+   },
+   "mapId": "m60_53_56_00",
+   "local": {
+    "x": -52.5,
+    "y": 1668.43,
+    "z": -116.31
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_erdtree_avatars_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.64206,
+   "v": 0.22055,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13267.98,
+    "y": 1674.29,
+    "z": 14405.74
+   },
+   "mapId": "m60_52_56_00",
+   "local": {
+    "x": -44.02,
+    "y": 1674.29,
+    "z": 69.74
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_death_rite_bird_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.5991,
+   "v": 0.2107,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12851.23,
+    "y": 1630.37,
+    "z": 14499.84
+   },
+   "mapId": "m60_50_57_00",
+   "local": {
+    "x": 51.23,
+    "y": 1630.37,
+    "z": -92.16
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ancient_hero_of_zamor_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.59309,
+   "v": 0.31202,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12792.94,
+    "y": 1451.66,
+    "z": 13532.17
+   },
+   "mapId": "m30_17_00_00",
+   "local": {
+    "x": -7.06,
+    "y": 1451.66,
+    "z": -35.83
+   },
+   "entrance": {
+    "x": 12800.0,
+    "y": 0.0,
+    "z": 13568.0
+   }
+  },
+  {
+   "id": "other_ulcerated_tree_spirit_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.57946,
+   "v": 0.29172,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12660.76,
+    "y": 1477.42,
+    "z": 13726.04
+   },
+   "mapId": "m30_18_00_00",
+   "local": {
+    "x": -139.24,
+    "y": 1477.42,
+    "z": 158.04
+   },
+   "entrance": {
+    "x": 12800.0,
+    "y": 0.0,
+    "z": 13568.0
+   }
+  },
+  {
+   "id": "other_spiritcaller_snail_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.66642,
+   "v": 0.23819,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13520.5,
+    "y": 1579.17,
+    "z": 14222.43
+   },
+   "mapId": "m31_22_00_00",
+   "local": {
+    "x": -47.5,
+    "y": 1579.17,
+    "z": -113.57
+   },
+   "entrance": {
+    "x": 13568.0,
+    "y": 0.0,
+    "z": 14336.0
+   }
+  },
+  {
+   "id": "other_death_rite_bird_consecrated_snowfield",
+   "map": "base",
+   "u": 0.52961,
+   "v": 0.18956,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12177.17,
+    "y": 1255.06,
+    "z": 14701.71
+   },
+   "mapId": "m60_48_57_00",
+   "local": {
+    "x": -110.83,
+    "y": 1255.06,
+    "z": 109.71
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_great_wyrm_theodorix_consecrated_snowfield",
+   "map": "base",
+   "u": 0.59506,
+   "v": 0.22656,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12812.07,
+    "y": 1255.06,
+    "z": 14348.36
+   },
+   "mapId": "m60_50_56_00",
+   "local": {
+    "x": 12.07,
+    "y": 1255.06,
+    "z": 12.36
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_nights_cavalry_duo_consecrated_snowfield",
+   "map": "base",
+   "u": 0.5531,
+   "v": 0.26047,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12405.06,
+    "y": 1288.17,
+    "z": 14024.52
+   },
+   "mapId": "m60_12_13_02",
+   "local": {
+    "x": -266.94,
+    "y": 1288.17,
+    "z": 328.52
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_putrid_avatar_consecrated_snowfield",
+   "map": "base",
+   "u": 0.58501,
+   "v": 0.20695,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12714.62,
+    "y": 1390.11,
+    "z": 14535.58
+   },
+   "mapId": "m60_50_57_00",
+   "local": {
+    "x": -85.38,
+    "y": 1390.11,
+    "z": -56.42
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_putrid_grave_warden_duelist_consecrated_snowfield",
+   "map": "base",
+   "u": 0.60113,
+   "v": 0.27155,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12870.93,
+    "y": 1374.7,
+    "z": 13918.68
+   },
+   "mapId": "m30_19_00_00",
+   "local": {
+    "x": 70.93,
+    "y": 1374.7,
+    "z": -161.32
+   },
+   "entrance": {
+    "x": 12800.0,
+    "y": 0.0,
+    "z": 14080.0
+   }
+  },
+  {
+   "id": "other_misbegotten_crusader_consecrated_snowfield",
+   "map": "base",
+   "u": 0.5913,
+   "v": 0.21509,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12775.6,
+    "y": 1193.36,
+    "z": 14457.93
+   },
+   "mapId": "m31_12_00_00",
+   "local": {
+    "x": -24.4,
+    "y": 1193.36,
+    "z": 121.93
+   },
+   "entrance": {
+    "x": 12800.0,
+    "y": 0.0,
+    "z": 14336.0
+   }
+  },
+  {
+   "id": "other_astel_stars_of_darkness_consecrated_snowfield",
+   "map": "base",
+   "u": 0.51998,
+   "v": 0.23901,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12083.79,
+    "y": 1207.52,
+    "z": 14229.47
+   },
+   "mapId": "m32_11_00_00",
+   "local": {
+    "x": 51.79,
+    "y": 1207.52,
+    "z": 149.47
+   },
+   "entrance": {
+    "x": 12032.0,
+    "y": 0.0,
+    "z": 14080.0
+   }
+  },
+  {
+   "id": "other_stray_mimic_tear_consecrated_snowfield",
+   "map": "base",
+   "u": 0.55828,
+   "v": 0.31284,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12455.35,
+    "y": 1276.79,
+    "z": 13524.39
+   },
+   "mapId": "m30_20_00_00",
+   "local": {
+    "x": -88.65,
+    "y": 1276.79,
+    "z": -299.61
+   },
+   "entrance": {
+    "x": 12544.0,
+    "y": 0.0,
+    "z": 13824.0
+   }
+  },
+  {
+   "id": "other_gideon_the_all_knowing_ashen_leyndell",
+   "map": "base",
+   "u": 0.44835,
+   "v": 0.38663,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11405.19,
+    "y": 1118.55,
+    "z": 12804.87
+   },
+   "mapId": "m11_05_00_00",
+   "local": {
+    "x": -131.47,
+    "y": 31.03,
+    "z": -386.57
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "pickup_sacred_tear_limgrave",
+   "map": "base",
+   "u": 0.47883,
+   "v": 0.70095,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11684.64,
+    "y": 3.32,
+    "z": 9817.97
+   },
+   "mapId": "m60_46_38_00",
+   "local": {
+    "x": -91.36,
+    "y": 3.32,
+    "z": 89.97
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_limgrave",
+   "map": "base",
+   "u": 0.48175,
+   "v": 0.76921,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11712.98,
+    "y": 45.75,
+    "z": 9166.05
+   },
+   "mapId": "m60_46_36_00",
+   "local": {
+    "x": -63.02,
+    "y": 45.75,
+    "z": -49.95
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_limgrave_2",
+   "map": "base",
+   "u": 0.3609,
+   "v": 0.71862,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10540.76,
+    "y": 179.19,
+    "z": 9649.13
+   },
+   "mapId": "m60_41_38_00",
+   "local": {
+    "x": 44.76,
+    "y": 179.19,
+    "z": -78.87
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_stormveil_castle",
+   "map": "base",
+   "u": 0.32728,
+   "v": 0.68948,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10214.6,
+    "y": 348.49,
+    "z": 9927.43
+   },
+   "mapId": "m10_00_00_00",
+   "local": {
+    "x": -156.78,
+    "y": 74.88,
+    "z": 225.76
+   },
+   "entrance": {
+    "x": 10371.38,
+    "y": 273.61,
+    "z": 9701.67
+   }
+  },
+  {
+   "id": "pickup_sacred_tear_weeping_peninsula",
+   "map": "base",
+   "u": 0.39765,
+   "v": 0.80376,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10897.18,
+    "y": 88.86,
+    "z": 8836.1
+   },
+   "mapId": "m60_43_35_00",
+   "local": {
+    "x": -110.82,
+    "y": 88.86,
+    "z": -123.9
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_weeping_peninsula_2",
+   "map": "base",
+   "u": 0.42743,
+   "v": 0.85195,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11186.06,
+    "y": 90.68,
+    "z": 8375.9
+   },
+   "mapId": "m60_44_33_00",
+   "local": {
+    "x": -77.94,
+    "y": 90.68,
+    "z": -72.1
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_weeping_peninsula_3",
+   "map": "base",
+   "u": 0.36098,
+   "v": 0.83809,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10541.55,
+    "y": 32.52,
+    "z": 8508.22
+   },
+   "mapId": "m60_41_33_00",
+   "local": {
+    "x": 45.55,
+    "y": 32.52,
+    "z": 60.22
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_weeping_peninsula",
+   "map": "base",
+   "u": 0.42992,
+   "v": 0.87403,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11210.2,
+    "y": 31.86,
+    "z": 8165.0
+   },
+   "mapId": "m60_44_32_00",
+   "local": {
+    "x": -53.8,
+    "y": 31.86,
+    "z": -27.0
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_liurnia",
+   "map": "base",
+   "u": 0.30068,
+   "v": 0.67358,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9956.56,
+    "y": 320.14,
+    "z": 10079.28
+   },
+   "mapId": "m60_39_39_00",
+   "local": {
+    "x": -27.44,
+    "y": 320.14,
+    "z": 95.28
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_liurnia",
+   "map": "base",
+   "u": 0.20452,
+   "v": 0.39065,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9023.88,
+    "y": 397.95,
+    "z": 12781.25
+   },
+   "mapId": "m60_35_50_00",
+   "local": {
+    "x": 63.88,
+    "y": 397.95,
+    "z": -18.75
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_liurnia_2",
+   "map": "base",
+   "u": 0.25653,
+   "v": 0.38317,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9528.33,
+    "y": 237.93,
+    "z": 12852.68
+   },
+   "mapId": "m60_37_50_00",
+   "local": {
+    "x": 56.33,
+    "y": 237.93,
+    "z": 52.68
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_liurnia_3",
+   "map": "base",
+   "u": 0.22611,
+   "v": 0.54806,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9233.24,
+    "y": 237.57,
+    "z": 11278.0
+   },
+   "mapId": "m60_36_44_00",
+   "local": {
+    "x": 17.24,
+    "y": 237.57,
+    "z": 14.0
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_liurnia_2",
+   "map": "base",
+   "u": 0.22558,
+   "v": 0.42228,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9228.1,
+    "y": 322.01,
+    "z": 12479.26
+   },
+   "mapId": "m60_36_49_00",
+   "local": {
+    "x": 12.1,
+    "y": 322.01,
+    "z": -64.74
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_liurnia_3",
+   "map": "base",
+   "u": 0.25863,
+   "v": 0.41822,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9548.69,
+    "y": 494.0,
+    "z": 12518.0
+   },
+   "mapId": "m60_37_49_00",
+   "local": {
+    "x": 76.69,
+    "y": 494.0,
+    "z": -26.0
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_academy_of_raya_lucaria",
+   "map": "base",
+   "u": 0.19914,
+   "v": 0.48324,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8971.64,
+    "y": 312.6,
+    "z": 11897.01
+   },
+   "mapId": "m60_35_46_00",
+   "local": {
+    "x": 11.64,
+    "y": 312.6,
+    "z": 121.01
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_academy_of_raya_lucaria_2",
+   "map": "base",
+   "u": 0.19641,
+   "v": 0.51336,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8945.17,
+    "y": 424.02,
+    "z": 11609.43
+   },
+   "mapId": "m14_00_00_00",
+   "local": {
+    "x": 97.22,
+    "y": 113.44,
+    "z": -104.85
+   },
+   "entrance": {
+    "x": 8847.94,
+    "y": 310.58,
+    "z": 11714.28
+   }
+  },
+  {
+   "id": "pickup_golden_seed_siofra_river",
+   "map": "underground",
+   "u": 0.53872,
+   "v": 0.67334,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12265.54,
+    "y": -359.48,
+    "z": 10081.56
+   },
+   "mapId": "m12_02_00_00",
+   "local": {
+    "x": 1383.85,
+    "y": -777.91,
+    "z": 1764.67
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "pickup_sacred_tear_caelid",
+   "map": "base",
+   "u": 0.59634,
+   "v": 0.69769,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12824.53,
+    "y": 160.86,
+    "z": 9849.05
+   },
+   "mapId": "m60_50_38_00",
+   "local": {
+    "x": 24.53,
+    "y": 160.86,
+    "z": 121.05
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_caelid",
+   "map": "base",
+   "u": 0.56399,
+   "v": 0.74857,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12510.68,
+    "y": 82.82,
+    "z": 9363.16
+   },
+   "mapId": "m60_49_37_00",
+   "local": {
+    "x": -33.32,
+    "y": 82.82,
+    "z": -108.84
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_caelid_2",
+   "map": "base",
+   "u": 0.5819,
+   "v": 0.68225,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12684.46,
+    "y": 92.83,
+    "z": 9996.52
+   },
+   "mapId": "m60_50_39_00",
+   "local": {
+    "x": -115.54,
+    "y": 92.83,
+    "z": 12.52
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_dragonbarrow",
+   "map": "base",
+   "u": 0.62792,
+   "v": 0.58588,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13130.85,
+    "y": 296.13,
+    "z": 10916.88
+   },
+   "mapId": "m60_51_43_00",
+   "local": {
+    "x": 74.85,
+    "y": 296.13,
+    "z": -91.12
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_altus_plateau",
+   "map": "base",
+   "u": 0.33069,
+   "v": 0.35017,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10247.64,
+    "y": 845.01,
+    "z": 13167.83
+   },
+   "mapId": "m60_40_51_00",
+   "local": {
+    "x": 7.64,
+    "y": 845.01,
+    "z": 111.83
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_altus_plateau_2",
+   "map": "base",
+   "u": 0.30581,
+   "v": 0.32894,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10006.39,
+    "y": 771.81,
+    "z": 13370.6
+   },
+   "mapId": "m60_39_52_00",
+   "local": {
+    "x": 22.39,
+    "y": 771.81,
+    "z": 58.6
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_altus_plateau",
+   "map": "base",
+   "u": 0.37873,
+   "v": 0.29332,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10713.64,
+    "y": 916.74,
+    "z": 13710.8
+   },
+   "mapId": "m60_42_54_00",
+   "local": {
+    "x": -38.36,
+    "y": 916.74,
+    "z": -113.2
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_2x_altus_plateau",
+   "map": "base",
+   "u": 0.396,
+   "v": 0.33863,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10881.17,
+    "y": 907.51,
+    "z": 13278.05
+   },
+   "mapId": "m60_43_52_00",
+   "local": {
+    "x": -126.83,
+    "y": 907.51,
+    "z": -33.95
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_altus_plateau_2",
+   "map": "base",
+   "u": 0.27788,
+   "v": 0.35391,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9735.43,
+    "y": 755.96,
+    "z": 13132.15
+   },
+   "mapId": "m60_38_51_00",
+   "local": {
+    "x": 7.43,
+    "y": 755.96,
+    "z": 76.15
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_altus_plateau_3",
+   "map": "base",
+   "u": 0.31284,
+   "v": 0.3532,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10074.59,
+    "y": 770.09,
+    "z": 13138.9
+   },
+   "mapId": "m60_39_51_00",
+   "local": {
+    "x": 90.59,
+    "y": 770.09,
+    "z": 82.9
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_altus_plateau_4",
+   "map": "base",
+   "u": 0.34317,
+   "v": 0.29302,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10368.75,
+    "y": 792.13,
+    "z": 13713.64
+   },
+   "mapId": "m60_41_54_00",
+   "local": {
+    "x": -127.25,
+    "y": 792.13,
+    "z": -110.36
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_capital_outskirts",
+   "map": "base",
+   "u": 0.37764,
+   "v": 0.36625,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10703.12,
+    "y": 850.21,
+    "z": 13014.33
+   },
+   "mapId": "m60_42_51_00",
+   "local": {
+    "x": -48.88,
+    "y": 850.21,
+    "z": -41.67
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_leyndell",
+   "map": "base",
+   "u": 0.44091,
+   "v": 0.38016,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11333.09,
+    "y": 1071.53,
+    "z": 12866.57
+   },
+   "mapId": "m11_00_00_00",
+   "local": {
+    "x": -203.59,
+    "y": -15.99,
+    "z": -324.87
+   },
+   "entrance": {
+    "x": 11446.66,
+    "y": 968.62,
+    "z": 13257.89
+   }
+  },
+  {
+   "id": "pickup_golden_seed_mt_gelmir",
+   "map": "base",
+   "u": 0.21227,
+   "v": 0.27723,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9099.05,
+    "y": 1009.36,
+    "z": 13864.42
+   },
+   "mapId": "m60_36_54_00",
+   "local": {
+    "x": -116.95,
+    "y": 1009.36,
+    "z": 40.42
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_mt_gelmir_2",
+   "map": "base",
+   "u": 0.25363,
+   "v": 0.30937,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9500.2,
+    "y": 792.81,
+    "z": 13557.56
+   },
+   "mapId": "m60_37_53_00",
+   "local": {
+    "x": 28.2,
+    "y": 792.81,
+    "z": -10.44
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_ainsel_river",
+   "map": "underground",
+   "u": 0.22123,
+   "v": 0.45112,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 9185.92,
+    "y": 113.35,
+    "z": 12203.8
+   },
+   "mapId": "m12_01_00_00",
+   "local": {
+    "x": -230.19,
+    "y": -154.8,
+    "z": 228.43
+   },
+   "entrance": {
+    "x": 9817.01,
+    "y": 252.62,
+    "z": 11852.68
+   }
+  },
+  {
+   "id": "pickup_golden_seed_forbidden_lands",
+   "map": "base",
+   "u": 0.55905,
+   "v": 0.34589,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12462.76,
+    "y": 1010.03,
+    "z": 13208.74
+   },
+   "mapId": "m60_49_52_00",
+   "local": {
+    "x": -81.24,
+    "y": 1010.03,
+    "z": -103.26
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.69623,
+   "v": 0.24811,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13793.45,
+    "y": 1625.54,
+    "z": 14142.58
+   },
+   "mapId": "m60_54_55_00",
+   "local": {
+    "x": -30.55,
+    "y": 1625.54,
+    "z": 62.58
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.65048,
+   "v": 0.21379,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13349.62,
+    "y": 1615.35,
+    "z": 14470.28
+   },
+   "mapId": "m60_52_57_00",
+   "local": {
+    "x": 37.62,
+    "y": 1615.35,
+    "z": -121.72
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_sacred_tear_mountaintops_of_the_giants_2",
+   "map": "base",
+   "u": 0.6139,
+   "v": 0.31571,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12994.82,
+    "y": 1802.97,
+    "z": 13496.99
+   },
+   "mapId": "m60_51_53_00",
+   "local": {
+    "x": -61.18,
+    "y": 1802.97,
+    "z": -71.01
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_mountaintops_of_the_giants_2",
+   "map": "base",
+   "u": 0.65296,
+   "v": 0.29586,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13373.69,
+    "y": 1828.17,
+    "z": 13686.52
+   },
+   "mapId": "m60_52_53_00",
+   "local": {
+    "x": 61.69,
+    "y": 1828.17,
+    "z": 118.52
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_farum_azula",
+   "map": "base",
+   "u": 0.54416,
+   "v": 0.26856,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12334.55,
+    "y": 1226.53,
+    "z": 13932.43
+   },
+   "mapId": "m13_00_00_00",
+   "local": {
+    "x": -16.73,
+    "y": 8.47,
+    "z": 414.34
+   },
+   "entrance": {
+    "x": 13019.29,
+    "y": 344.39,
+    "z": 11008.32
+   }
+  },
+  {
+   "id": "pickup_golden_seed_farum_azula_2",
+   "map": "base",
+   "u": 0.5631,
+   "v": 0.25976,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12502.06,
+    "y": 1095.87,
+    "z": 14031.31
+   },
+   "mapId": "m13_00_00_00",
+   "local": {
+    "x": 150.78,
+    "y": -122.19,
+    "z": 513.22
+   },
+   "entrance": {
+    "x": 13019.29,
+    "y": 344.39,
+    "z": 11008.32
+   }
+  },
+  {
+   "id": "pickup_golden_seed_consecrated_snowfield",
+   "map": "base",
+   "u": 0.53187,
+   "v": 0.20751,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12199.11,
+    "y": 1264.0,
+    "z": 14530.29
+   },
+   "mapId": "m60_48_57_00",
+   "local": {
+    "x": -88.89,
+    "y": 1264.0,
+    "z": -61.71
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_consecrated_snowfield_2",
+   "map": "base",
+   "u": 0.56673,
+   "v": 0.26386,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12537.24,
+    "y": 1317.37,
+    "z": 13992.15
+   },
+   "mapId": "m60_49_55_00",
+   "local": {
+    "x": -6.76,
+    "y": 1317.37,
+    "z": -87.85
+   },
+   "entrance": null
+  },
+  {
+   "id": "pickup_golden_seed_mohgwyn",
+   "map": "underground",
+   "u": 0.60194,
+   "v": 0.71812,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12878.78,
+    "y": -246.12,
+    "z": 9653.99
+   },
+   "mapId": "m12_05_00_00",
+   "local": {
+    "x": 1822.78,
+    "y": -616.12,
+    "z": 1175.99
+   },
+   "entrance": {
+    "x": 11056.0,
+    "y": 370.0,
+    "z": 8478.0
+   }
+  },
+  {
+   "id": "merchant_kale_limgrave",
+   "map": "base",
+   "u": 0.37681,
+   "v": 0.75439,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10695.04,
+    "y": 92.32,
+    "z": 9307.6
+   },
+   "mapId": "m60_42_36_00",
+   "local": {
+    "x": -56.96,
+    "y": 92.32,
+    "z": 91.6
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_limgrave",
+   "map": "base",
+   "u": 0.42598,
+   "v": 0.6864,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11172.05,
+    "y": 152.21,
+    "z": 9956.86
+   },
+   "mapId": "m60_44_39_00",
+   "local": {
+    "x": -91.95,
+    "y": 152.21,
+    "z": -27.14
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_limgrave_2",
+   "map": "base",
+   "u": 0.36755,
+   "v": 0.7744,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10605.19,
+    "y": 3.03,
+    "z": 9116.49
+   },
+   "mapId": "m60_41_36_00",
+   "local": {
+    "x": 109.19,
+    "y": 3.03,
+    "z": -99.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_limgrave_3",
+   "map": "base",
+   "u": 0.46992,
+   "v": 0.75219,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11598.22,
+    "y": 19.86,
+    "z": 9328.57
+   },
+   "mapId": "m60_45_36_10",
+   "local": {
+    "x": 78.22,
+    "y": 19.86,
+    "z": 112.57
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_patches_limgrave",
+   "map": "base",
+   "u": 0.40907,
+   "v": 0.73717,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11008.0,
+    "y": null,
+    "z": 9472.0
+   },
+   "mapId": "m60_43_37_00",
+   "local": null,
+   "entrance": null
+  },
+  {
+   "id": "merchant_isolated_merchant_weeping_peninsula",
+   "map": "base",
+   "u": 0.357,
+   "v": 0.86073,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10502.94,
+    "y": 0.61,
+    "z": 8292.06
+   },
+   "mapId": "m60_41_32_00",
+   "local": {
+    "x": 6.94,
+    "y": 0.61,
+    "z": 100.06
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_weeping_peninsula",
+   "map": "base",
+   "u": 0.43751,
+   "v": 0.85929,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11300.03,
+    "y": 41.77,
+    "z": 8290.87
+   },
+   "mapId": "m60_44_32_00",
+   "local": {
+    "x": 36.03,
+    "y": 41.77,
+    "z": 98.87
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_iji_liurnia",
+   "map": "base",
+   "u": 0.19794,
+   "v": 0.4155,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8960.0,
+    "y": null,
+    "z": 12544.0
+   },
+   "mapId": "m60_35_49_00",
+   "local": null,
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_liurnia",
+   "map": "base",
+   "u": 0.28079,
+   "v": 0.64309,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9763.65,
+    "y": 237.95,
+    "z": 10370.53
+   },
+   "mapId": "m60_38_41_00",
+   "local": {
+    "x": 35.65,
+    "y": 237.95,
+    "z": -125.47
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_liurnia_2",
+   "map": "base",
+   "u": 0.22614,
+   "v": 0.41662,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9233.52,
+    "y": 297.04,
+    "z": 12533.28
+   },
+   "mapId": "m60_36_49_00",
+   "local": {
+    "x": 17.52,
+    "y": 297.04,
+    "z": -10.72
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_isolated_merchant_academy_of_raya_lucaria",
+   "map": "base",
+   "u": 0.20786,
+   "v": 0.51783,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9056.28,
+    "y": 284.61,
+    "z": 11566.73
+   },
+   "mapId": "m60_35_45_00",
+   "local": {
+    "x": 96.28,
+    "y": 284.61,
+    "z": 46.73
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_abandoned_merchant_siofra_river",
+   "map": "underground",
+   "u": 0.5263,
+   "v": 0.69852,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12145.09,
+    "y": -393.29,
+    "z": 9841.15
+   },
+   "mapId": "m12_02_00_00",
+   "local": {
+    "x": 1263.4,
+    "y": -811.72,
+    "z": 1524.26
+   },
+   "entrance": {
+    "x": 12431.64,
+    "y": 116.94,
+    "z": 10227.68
+   }
+  },
+  {
+   "id": "merchant_hermit_merchant_ainsel_river",
+   "map": "underground",
+   "u": 0.24341,
+   "v": 0.47869,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 9401.09,
+    "y": 64.42,
+    "z": 11940.51
+   },
+   "mapId": "m12_01_00_00",
+   "local": {
+    "x": -15.03,
+    "y": -203.73,
+    "z": -34.86
+   },
+   "entrance": {
+    "x": 9817.01,
+    "y": 252.62,
+    "z": 11852.68
+   }
+  },
+  {
+   "id": "merchant_nomadic_merchant_caelid",
+   "map": "base",
+   "u": 0.53808,
+   "v": 0.70835,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12259.38,
+    "y": 84.38,
+    "z": 9747.26
+   },
+   "mapId": "m60_48_38_00",
+   "local": {
+    "x": -28.62,
+    "y": 84.38,
+    "z": 19.26
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_caelid_2",
+   "map": "base",
+   "u": 0.55946,
+   "v": 0.73879,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12466.75,
+    "y": 97.72,
+    "z": 9456.6
+   },
+   "mapId": "m60_49_37_00",
+   "local": {
+    "x": -77.25,
+    "y": 97.72,
+    "z": -15.4
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_isolated_merchant_dragonbarrow",
+   "map": "base",
+   "u": 0.53022,
+   "v": 0.63661,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12199.33,
+    "y": 226.15,
+    "z": 10417.49
+   },
+   "mapId": "m60_48_41_00",
+   "local": {
+    "x": -88.67,
+    "y": 226.15,
+    "z": -78.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_altus_plateau",
+   "map": "base",
+   "u": 0.34052,
+   "v": 0.32203,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10343.02,
+    "y": 828.62,
+    "z": 13436.64
+   },
+   "mapId": "m60_40_52_00",
+   "local": {
+    "x": 103.02,
+    "y": 828.62,
+    "z": 124.64
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_hermit_merchant_capital_outskirts",
+   "map": "base",
+   "u": 0.40522,
+   "v": 0.30658,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10986.83,
+    "y": 993.3,
+    "z": 13569.33
+   },
+   "mapId": "m60_43_53_00",
+   "local": {
+    "x": -21.17,
+    "y": 993.3,
+    "z": 1.33
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_pidia_liurnia_after_caria_manor",
+   "map": "base",
+   "u": 0.18684,
+   "v": 0.39096,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8852.33,
+    "y": 357.52,
+    "z": 12778.31
+   },
+   "mapId": "m60_35_50_00",
+   "local": {
+    "x": -107.67,
+    "y": 357.52,
+    "z": -21.69
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_nomadic_merchant_mt_gelmir",
+   "map": "base",
+   "u": 0.25264,
+   "v": 0.27564,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9490.59,
+    "y": 965.01,
+    "z": 13879.67
+   },
+   "mapId": "m60_37_54_00",
+   "local": {
+    "x": 18.59,
+    "y": 965.01,
+    "z": 55.67
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_hermit_merchant_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.61619,
+   "v": 0.23428,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 13017.06,
+    "y": 1625.5,
+    "z": 14274.59
+   },
+   "mapId": "m60_51_56_00",
+   "local": {
+    "x": -38.94,
+    "y": 1625.5,
+    "z": -61.41
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_imprisoned_merchant_mohgwyn",
+   "map": "underground",
+   "u": 0.57596,
+   "v": 0.72147,
+   "underground": true,
+   "area": 60,
+   "world": {
+    "x": 12626.8,
+    "y": -202.43,
+    "z": 9621.96
+   },
+   "mapId": "m12_05_00_00",
+   "local": {
+    "x": 1570.8,
+    "y": -572.43,
+    "z": 1143.96
+   },
+   "entrance": {
+    "x": 11056.0,
+    "y": 370.0,
+    "z": 8478.0
+   }
+  },
+  {
+   "id": "extra_draconic_tree_sentinel_capital_outskirts",
+   "map": "base",
+   "u": 0.46471,
+   "v": 0.33048,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 11547.69,
+    "y": 1023.76,
+    "z": 13355.92
+   },
+   "mapId": "m60_45_52_00",
+   "local": {
+    "x": 27.69,
+    "y": 1023.76,
+    "z": 43.92
+   },
+   "entrance": null
+  },
+  {
+   "id": "extra_old_knight_istvan_limgrave",
+   "map": "base",
+   "u": 0.37659,
+   "v": 0.67225,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 10692.91,
+    "y": 204.84,
+    "z": 10092.0
+   },
+   "mapId": "m60_42_39_00",
+   "local": {
+    "x": -59.09,
+    "y": 204.84,
+    "z": 108.0
+   },
+   "entrance": null
+  },
+  {
+   "id": "extra_rileigh_the_idle_altus_plateau",
+   "map": "base",
+   "u": 0.29692,
+   "v": 0.30915,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 9920.08,
+    "y": 759.15,
+    "z": 13559.62
+   },
+   "mapId": "m60_39_53_00",
+   "local": {
+    "x": -63.92,
+    "y": 759.15,
+    "z": -8.38
+   },
+   "entrance": null
+  },
+  {
+   "id": "extra_june_hoslow_knight_of_blood_mountaintops_of_the_giants",
+   "map": "base",
+   "u": 0.59834,
+   "v": 0.21937,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 12843.9,
+    "y": 1603.93,
+    "z": 14417.06
+   },
+   "mapId": "m60_50_56_00",
+   "local": {
+    "x": 43.9,
+    "y": 1603.93,
+    "z": 81.06
+   },
+   "entrance": null
+  },
+  {
+   "id": "extra_royal_revenant_liurnia",
+   "map": "base",
+   "u": 0.17639,
+   "v": 0.43406,
+   "underground": false,
+   "area": 60,
+   "world": {
+    "x": 8750.95,
+    "y": 252.2,
+    "z": 12366.73
+   },
+   "mapId": "m60_34_48_00",
+   "local": {
+    "x": 46.95,
+    "y": 252.2,
+    "z": 78.73
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_well_depths_key_belurat",
+   "map": "dlc",
+   "u": 0.15817,
+   "v": 0.45488,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11338.51,
+    "y": 505.99,
+    "z": 11105.99
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": -33.94,
+    "y": 73.27,
+    "z": 188.96
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  },
+  {
+   "id": "key_imbued_sword_key_castle_ensis",
+   "map": "dlc",
+   "u": 0.37348,
+   "v": 0.43249,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12221.28,
+    "y": 388.06,
+    "z": 11202.31
+   },
+   "mapId": "m61_48_44_00",
+   "local": {
+    "x": -66.72,
+    "y": 388.06,
+    "z": -61.69
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_replaces_hole_laden_necklace_ruins_map_scadu_altus",
+   "map": "dlc",
+   "u": 0.53726,
+   "v": 0.35267,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12892.78,
+    "y": 467.73,
+    "z": 11545.52
+   },
+   "mapId": "m61_50_45_00",
+   "local": {
+    "x": 92.78,
+    "y": 467.73,
+    "z": 25.52
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_o_mother_scadu_altus",
+   "map": "dlc",
+   "u": 0.50364,
+   "v": 0.384,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12754.93,
+    "y": 305.62,
+    "z": 11410.82
+   },
+   "mapId": "m61_50_45_00",
+   "local": {
+    "x": -45.07,
+    "y": 305.62,
+    "z": -109.18
+   },
+   "entrance": null
+  },
+  {
+   "id": "key_gaol_upper_level_key_charos_hidden_grave",
+   "map": "dlc",
+   "u": 0.30487,
+   "v": 0.6726,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11939.97,
+    "y": 61.31,
+    "z": 10169.82
+   },
+   "mapId": "m41_02_00_00",
+   "local": {
+    "x": 163.97,
+    "y": 61.31,
+    "z": -70.18
+   },
+   "entrance": {
+    "x": 11776.0,
+    "y": 0.0,
+    "z": 10240.0
+   }
+  },
+  {
+   "id": "key_gaol_lower_level_key_charos_hidden_grave",
+   "map": "dlc",
+   "u": 0.2946,
+   "v": 0.64614,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11897.85,
+    "y": 20.02,
+    "z": 10283.62
+   },
+   "mapId": "m41_02_00_00",
+   "local": {
+    "x": 121.85,
+    "y": 20.02,
+    "z": 43.62
+   },
+   "entrance": {
+    "x": 11776.0,
+    "y": 0.0,
+    "z": 10240.0
+   }
+  },
+  {
+   "id": "boss_divine_beast_dancing_lion_belurat",
+   "map": "dlc",
+   "u": 0.15542,
+   "v": 0.42273,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11327.24,
+    "y": 550.72,
+    "z": 11244.28
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": -45.21,
+    "y": 118.0,
+    "z": 327.25
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  },
+  {
+   "id": "boss_rellana_twin_moon_knight_castle_ensis",
+   "map": "dlc",
+   "u": 0.37623,
+   "v": 0.40699,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12232.54,
+    "y": 427.02,
+    "z": 11311.94
+   },
+   "mapId": "m61_48_44_00",
+   "local": {
+    "x": -55.46,
+    "y": 427.02,
+    "z": 47.94
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_golden_hippopotamus_shadow_keep_main_plaza",
+   "map": "dlc",
+   "u": 0.42651,
+   "v": 0.24068,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12438.7,
+    "y": 587.47,
+    "z": 12027.09
+   },
+   "mapId": "m21_00_00_00",
+   "local": {
+    "x": 100.45,
+    "y": 156.47,
+    "z": 148.09
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "boss_messmer_the_impaler_shadow_keep_specimen_storehouse",
+   "map": "dlc",
+   "u": 0.42092,
+   "v": 0.18367,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12415.79,
+    "y": 782.77,
+    "z": 12272.22
+   },
+   "mapId": "m21_01_00_00",
+   "local": {
+    "x": 77.54,
+    "y": 351.77,
+    "z": 393.22
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "boss_scadutree_avatar_shadow_keep_church_district",
+   "map": "dlc",
+   "u": 0.48722,
+   "v": 0.17589,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12687.61,
+    "y": 182.56,
+    "z": 12305.66
+   },
+   "mapId": "m61_50_48_00",
+   "local": {
+    "x": -112.39,
+    "y": 182.56,
+    "z": 17.66
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_putrescent_knight_cerulean_coast",
+   "map": "dlc",
+   "u": 0.3061,
+   "v": 0.92907,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11945.0,
+    "y": null,
+    "z": 9067.0
+   },
+   "mapId": "m22_00_00_00",
+   "local": {
+    "x": -145.27,
+    "y": -296.67,
+    "z": 63.19
+   },
+   "entrance": {
+    "x": 11945.0,
+    "y": null,
+    "z": 9067.0
+   }
+  },
+  {
+   "id": "boss_romina_saint_of_the_bud_ancient_ruins_of_rauh",
+   "map": "dlc",
+   "u": 0.12633,
+   "v": 0.32935,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11207.95,
+    "y": 624.99,
+    "z": 11645.79
+   },
+   "mapId": "m61_44_45_00",
+   "local": {
+    "x": -56.05,
+    "y": 624.99,
+    "z": 125.79
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_commander_gaius_shadow_keep_storehouse_loft",
+   "map": "dlc",
+   "u": 0.47193,
+   "v": 0.1784,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12624.91,
+    "y": 579.97,
+    "z": 12294.88
+   },
+   "mapId": "m61_49_48_00",
+   "local": {
+    "x": 80.91,
+    "y": 579.97,
+    "z": 6.88
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_midra_lord_of_frenzied_flame_midras_manse",
+   "map": "dlc",
+   "u": 0.4433,
+   "v": 0.65401,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12507.55,
+    "y": -554.0,
+    "z": 10249.75
+   },
+   "mapId": "m28_00_00_00",
+   "local": {
+    "x": -4.45,
+    "y": 17.0,
+    "z": -134.25
+   },
+   "entrance": {
+    "x": 12512.0,
+    "y": -571.0,
+    "z": 10384.0
+   }
+  },
+  {
+   "id": "boss_bayle_the_dread_jagged_peak",
+   "map": "dlc",
+   "u": 0.79677,
+   "v": 0.71296,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13956.76,
+    "y": 954.32,
+    "z": 9996.28
+   },
+   "mapId": "m61_54_39_00",
+   "local": {
+    "x": 132.76,
+    "y": 954.32,
+    "z": 12.28
+   },
+   "entrance": null
+  },
+  {
+   "id": "boss_metyr_mother_of_finger_cathedral_of_manus_metyr",
+   "map": "dlc",
+   "u": 0.54976,
+   "v": 0.31209,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12944.03,
+    "y": 467.83,
+    "z": 11720.03
+   },
+   "mapId": "m25_00_00_00",
+   "local": {
+    "x": 4.32,
+    "y": 0.01,
+    "z": -2.32
+   },
+   "entrance": {
+    "x": 12950.0,
+    "y": 467.84,
+    "z": 11720.91
+   }
+  },
+  {
+   "id": "boss_promised_consort_radahn_enir_ilim",
+   "map": "dlc",
+   "u": 0.08814,
+   "v": 0.402,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11051.37,
+    "y": 946.41,
+    "z": 11333.41
+   },
+   "mapId": "m20_01_00_00",
+   "local": {
+    "x": -341.08,
+    "y": 301.69,
+    "z": -108.62
+   },
+   "entrance": {
+    "x": 11392.45,
+    "y": 644.72,
+    "z": 11442.03
+   }
+  },
+  {
+   "id": "other_blackgaol_knight_gravesite_plain",
+   "map": "dlc",
+   "u": 0.22149,
+   "v": 0.58401,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11598.09,
+    "y": 317.65,
+    "z": 10550.75
+   },
+   "mapId": "m61_46_41_00",
+   "local": {
+    "x": -177.91,
+    "y": 317.65,
+    "z": 54.75
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ghostflame_dragon_gravesite_plain",
+   "map": "dlc",
+   "u": 0.21685,
+   "v": 0.43532,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11579.1,
+    "y": 256.42,
+    "z": 11190.11
+   },
+   "mapId": "m61_45_44_00",
+   "local": {
+    "x": 59.1,
+    "y": 256.42,
+    "z": -73.89
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_death_knight_gravesite_plain",
+   "map": "dlc",
+   "u": 0.22328,
+   "v": 0.30697,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11605.44,
+    "y": 113.7,
+    "z": 11742.03
+   },
+   "mapId": "m40_00_00_00",
+   "local": {
+    "x": -426.56,
+    "y": 113.7,
+    "z": -33.97
+   },
+   "entrance": {
+    "x": 12032.0,
+    "y": 0.0,
+    "z": 11776.0
+   }
+  },
+  {
+   "id": "other_demi_human_swordmaster_onze_gravesite_plain",
+   "map": "dlc",
+   "u": 0.15886,
+   "v": 0.46433,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11341.34,
+    "y": 78.46,
+    "z": 11065.37
+   },
+   "mapId": "m41_00_00_00",
+   "local": {
+    "x": -178.66,
+    "y": 78.46,
+    "z": -198.63
+   },
+   "entrance": {
+    "x": 11520.0,
+    "y": 0.0,
+    "z": 11264.0
+   }
+  },
+  {
+   "id": "other_ancient_dragon_man_gravesite_plain",
+   "map": "dlc",
+   "u": 0.39892,
+   "v": 0.59577,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12325.56,
+    "y": 94.01,
+    "z": 10500.2
+   },
+   "mapId": "m43_01_00_00",
+   "local": {
+    "x": 37.56,
+    "y": 94.01,
+    "z": 4.2
+   },
+   "entrance": {
+    "x": 12288.0,
+    "y": 0.0,
+    "z": 10496.0
+   }
+  },
+  {
+   "id": "other_dancer_of_ranah_cerulean_coast",
+   "map": "dlc",
+   "u": 0.2593,
+   "v": 0.79787,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11753.13,
+    "y": 8.45,
+    "z": 9631.17
+   },
+   "mapId": "m61_46_38_00",
+   "local": {
+    "x": -22.87,
+    "y": 8.45,
+    "z": -96.83
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_demi_human_queen_marigga_cerulean_coast",
+   "map": "dlc",
+   "u": 0.24791,
+   "v": 0.65928,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11706.43,
+    "y": 2.58,
+    "z": 10227.1
+   },
+   "mapId": "m61_46_40_00",
+   "local": {
+    "x": -69.57,
+    "y": 2.58,
+    "z": -12.9
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ghostflame_dragon_cerulean_coast",
+   "map": "dlc",
+   "u": 0.36793,
+   "v": 0.77501,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12198.52,
+    "y": 13.27,
+    "z": 9729.46
+   },
+   "mapId": "m61_48_38_00",
+   "local": {
+    "x": -89.48,
+    "y": 13.27,
+    "z": 1.46
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_black_knight_garrew_scadu_altus",
+   "map": "dlc",
+   "u": 0.32057,
+   "v": 0.39085,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12004.33,
+    "y": 346.02,
+    "z": 11381.34
+   },
+   "mapId": "m61_47_45_00",
+   "local": {
+    "x": -27.67,
+    "y": 346.02,
+    "z": -138.66
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_black_knight_edredd_scadu_altus",
+   "map": "dlc",
+   "u": 0.46899,
+   "v": 0.49992,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12612.88,
+    "y": 396.47,
+    "z": 10912.34
+   },
+   "mapId": "m61_49_43_00",
+   "local": {
+    "x": 68.88,
+    "y": 396.47,
+    "z": -95.66
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ralva_the_great_red_bear_scadu_altus",
+   "map": "dlc",
+   "u": 0.47066,
+   "v": 0.3323,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12619.69,
+    "y": 396.06,
+    "z": 11633.13
+   },
+   "mapId": "m61_49_45_00",
+   "local": {
+    "x": 75.69,
+    "y": 396.06,
+    "z": 113.13
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ghostflame_dragon_scadu_altus",
+   "map": "dlc",
+   "u": 0.45005,
+   "v": 0.45049,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12535.2,
+    "y": 379.01,
+    "z": 11124.91
+   },
+   "mapId": "m61_49_43_00",
+   "local": {
+    "x": -8.8,
+    "y": 379.01,
+    "z": 116.91
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_rakshasa_scadu_altus",
+   "map": "dlc",
+   "u": 0.5778,
+   "v": 0.3965,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13058.97,
+    "y": 162.6,
+    "z": 11357.06
+   },
+   "mapId": "m61_51_44_00",
+   "local": {
+    "x": 2.97,
+    "y": 162.6,
+    "z": 93.06
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_jori_elder_inquisitor_scadu_altus",
+   "map": "dlc",
+   "u": 0.62299,
+   "v": 0.46314,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13244.25,
+    "y": -512.2,
+    "z": 11070.5
+   },
+   "mapId": "m61_52_43_00",
+   "local": {
+    "x": -67.75,
+    "y": -512.2,
+    "z": 62.5
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_curseblade_meera_scadu_altus",
+   "map": "dlc",
+   "u": 0.46716,
+   "v": 0.45658,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12605.37,
+    "y": 190.55,
+    "z": 11098.69
+   },
+   "mapId": "m41_01_00_00",
+   "local": {
+    "x": -194.63,
+    "y": 190.55,
+    "z": 90.69
+   },
+   "entrance": {
+    "x": 12800.0,
+    "y": 0.0,
+    "z": 11008.0
+   }
+  },
+  {
+   "id": "other_rugalea_the_great_red_bear_rauh_base",
+   "map": "dlc",
+   "u": 0.12882,
+   "v": 0.2143,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11218.17,
+    "y": 320.36,
+    "z": 12140.51
+   },
+   "mapId": "m61_44_47_00",
+   "local": {
+    "x": -45.83,
+    "y": 320.36,
+    "z": 108.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_red_bear_rauh_base",
+   "map": "dlc",
+   "u": 0.29134,
+   "v": 0.37728,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11884.49,
+    "y": 395.9,
+    "z": 11439.71
+   },
+   "mapId": "m61_46_45_00",
+   "local": {
+    "x": 108.49,
+    "y": 395.9,
+    "z": -80.29
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_death_knight_rauh_base",
+   "map": "dlc",
+   "u": 0.18513,
+   "v": 0.33094,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11449.05,
+    "y": 149.7,
+    "z": 11638.96
+   },
+   "mapId": "m40_01_00_00",
+   "local": {
+    "x": 185.05,
+    "y": 149.7,
+    "z": -137.04
+   },
+   "entrance": {
+    "x": 11264.0,
+    "y": 0.0,
+    "z": 11776.0
+   }
+  },
+  {
+   "id": "other_divine_beast_dancing_lion_ancient_ruins_of_rauh",
+   "map": "dlc",
+   "u": 0.24958,
+   "v": 0.30855,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11713.28,
+    "y": 536.0,
+    "z": 11735.25
+   },
+   "mapId": "m61_46_46_00",
+   "local": {
+    "x": -62.72,
+    "y": 536.0,
+    "z": -40.75
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_jagged_peak_drake_foot_of_the_jagged_peak",
+   "map": "dlc",
+   "u": 0.47111,
+   "v": 0.62235,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12621.54,
+    "y": 65.91,
+    "z": 10385.88
+   },
+   "mapId": "m61_49_41_00",
+   "local": {
+    "x": 77.54,
+    "y": 65.91,
+    "z": -110.12
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_jagged_peak_drake_foot_of_the_jagged_peak_2",
+   "map": "dlc",
+   "u": 0.62383,
+   "v": 0.6716,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13247.71,
+    "y": 289.0,
+    "z": 10174.11
+   },
+   "mapId": "m61_52_40_00",
+   "local": {
+    "x": -64.29,
+    "y": 289.0,
+    "z": -65.89
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_ancient_dragon_senessax_jagged_peak",
+   "map": "dlc",
+   "u": 0.74661,
+   "v": 0.71129,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13751.12,
+    "y": 511.94,
+    "z": 10003.44
+   },
+   "mapId": "m61_54_39_00",
+   "local": {
+    "x": -72.88,
+    "y": 511.94,
+    "z": 19.44
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_death_rite_bird_charos_hidden_grave",
+   "map": "dlc",
+   "u": 0.34396,
+   "v": 0.69981,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12100.25,
+    "y": 84.94,
+    "z": 10052.82
+   },
+   "mapId": "m61_47_39_00",
+   "local": {
+    "x": 68.25,
+    "y": 84.94,
+    "z": 68.82
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_lamenter_charos_hidden_grave",
+   "map": "dlc",
+   "u": 0.30204,
+   "v": 0.65955,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11928.34,
+    "y": 19.78,
+    "z": 10225.95
+   },
+   "mapId": "m41_02_00_00",
+   "local": {
+    "x": 152.34,
+    "y": 19.78,
+    "z": -14.05
+   },
+   "entrance": {
+    "x": 11776.0,
+    "y": 0.0,
+    "z": 10240.0
+   }
+  },
+  {
+   "id": "other_chief_bloodfiend_ellac_river",
+   "map": "dlc",
+   "u": 0.29819,
+   "v": 0.38591,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11912.57,
+    "y": 116.69,
+    "z": 11402.6
+   },
+   "mapId": "m43_00_00_00",
+   "local": {
+    "x": 136.57,
+    "y": 116.69,
+    "z": 138.6
+   },
+   "entrance": {
+    "x": 11776.0,
+    "y": 0.0,
+    "z": 11264.0
+   }
+  },
+  {
+   "id": "other_fallingstar_beast_hinterland",
+   "map": "dlc",
+   "u": 0.64908,
+   "v": 0.15279,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13351.21,
+    "y": 478.27,
+    "z": 12405.0
+   },
+   "mapId": "m61_52_48_00",
+   "local": {
+    "x": 39.21,
+    "y": 478.27,
+    "z": 117.0
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tree_sentinel_first_hinterland",
+   "map": "dlc",
+   "u": 0.52625,
+   "v": 0.19472,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12847.62,
+    "y": 541.44,
+    "z": 12224.72
+   },
+   "mapId": "m61_50_48_00",
+   "local": {
+    "x": 47.62,
+    "y": 541.44,
+    "z": -63.28
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_tree_sentinel_second_hinterland",
+   "map": "dlc",
+   "u": 0.51826,
+   "v": 0.21476,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12814.86,
+    "y": 559.34,
+    "z": 12138.53
+   },
+   "mapId": "m61_50_47_00",
+   "local": {
+    "x": 14.86,
+    "y": 559.34,
+    "z": 106.53
+   },
+   "entrance": null
+  },
+  {
+   "id": "other_count_ymir_manus_metyr",
+   "map": "dlc",
+   "u": 0.55393,
+   "v": 0.36015,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12961.1,
+    "y": 472.17,
+    "z": 11513.36
+   },
+   "mapId": "m61_51_45_00",
+   "local": {
+    "x": -94.9,
+    "y": 472.17,
+    "z": -6.64
+   },
+   "entrance": null
+  },
+  {
+   "id": "merchant_moore_gravesite_plain",
+   "map": "dlc",
+   "u": 0.26488,
+   "v": 0.59674,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11776.0,
+    "y": null,
+    "z": 10496.0
+   },
+   "mapId": "m61_46_41_00",
+   "local": null,
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_gravesite_plain",
+   "map": "dlc",
+   "u": 0.17918,
+   "v": 0.51486,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11424.64,
+    "y": 392.0,
+    "z": 10848.09
+   },
+   "mapId": "m61_45_42_00",
+   "local": {
+    "x": -95.36,
+    "y": 392.0,
+    "z": 96.09
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_gravesite_plain_2",
+   "map": "dlc",
+   "u": 0.39881,
+   "v": 0.4973,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12325.1,
+    "y": 313.24,
+    "z": 10923.61
+   },
+   "mapId": "m61_48_43_00",
+   "local": {
+    "x": 37.1,
+    "y": 313.24,
+    "z": -84.39
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_gravesite_plain_3",
+   "map": "dlc",
+   "u": 0.26266,
+   "v": 0.51555,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11766.92,
+    "y": 297.45,
+    "z": 10845.15
+   },
+   "mapId": "m61_46_42_00",
+   "local": {
+    "x": -9.08,
+    "y": 297.45,
+    "z": 93.15
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_gravesite_plain_4",
+   "map": "dlc",
+   "u": 0.31526,
+   "v": 0.43827,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11982.57,
+    "y": 302.12,
+    "z": 11177.44
+   },
+   "mapId": "m61_47_44_00",
+   "local": {
+    "x": -49.43,
+    "y": 302.12,
+    "z": -86.56
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_2x_gravesite_plain",
+   "map": "dlc",
+   "u": 0.36983,
+   "v": 0.61257,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12206.29,
+    "y": 229.01,
+    "z": 10427.95
+   },
+   "mapId": "m61_48_41_00",
+   "local": {
+    "x": -81.71,
+    "y": 229.01,
+    "z": -68.05
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_gravesite_plain",
+   "map": "dlc",
+   "u": 0.23237,
+   "v": 0.59499,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11642.72,
+    "y": 386.32,
+    "z": 10503.53
+   },
+   "mapId": "m61_45_41_00",
+   "local": {
+    "x": 122.72,
+    "y": 386.32,
+    "z": 7.53
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_gravesite_plain_2",
+   "map": "dlc",
+   "u": 0.35588,
+   "v": 0.60806,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12149.1,
+    "y": 323.24,
+    "z": 10447.36
+   },
+   "mapId": "m61_47_41_00",
+   "local": {
+    "x": 117.1,
+    "y": 323.24,
+    "z": -48.64
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_gravesite_plain_3",
+   "map": "dlc",
+   "u": 0.26742,
+   "v": 0.41571,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11786.42,
+    "y": 278.48,
+    "z": 11274.44
+   },
+   "mapId": "m61_46_44_00",
+   "local": {
+    "x": 10.42,
+    "y": 278.48,
+    "z": 10.44
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_belurat",
+   "map": "dlc",
+   "u": 0.15806,
+   "v": 0.43739,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11338.06,
+    "y": 509.94,
+    "z": 11181.21
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": -34.38,
+    "y": 77.22,
+    "z": 264.18
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_belurat",
+   "map": "dlc",
+   "u": 0.14927,
+   "v": 0.44102,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11301.99,
+    "y": 524.56,
+    "z": 11165.61
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": -70.46,
+    "y": 91.83,
+    "z": 248.58
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_2x_belurat",
+   "map": "dlc",
+   "u": 0.14706,
+   "v": 0.48033,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11292.95,
+    "y": 446.84,
+    "z": 10996.58
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": -79.5,
+    "y": 14.12,
+    "z": 79.55
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_belurat_2",
+   "map": "dlc",
+   "u": 0.1727,
+   "v": 0.43564,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11398.08,
+    "y": 571.9,
+    "z": 11188.76
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": 25.63,
+    "y": 139.18,
+    "z": 271.73
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_ellac_river",
+   "map": "dlc",
+   "u": 0.33996,
+   "v": 0.48274,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12083.85,
+    "y": 170.24,
+    "z": 10986.21
+   },
+   "mapId": "m61_47_43_00",
+   "local": {
+    "x": 51.85,
+    "y": 170.24,
+    "z": -21.79
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_cerulean_coast",
+   "map": "dlc",
+   "u": 0.39596,
+   "v": 0.85706,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12313.44,
+    "y": 59.23,
+    "z": 9376.65
+   },
+   "mapId": "m61_48_37_00",
+   "local": {
+    "x": 25.44,
+    "y": 59.23,
+    "z": -95.35
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_cerulean_coast_2",
+   "map": "dlc",
+   "u": 0.30243,
+   "v": 0.67972,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11929.98,
+    "y": 13.3,
+    "z": 10139.2
+   },
+   "mapId": "m61_47_40_00",
+   "local": {
+    "x": -102.02,
+    "y": 13.3,
+    "z": -100.8
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_castle_ensis",
+   "map": "dlc",
+   "u": 0.34754,
+   "v": 0.40152,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12114.91,
+    "y": 359.51,
+    "z": 11335.46
+   },
+   "mapId": "m61_47_44_00",
+   "local": {
+    "x": 82.91,
+    "y": 359.51,
+    "z": 71.46
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scadu_altus",
+   "map": "dlc",
+   "u": 0.38285,
+   "v": 0.38642,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12259.68,
+    "y": 410.39,
+    "z": 11400.38
+   },
+   "mapId": "m61_48_44_00",
+   "local": {
+    "x": -28.32,
+    "y": 410.39,
+    "z": 136.38
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scadu_altus_2",
+   "map": "dlc",
+   "u": 0.4405,
+   "v": 0.3899,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12496.03,
+    "y": 350.5,
+    "z": 11385.44
+   },
+   "mapId": "m61_49_44_00",
+   "local": {
+    "x": -47.97,
+    "y": 350.5,
+    "z": 121.44
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scadu_altus_3",
+   "map": "dlc",
+   "u": 0.42095,
+   "v": 0.38712,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12415.89,
+    "y": 363.98,
+    "z": 11397.37
+   },
+   "mapId": "m61_48_45_00",
+   "local": {
+    "x": 127.89,
+    "y": 363.98,
+    "z": -122.63
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scadu_altus_4",
+   "map": "dlc",
+   "u": 0.38896,
+   "v": 0.32013,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12284.74,
+    "y": 408.84,
+    "z": 11685.43
+   },
+   "mapId": "m61_48_46_00",
+   "local": {
+    "x": -3.26,
+    "y": 408.84,
+    "z": -90.57
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scadu_altus_5",
+   "map": "dlc",
+   "u": 0.46261,
+   "v": 0.34966,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12586.72,
+    "y": 354.21,
+    "z": 11558.46
+   },
+   "mapId": "m61_49_45_00",
+   "local": {
+    "x": 42.72,
+    "y": 354.21,
+    "z": 38.46
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_2x_scadu_altus",
+   "map": "dlc",
+   "u": 0.32335,
+   "v": 0.31322,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12015.75,
+    "y": 440.18,
+    "z": 11715.16
+   },
+   "mapId": "m61_47_46_00",
+   "local": {
+    "x": -16.25,
+    "y": 440.18,
+    "z": -60.84
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_scadu_altus",
+   "map": "dlc",
+   "u": 0.49008,
+   "v": 0.40014,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12699.34,
+    "y": 299.71,
+    "z": 11341.4
+   },
+   "mapId": "m61_50_44_00",
+   "local": {
+    "x": -100.66,
+    "y": 299.71,
+    "z": 77.4
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_scadu_altus_2",
+   "map": "dlc",
+   "u": 0.48236,
+   "v": 0.39976,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12683.89,
+    "y": 356.9,
+    "z": 11328.17
+   },
+   "mapId": "m61_49_44_00",
+   "local": {
+    "x": 139.89,
+    "y": 356.9,
+    "z": 64.17
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scadu_altus_6",
+   "map": "dlc",
+   "u": 0.50777,
+   "v": 0.49194,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12771.84,
+    "y": 459.82,
+    "z": 10946.65
+   },
+   "mapId": "m61_50_43_00",
+   "local": {
+    "x": -28.16,
+    "y": 459.82,
+    "z": -61.35
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_lower_scadu_altus",
+   "map": "dlc",
+   "u": 0.49492,
+   "v": 0.33531,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12719.19,
+    "y": 191.15,
+    "z": 11620.16
+   },
+   "mapId": "m61_50_45_00",
+   "local": {
+    "x": -80.81,
+    "y": 191.15,
+    "z": 100.16
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_lower_scadu_altus",
+   "map": "dlc",
+   "u": 0.49153,
+   "v": 0.44794,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12705.25,
+    "y": 207.36,
+    "z": 11135.87
+   },
+   "mapId": "m61_50_43_00",
+   "local": {
+    "x": -94.75,
+    "y": 207.36,
+    "z": 127.87
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_lower_scadu_altus_2",
+   "map": "dlc",
+   "u": 0.52069,
+   "v": 0.29883,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12824.85,
+    "y": 261.77,
+    "z": 11777.01
+   },
+   "mapId": "m61_50_46_00",
+   "local": {
+    "x": 24.85,
+    "y": 261.77,
+    "z": 1.01
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_shadow_keep_church_district",
+   "map": "dlc",
+   "u": 0.46124,
+   "v": 0.22624,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12581.09,
+    "y": 472.61,
+    "z": 12089.17
+   },
+   "mapId": "m21_00_00_00",
+   "local": {
+    "x": 242.84,
+    "y": 41.61,
+    "z": 210.17
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_shadow_keep_specimen_storehouse",
+   "map": "dlc",
+   "u": 0.44454,
+   "v": 0.21108,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12512.6,
+    "y": 729.1,
+    "z": 12154.35
+   },
+   "mapId": "m21_01_00_00",
+   "local": {
+    "x": 174.35,
+    "y": 298.1,
+    "z": 275.35
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_shadow_keep_specimen_storehouse_2",
+   "map": "dlc",
+   "u": 0.43218,
+   "v": 0.1972,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12461.93,
+    "y": 769.02,
+    "z": 12214.02
+   },
+   "mapId": "m21_01_00_00",
+   "local": {
+    "x": 123.68,
+    "y": 338.02,
+    "z": 335.02
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_shadow_keep_specimen_storehouse",
+   "map": "dlc",
+   "u": 0.46012,
+   "v": 0.20141,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12576.51,
+    "y": 759.58,
+    "z": 12195.95
+   },
+   "mapId": "m21_01_00_00",
+   "local": {
+    "x": 238.26,
+    "y": 328.58,
+    "z": 316.95
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_shadow_keep_specimen_storehouse_2",
+   "map": "dlc",
+   "u": 0.45257,
+   "v": 0.21179,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12545.55,
+    "y": 711.1,
+    "z": 12151.31
+   },
+   "mapId": "m21_01_00_00",
+   "local": {
+    "x": 207.3,
+    "y": 280.1,
+    "z": 272.31
+   },
+   "entrance": {
+    "x": 12338.25,
+    "y": 431.0,
+    "z": 11879.0
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_cerulean_coast_3",
+   "map": "dlc",
+   "u": 0.30214,
+   "v": 0.92561,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11945.0,
+    "y": null,
+    "z": 9067.0
+   },
+   "mapId": "m22_00_00_00",
+   "local": {
+    "x": -246.02,
+    "y": 216.0,
+    "z": -27.7
+   },
+   "entrance": {
+    "x": 11945.0,
+    "y": null,
+    "z": 9067.0
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_rauh_base",
+   "map": "dlc",
+   "u": 0.23809,
+   "v": 0.35616,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11666.17,
+    "y": 306.11,
+    "z": 11530.51
+   },
+   "mapId": "m61_46_45_00",
+   "local": {
+    "x": -109.83,
+    "y": 306.11,
+    "z": 10.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_ancient_ruins_of_rauh",
+   "map": "dlc",
+   "u": 0.24155,
+   "v": 0.25953,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11680.35,
+    "y": 560.84,
+    "z": 11946.01
+   },
+   "mapId": "m61_46_47_00",
+   "local": {
+    "x": -95.65,
+    "y": 560.84,
+    "z": -85.99
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_ancient_ruins_of_rauh_2",
+   "map": "dlc",
+   "u": 0.16427,
+   "v": 0.34019,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11363.5,
+    "y": 582.67,
+    "z": 11599.18
+   },
+   "mapId": "m61_44_45_00",
+   "local": {
+    "x": 99.5,
+    "y": 582.67,
+    "z": 79.18
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_ancient_ruins_of_rauh",
+   "map": "dlc",
+   "u": 0.16689,
+   "v": 0.31992,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11374.27,
+    "y": 583.25,
+    "z": 11686.35
+   },
+   "mapId": "m61_44_46_00",
+   "local": {
+    "x": 110.27,
+    "y": 583.25,
+    "z": -89.65
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_scaduview",
+   "map": "dlc",
+   "u": 0.46961,
+   "v": 0.19607,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12615.38,
+    "y": 584.52,
+    "z": 12218.89
+   },
+   "mapId": "m61_49_48_00",
+   "local": {
+    "x": 71.38,
+    "y": 584.52,
+    "z": -69.11
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_5x_scaduview",
+   "map": "dlc",
+   "u": 0.45611,
+   "v": 0.09779,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12560.07,
+    "y": 624.98,
+    "z": 12641.51
+   },
+   "mapId": "m61_49_49_00",
+   "local": {
+    "x": 16.07,
+    "y": 624.98,
+    "z": 97.51
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_2x_abyssal_woods",
+   "map": "dlc",
+   "u": 0.67907,
+   "v": 0.60637,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13474.18,
+    "y": -539.72,
+    "z": 10454.62
+   },
+   "mapId": "m61_53_41_00",
+   "local": {
+    "x": -93.82,
+    "y": -539.72,
+    "z": -41.38
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_abyssal_woods",
+   "map": "dlc",
+   "u": 0.51968,
+   "v": 0.49419,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12820.68,
+    "y": -550.15,
+    "z": 10936.97
+   },
+   "mapId": "m61_50_43_00",
+   "local": {
+    "x": 20.68,
+    "y": -550.15,
+    "z": -71.03
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_revered_spirit_ash_midras_manse",
+   "map": "dlc",
+   "u": 0.43943,
+   "v": 0.63133,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 12491.68,
+    "y": -557.17,
+    "z": 10347.27
+   },
+   "mapId": "m28_00_00_00",
+   "local": {
+    "x": -20.32,
+    "y": 13.83,
+    "z": -36.73
+   },
+   "entrance": {
+    "x": 12512.0,
+    "y": -571.0,
+    "z": 10384.0
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_jagged_peak",
+   "map": "dlc",
+   "u": 0.7106,
+   "v": 0.72638,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 13603.46,
+    "y": 497.07,
+    "z": 9938.57
+   },
+   "mapId": "m61_53_39_00",
+   "local": {
+    "x": 35.46,
+    "y": 497.07,
+    "z": -45.43
+   },
+   "entrance": null
+  },
+  {
+   "id": "blessing_scadutree_fragment_enir_ilim",
+   "map": "dlc",
+   "u": 0.09945,
+   "v": 0.3954,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11097.75,
+    "y": 709.79,
+    "z": 11361.78
+   },
+   "mapId": "m20_01_00_00",
+   "local": {
+    "x": -294.7,
+    "y": 65.07,
+    "z": -80.25
+   },
+   "entrance": {
+    "x": 11392.45,
+    "y": 644.72,
+    "z": 11442.03
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_enir_ilim_2",
+   "map": "dlc",
+   "u": 0.0834,
+   "v": 0.38599,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11031.94,
+    "y": 756.38,
+    "z": 11402.23
+   },
+   "mapId": "m20_01_00_00",
+   "local": {
+    "x": -360.51,
+    "y": 111.66,
+    "z": -39.8
+   },
+   "entrance": {
+    "x": 11392.45,
+    "y": 644.72,
+    "z": 11442.03
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_enir_ilim_3",
+   "map": "dlc",
+   "u": 0.09397,
+   "v": 0.44944,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11075.28,
+    "y": 814.83,
+    "z": 11129.43
+   },
+   "mapId": "m20_01_00_00",
+   "local": {
+    "x": -317.17,
+    "y": 170.12,
+    "z": -312.6
+   },
+   "entrance": {
+    "x": 11392.45,
+    "y": 644.72,
+    "z": 11442.03
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_enir_ilim",
+   "map": "dlc",
+   "u": 0.08423,
+   "v": 0.39547,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11035.36,
+    "y": 738.86,
+    "z": 11361.47
+   },
+   "mapId": "m20_01_00_00",
+   "local": {
+    "x": -357.09,
+    "y": 94.14,
+    "z": -80.56
+   },
+   "entrance": {
+    "x": 11392.45,
+    "y": 644.72,
+    "z": 11442.03
+   }
+  },
+  {
+   "id": "blessing_revered_spirit_ash_2x_enir_ilim",
+   "map": "dlc",
+   "u": 0.12403,
+   "v": 0.4099,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11198.53,
+    "y": 665.38,
+    "z": 11299.45
+   },
+   "mapId": "m20_01_00_00",
+   "local": {
+    "x": -193.92,
+    "y": 20.66,
+    "z": -142.58
+   },
+   "entrance": {
+    "x": 11392.45,
+    "y": 644.72,
+    "z": 11442.03
+   }
+  },
+  {
+   "id": "blessing_scadutree_fragment_enir_ilim_4",
+   "map": "dlc",
+   "u": 0.13188,
+   "v": 0.42787,
+   "underground": false,
+   "area": 61,
+   "world": {
+    "x": 11230.69,
+    "y": 600.66,
+    "z": 11222.14
+   },
+   "mapId": "m20_00_00_00",
+   "local": {
+    "x": -141.76,
+    "y": 167.94,
+    "z": 305.11
+   },
+   "entrance": {
+    "x": 11372.45,
+    "y": 432.72,
+    "z": 10917.03
+   }
+  }
+ ]
+}

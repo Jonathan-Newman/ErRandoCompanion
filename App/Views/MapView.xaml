@@ -1,0 +1,233 @@
+<UserControl x:Class="ErRandoCompanion.App.Views.MapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Visible" />
+
+        <Geometry x:Key="PickupShape">M 8,2 A 6,6 0 1 1 8,14 A 6,6 0 1 1 8,2 Z</Geometry>
+        <Geometry x:Key="BossShape">M 8,0.5 L 15.5,8 L 8,15.5 L 0.5,8 Z</Geometry>
+        <Geometry x:Key="MerchantShape">M 2.5,2.5 L 13.5,2.5 L 13.5,13.5 L 2.5,13.5 Z</Geometry>
+
+        <Style x:Key="PinButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Border x:Name="Viewport" Background="#0D141B" ClipToBounds="True" CornerRadius="6"
+                BorderBrush="{StaticResource Line}" BorderThickness="1"
+                MouseWheel="OnWheel" MouseLeftButtonDown="OnDragStart" MouseMove="OnDragMove"
+                MouseLeftButtonUp="OnDragEnd" SizeChanged="OnViewportResized">
+            <Canvas x:Name="World" Width="{Binding Sheet.Width}" Height="{Binding Sheet.Height}"
+                    HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas.RenderTransform>
+                    <MatrixTransform x:Name="WorldTransform" />
+                </Canvas.RenderTransform>
+
+                <Image Source="{Binding Sheet.ImagePath}" Width="{Binding Sheet.Width}" Height="{Binding Sheet.Height}"
+                       Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" IsHitTestVisible="False" />
+
+                <ItemsControl ItemsSource="{Binding Sheet.Labels}" IsHitTestVisible="False">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding X}" />
+                            <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="300" Height="24" Margin="-150,-12,0,0" RenderTransformOrigin="0.5,0.5" Loaded="OnCounterScaled">
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           FontFamily="{StaticResource HeadingFont}" FontSize="15" FontStyle="Italic"
+                                           Foreground="#EFE6CF" Opacity="0.82">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <ItemsControl ItemsSource="{Binding Sheet.Pins}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding X}" />
+                            <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                            <Setter Property="Visibility" Value="{Binding IsShown, Converter={StaticResource Visible}}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="Panel.ZIndex" Value="10" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource PinButton}" Width="16" Height="16" Margin="-8,-8,0,0"
+                                    RenderTransformOrigin="0.5,0.5" Loaded="OnCounterScaled" Click="OnPinClicked"
+                                    AutomationProperties.Name="{Binding Location.Name, StringFormat='Pin: {0}'}"
+                                    ToolTip="{Binding Location.Name}">
+                                <Button.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Target 1" Command="{Binding Location.SetTarget}" CommandParameter="1" />
+                                        <MenuItem Header="Target 2" Command="{Binding Location.SetTarget}" CommandParameter="2" />
+                                        <MenuItem Header="Target 3" Command="{Binding Location.SetTarget}" CommandParameter="3" />
+                                        <MenuItem Header="Target 4" Command="{Binding Location.SetTarget}" CommandParameter="4" />
+                                        <MenuItem Header="Target 5" Command="{Binding Location.SetTarget}" CommandParameter="5" />
+                                        <Separator />
+                                        <MenuItem Header="Clear target" Command="{Binding Location.ClearTarget}" IsEnabled="{Binding Location.IsTarget}" />
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                                <Grid>
+                                    <Path x:Name="Halo" Data="{StaticResource PickupShape}" Stretch="Fill" Fill="{x:Null}"
+                                          Stroke="{StaticResource GoldBright}" StrokeThickness="2" Margin="-4" Visibility="Collapsed" />
+                                    <Path x:Name="Shape" Data="{StaticResource PickupShape}" Fill="{StaticResource StatusAvailable}"
+                                          Stroke="#0B0A08" StrokeThickness="1.2" />
+                                    <Border Style="{StaticResource TargetBadge}" Width="14" Height="14" CornerRadius="7"
+                                            Margin="0,-11,-11,0" HorizontalAlignment="Right" VerticalAlignment="Top" IsHitTestVisible="False"
+                                            Visibility="{Binding Location.IsTarget, Converter={StaticResource Visible}}">
+                                        <TextBlock Text="{Binding Location.TargetNumber}" Style="{StaticResource TargetBadgeText}" FontSize="9" />
+                                    </Border>
+                                </Grid>
+                            </Button>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Location.Category}" Value="MajorBoss">
+                                    <Setter TargetName="Shape" Property="Data" Value="{StaticResource BossShape}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Category}" Value="OtherBoss">
+                                    <Setter TargetName="Shape" Property="Data" Value="{StaticResource BossShape}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Category}" Value="ExtraBoss">
+                                    <Setter TargetName="Shape" Property="Data" Value="{StaticResource BossShape}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Category}" Value="Merchant">
+                                    <Setter TargetName="Shape" Property="Data" Value="{StaticResource MerchantShape}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Status}" Value="Locked">
+                                    <Setter TargetName="Shape" Property="Fill" Value="{StaticResource StatusLocked}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Status}" Value="Checked">
+                                    <Setter TargetName="Shape" Property="Fill" Value="{StaticResource StatusChecked}" />
+                                    <Setter TargetName="Shape" Property="Opacity" Value="0.8" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Location.Status}" Value="Excluded">
+                                    <Setter TargetName="Shape" Property="Fill" Value="{StaticResource StatusExcluded}" />
+                                    <Setter TargetName="Shape" Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                    <Setter TargetName="Halo" Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Canvas>
+        </Border>
+
+        <!-- Sheet choice and options. -->
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+            <ItemsControl ItemsSource="{Binding Sheets}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton Style="{StaticResource Pill}" Content="{Binding Title}" GroupName="MapSheet" IsChecked="{Binding IsSelected}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- Zoom. -->
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Orientation="Horizontal">
+            <Button Content="+" Width="30" Padding="0,3" Margin="0,0,4,0" Click="OnZoomIn" AutomationProperties.Name="Zoom in" />
+            <Button Content="-" Width="30" Padding="0,3" Margin="0,0,4,0" Click="OnZoomOut" AutomationProperties.Name="Zoom out" />
+            <Button Content="Fit" Padding="10,3" Click="OnFit" AutomationProperties.Name="Fit map" />
+        </StackPanel>
+
+        <!-- Legend. -->
+        <Border HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Padding="10,8" CornerRadius="6"
+                Background="#D91D1A15" BorderBrush="{StaticResource Line}" BorderThickness="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource StatusAvailable}" Margin="0,0,5,0" />
+                    <TextBlock Text="Available" FontSize="11" Margin="0,0,10,0" />
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource StatusLocked}" Margin="0,0,5,0" />
+                    <TextBlock Text="Locked" FontSize="11" Margin="0,0,10,0" />
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource StatusChecked}" Margin="0,0,5,0" />
+                    <TextBlock Text="Checked" FontSize="11" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Path Data="{StaticResource BossShape}" Width="11" Height="11" Stretch="Fill" Fill="{StaticResource TextMuted}" Margin="0,0,5,0" />
+                    <TextBlock Text="Boss" FontSize="11" Margin="0,0,10,0" />
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource TextMuted}" Margin="0,0,5,0" />
+                    <TextBlock Text="Pickup" FontSize="11" Margin="0,0,10,0" />
+                    <Rectangle Width="10" Height="10" Fill="{StaticResource TextMuted}" Margin="0,0,5,0" />
+                    <TextBlock Text="Merchant" FontSize="11" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Selected check. -->
+        <Border x:Name="Card" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Padding="14,12" Width="300" CornerRadius="6"
+                Background="#F21D1A15" BorderBrush="{StaticResource Gold}" BorderThickness="1"
+                DataContext="{Binding SelectedPin}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel>
+                <TextBlock Text="{Binding Location.Name}" Style="{StaticResource Heading}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Location.RegionName}" Style="{StaticResource Muted}" FontSize="11" Margin="0,1,0,6" />
+                <TextBlock Text="{Binding Location.Details}" TextWrapping="Wrap" Margin="0,0,0,10" />
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Style="{StaticResource SmallButton}" Content="Show in list" Click="OnShowInList" />
+                    <CheckBox IsChecked="{Binding Location.IsChecked}" IsEnabled="{Binding Location.IsEnabled}" VerticalAlignment="Center"
+                              AutomationProperties.Name="Selected check is done">
+                        <TextBlock Text="{Binding Location.Status}" />
+                    </CheckBox>
+                </DockPanel>
+                <DockPanel Margin="0,10,0,0">
+                    <TextBlock Text="Target" Style="{StaticResource Muted}" FontSize="11" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <Button Style="{StaticResource SmallButton}" Content="1" Margin="0,0,3,0" Command="{Binding Location.SetTarget}" CommandParameter="1"
+                            AutomationProperties.Name="Make target 1" />
+                    <Button Style="{StaticResource SmallButton}" Content="2" Margin="0,0,3,0" Command="{Binding Location.SetTarget}" CommandParameter="2"
+                            AutomationProperties.Name="Make target 2" />
+                    <Button Style="{StaticResource SmallButton}" Content="3" Margin="0,0,3,0" Command="{Binding Location.SetTarget}" CommandParameter="3"
+                            AutomationProperties.Name="Make target 3" />
+                    <Button Style="{StaticResource SmallButton}" Content="4" Margin="0,0,3,0" Command="{Binding Location.SetTarget}" CommandParameter="4"
+                            AutomationProperties.Name="Make target 4" />
+                    <Button Style="{StaticResource SmallButton}" Content="5" Margin="0,0,3,0" Command="{Binding Location.SetTarget}" CommandParameter="5"
+                            AutomationProperties.Name="Make target 5" />
+                    <Button Style="{StaticResource SmallButton}" Content="Clear" Command="{Binding Location.ClearTarget}"
+                            IsEnabled="{Binding Location.IsTarget}" HorizontalAlignment="Left" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

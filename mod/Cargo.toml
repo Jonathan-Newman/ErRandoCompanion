@@ -1,0 +1,25 @@
+[package]
+name = "er_rando_companion_mod"
+version = "1.0.0"
+authors = ["Moordoor"]
+license = "GPL-3.0-only"
+edition = "2021"
+description = "In-game overlay for ErRandoCompanion, loaded by ModEngine2 or me3"
+publish = false
+
+[lib]
+name = "ErRandoCompanionMod"
+crate-type = ["cdylib"]
+
+[dependencies]
+hudhook = { version = "0.9.3", default-features = false, features = ["dx12"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+windows = { version = "0.62", features = ["Win32_Foundation", "Win32_System_LibraryLoader", "Win32_System_SystemServices", "Win32_UI_Input_KeyboardAndMouse", "Win32_UI_WindowsAndMessaging", "Win32_System_Threading", "Win32_System_SystemInformation", "Win32_UI_Input_XboxController", "Win32_System_Diagnostics_Debug", "Win32_Media_Audio"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[dev-dependencies]
+windows = { version = "0.62", features = ["Win32_Foundation", "Win32_Graphics_Direct3D", "Win32_Graphics_Direct3D12", "Win32_Graphics_Dxgi", "Win32_Graphics_Dxgi_Common", "Win32_Graphics_Gdi", "Win32_System_LibraryLoader", "Win32_System_Threading", "Win32_UI_WindowsAndMessaging", "Win32_Security"] }

@@ -1,0 +1,25 @@
+# Build output
+bin/
+obj/
+mod/target/
+publish/
+dist/
+*.user
+.vs/
+.idea/
+
+# FromSoftware's world map art: generate it locally with tools/extract_map_art.py, never commit it
+Data/map_*.jpg
+
+# Local runs, logs and game files that may end up beside a build
+*.seed.json
+*.lock
+*.log
+*.sl2
+*.RD2
+*.co2
+*.hkx
+*.dcx
+regulation.bin
+*.pickle
+__pycache__/

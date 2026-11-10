@@ -1,0 +1,90 @@
+[
+  {
+    "id": "otherBosses",
+    "name": "Other Bosses are important locations",
+    "type": "bool",
+    "default": true
+  },
+  {
+    "id": "seedsAndTears",
+    "name": "Golden Seed Trees and Sacred Tear Churches",
+    "type": "bool",
+    "default": false
+  },
+  {
+    "id": "merchantShops",
+    "name": "Merchant Shops",
+    "type": "bool",
+    "default": true
+  },
+  {
+    "id": "blessings",
+    "name": "Shadow Realm Blessing pickups",
+    "type": "bool",
+    "default": false
+  },
+  {
+    "id": "excludeMiniDungeons",
+    "name": "Exclude mini-dungeon locations",
+    "type": "bool",
+    "default": false
+  },
+  {
+    "id": "dlcEnabled",
+    "name": "DLC enabled",
+    "type": "bool",
+    "default": true
+  },
+  {
+    "id": "randomizeGaolKeys",
+    "name": "Randomize Lamenter's Gaol keys",
+    "type": "bool",
+    "default": true
+  },
+  {
+    "id": "startMode",
+    "name": "DLC start",
+    "type": "choice",
+    "default": "normal",
+    "options": ["normal", "dlcOnly", "dlcWithBaseGame"],
+    "optionNames": ["Normal Progression", "DLC Start", "DLC Start with Base Game"]
+  },
+  {
+    "id": "finalBossRunes",
+    "name": "Great Runes to access the final boss",
+    "type": "count",
+    "default": 0,
+    "max": 7,
+    "notes": "Listed in the checklist's settings but not used by any of its logic."
+  },
+  {
+    "id": "leyndellRunes",
+    "name": "Great Runes to access Leyndell",
+    "type": "count",
+    "default": 2,
+    "max": 7
+  },
+  {
+    "id": "mountaintopsRunes",
+    "name": "Great Runes to access Mountaintops",
+    "type": "count",
+    "default": 0,
+    "max": 7,
+    "notes": "When 0, the Rold Medallion is required instead."
+  },
+  {
+    "id": "deathlessRouting",
+    "name": "Deathless routing",
+    "type": "bool",
+    "default": false,
+    "notes": "When on, Volcano Manor stays locked until the Drawing-Room Key is obtained."
+  },
+  {
+    "id": "kindlingShards",
+    "name": "Required Messmer's Kindling Shards",
+    "type": "count",
+    "default": 0,
+    "max": 20,
+    "notes": "When 0, Messmer's Kindling is required instead."
+  }
+]

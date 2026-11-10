@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The tracker as a native DLL with a C API, for the in-game mod. Build it with:
+      dotnet publish Native -c Release -r win-x64
+    which writes Native\bin\Release\net8.0\win-x64\publish\ErRandoCompanion.Native.dll.
+    NativeAOT needs Visual Studio's "Desktop development with C++" tools for its linker.
+  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\ErRandoCompanion.Core.csproj" />
+    <ProjectReference Include="..\GameReader\ErRandoCompanion.GameReader.csproj" />
+
+    <!-- The installed SDK's NativeAOT compiler (8.0.29) has advisory GHSA-p3jp-9v83-76w9, so use the patched one.
+         NativeAOT links the runtime into the DLL, so the fix only arrives by building with it. -->
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="8.0.33" PrivateAssets="all" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsAotCompatible>true</IsAotCompatible>
+    <PublishAot>true</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+</Project>

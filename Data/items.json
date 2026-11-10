@@ -1,0 +1,494 @@
+[
+  {
+    "name": "Academy Glintstone Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "HAS TWO VERSIONS, one for Thops that does nothing and another one that allows the player to enter Raya Lucaria. (Last part of description starts with \"A Glintstone Key will remember its user.\""
+  },
+  {
+    "name": "Carian Inverted Statue",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to progress in Carian Study Hall and reach the Divine Tower of Liurnia."
+  },
+  {
+    "name": "Cursemark of Death",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to access the Deathbed Dream in Deeproot Depths. (Note that the fight itself is missable and cannot have key items.)"
+  },
+  {
+    "name": "Dark Moon Ring",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to progress to Moonlight Altar from Ainsel River. Can optionally be used to do the final step of Ranni's quest and unlock her ending, but leads to no additional critical items."
+  },
+  {
+    "name": "Dectus Medallion (Left)",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to ascend the Grand Lift of Dectus. Other routes to enter Altus Plateau are also possible."
+  },
+  {
+    "name": "Dectus Medallion (Right)",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to ascend the Grand Lift of Dectus. Other routes to enter Altus Plateau are also possible."
+  },
+  {
+    "name": "Discarded Palace Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to unlock the treasure chest in the Raya Lucaria Grand Library."
+  },
+  {
+    "name": "Drawing-Room Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to access the Volcano Manor Drawing Room and the lava area hidden within. Required if planning to do Deathless without going through the Raya Lucaria shortcut."
+  },
+  {
+    "name": "Great Runes",
+    "category": "key",
+    "maxCount": 7,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Do not count Miquella's Great Rune"
+  },
+  {
+    "name": "Haligtree Secret Medallion (Left)",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to access Consecrated Snowfield, the hidden path to the Haligtree."
+  },
+  {
+    "name": "Haligtree Secret Medallion (Right)",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to access Consecrated Snowfield, the hidden path to the Haligtree. This part can also be used to optionally progress Latenna's quest."
+  },
+  {
+    "name": "Imbued Sword Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to unlock a Sending Gate at the Four Belfries in Liurnia. There are three of these in the game, but only one is mandatory for the Precipice of Anticipation important location."
+  },
+  {
+    "name": "Pureblood Knight's Medal",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to immediately access Mohgwyn Palace without using the Sending Gate in Consecrated Snowfield."
+  },
+  {
+    "name": "Rold Medallion",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to access Mountaintops of the Giants after Leyndell. With modified rulesets, it can be replaced with a Great Runes requirement."
+  },
+  {
+    "name": "Rusty Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to progress into Stormveil Castle. This is optional, unless Gostoc dies before he opens the main gate for you."
+  },
+  {
+    "name": "Stonesword Key",
+    "category": "key",
+    "maxCount": 99,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Set this to the keys you are holding now, and lower it when you spend them. Imp seals use keys up, including seals this tracker does not list. Spending your last keys locks an unchecked location behind that seal again, but you can still check it off. Not part of the original checklist's logic."
+  },
+  {
+    "name": "Messmer's Kindling",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Used to burn the Sealing Tree in Rauh Ruins. With modified rulesets, this can be split into some number of Messmer's Kindling Shards with a minimum shard count required to burn the Sealing Tree."
+  },
+  {
+    "name": "Messmer's Kindling Shards",
+    "category": "key",
+    "maxCount": 20,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Used to burn the Sealing Tree in Rauh Ruins. With modified rulesets, this can be split into some number of Messmer's Kindling Shards with a minimum shard count required to burn the Sealing Tree."
+  },
+  {
+    "name": "O Mother",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Used to access Hinterland by using the gesture in front of the Marika statue behind Shadow Keep."
+  },
+  {
+    "name": "Hole-Laden Necklace",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Used at Finger Ruins to progress Count Ymir's quest and access the Metyr boss fight."
+  },
+  {
+    "name": "Well Depths Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Used to access the Belurat swamp."
+  },
+  {
+    "name": "Gaol Upper Level Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Required to fully traverse Lamenter's Gaol if \"Randomise Lamenter's Gaol Keys\" is enabled.",
+    "miniDungeon": true,
+    "onlyIfSetting": "randomizeGaolKeys"
+  },
+  {
+    "name": "Gaol Lower Level Key",
+    "category": "key",
+    "maxCount": 1,
+    "dlc": true,
+    "shortcut": false,
+    "notes": "Required to fully traverse Lamenter's Gaol if \"Randomise Lamenter's Gaol Keys\" is enabled.",
+    "miniDungeon": true,
+    "onlyIfSetting": "randomizeGaolKeys"
+  },
+  {
+    "name": "Lord of Blood's Favor",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used on one of the three possible maidens, and can be used to progress Varrés quest after having obtained at least one Great Rune. Only leads you to the Varré invasion."
+  },
+  {
+    "name": "Sewing Needle",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can only be used to move Boc's quest forward, leads no nothing else of importance."
+  },
+  {
+    "name": "Sellian Sealbreaker",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to free Master Lusat and progress Sellen's quest, but is otherwise completely optional and leads to no shortcuts."
+  },
+  {
+    "name": "Sellen's Primal Glintstone",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to progress Sellen's quest, but is otherwise completely optional and leads to no shortcuts."
+  },
+  {
+    "name": "Irina's Letter",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to progress Edgar's Quest, but completely optional and leads to no shortcuts."
+  },
+  {
+    "name": "Chrysalid's Memento",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to get an extra item drop in Stormveil Castle that can't spawn any critical items. Also easily missed if Chrysalid's Memento spawns in an area that makes Roderika move to the Roundtable Hold."
+  },
+  {
+    "name": "Alexander's Innard",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used for the Jar-Barin quest, but completely optional and leads to no shortcuts."
+  },
+  {
+    "name": "Weathered Dagger",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Used to progress Fia's quest, can be used to enter Leyndell through Deeproot Depths and bypass any possible greatrune requirements."
+  },
+  {
+    "name": "Twinned Helm",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "All four parts can be used to iniate the last step of D's and Fia's quest, but only leads to an optional extra item drop."
+  },
+  {
+    "name": "Twinned Armor",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "All four parts can be used to iniate the last step of D's and Fia's quest, but only leads to an optional extra item drop."
+  },
+  {
+    "name": "Twinned Gauntlets",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "All four parts can be used to iniate the last step of D's and Fia's quest, but only leads to an optional extra item drop."
+  },
+  {
+    "name": "Twinned Greaves",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "All four parts can be used to iniate the last step of D's and Fia's quest, but only leads to an optional extra item drop."
+  },
+  {
+    "name": "Deathroot",
+    "category": "optional",
+    "maxCount": 9,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to progress Gurrang's questline, but only leads to additional non-critical item drops."
+  },
+  {
+    "name": "Seluvis' Potion",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to end Nepheli Loux's or Dung Eater questline early and grant an additional sale option for Seluvis and must be done before giving Ranni the Fingerslayer Blade."
+  },
+  {
+    "name": "Seluvis' Introduction",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Optional item to give to Sellen, but only leads to some extra lore."
+  },
+  {
+    "name": "Fingerslayer Blade",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Can be given to Ranni to open Renna's Rise, allowing for an alternate route to Moonlight Altar, which would otherwise require you to go through Deeproot Depths."
+  },
+  {
+    "name": "Miniature Ranni",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can only lead to an additional non-critical item drop when talked to before defeating Baleful Shadow, but otherwise completely optional."
+  },
+  {
+    "name": "Mending Rune of the Death-Prince",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to trigger a specific ending when not under the influence of the Frenzied Flame. Completely optional."
+  },
+  {
+    "name": "Mending Rune of Perfect Order",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to trigger a specific ending when not under the influence of the Frenzied Flame. Completely optional."
+  },
+  {
+    "name": "Mending Rune of the Fell Curse",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used to trigger a specific ending when not under the influence of the Frenzied Flame. Completely optional."
+  },
+  {
+    "name": "Stormhawk King",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be given to Nepheli for an additional non-critical item drop later, but otherwise completely optional."
+  },
+  {
+    "name": "Rya's Necklace",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Can be used to get an optional item drop from Rya if found before she moves to Volcano Manor. Also can be used as an optional shortcut to Volcano Manor when you run into her at Altus Plateau after giving it to her in Liurnia. (Near Lux Ruins or top of the Grand Lift of Dectus)"
+  },
+  {
+    "name": "Sewer-Gaol Key",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Required for Dung Eater's quest progression, but leads to no shortcuts or critical items."
+  },
+  {
+    "name": "Seedbed Curse",
+    "category": "optional",
+    "maxCount": 6,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Five can be given to the Dungeater for some optional, non-critical items. Only after having acquired the Sewer-Gaol Key."
+  },
+  {
+    "name": "Law of Regression",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be used west of Erdtree Sanctuary to get more additional non-critical item drops in the Goldmask and Corhyn questline."
+  },
+  {
+    "name": "Glintstone Key",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Specifically Thops key, the one that doesn't allow you to enter Raya Lucaria. Grants an additional non-critical item spawn later."
+  },
+  {
+    "name": "Shabriri Grape",
+    "category": "optional",
+    "maxCount": 3,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Can be given to Hyetta to progress her questline and grant you an additional non-critical item drop after embracing the Frenzied Flame."
+  },
+  {
+    "name": "Latenna the Albinauric",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used for one additional non-critical item drop at Apostate Derilict Church."
+  },
+  {
+    "name": "Volcano Manor Invitation",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Can be used as an optional shortcut to Volcano Manor when you run into Rya at Altus Plateau. (Near Lux Ruins or top of the Grand Lift of Dectus)(Might need to have given Rya's Necklace as well previously, confirmation needed) (So far worked with just the necklace, didnt have invitation, might still work with just invitation? idk)"
+  },
+  {
+    "name": "Tonic of Forgetfullness",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Optional item in Rya's questline for an optional non-critical item drop."
+  },
+  {
+    "name": "Unalloyed Gold Needle",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used for Millicent's questline, this line is fully optional and only leads to non-critical items and no shortcuts."
+  },
+  {
+    "name": "Valkyrie's Prosthetic",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used for Millicent's questline, this line is fully optional and only leads to non-critical items and no shortcuts."
+  },
+  {
+    "name": "Millicent's Needle",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used for Millicent's questline, this line is fully optional and only leads to non-critical items and no shortcuts."
+  },
+  {
+    "name": "Letter from Volcano Manor (Istvan)",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Required to unlock the invasion missions for Volcano Manor. Collect and execute all three, and unlock an alternate route to Rykard's fight."
+  },
+  {
+    "name": "Letter from Volcano Manor (Rileigh)",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Required to unlock the invasion missions for Volcano Manor. Collect and execute all three, and unlock an alternate route to Rykard's fight."
+  },
+  {
+    "name": "Red Letter",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": true,
+    "notes": "Required to unlock the invasion missions for Volcano Manor. Collect and execute all three, and unlock an alternate route to Rykard's fight."
+  },
+  {
+    "name": "Letter to Patches",
+    "category": "optional",
+    "maxCount": 1,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Unlocks an optional invasion for Volcano Manor, but is completely optional and unlocks no alternate routes."
+  },
+  {
+    "name": "Dragon Heart",
+    "category": "optional",
+    "maxCount": 29,
+    "dlc": false,
+    "shortcut": false,
+    "notes": "Used to purchase items from the Dragon Communion altars, but those never house critical items. Could still possibly sell items required for optional shortcuts."
+  }
+]

@@ -1,0 +1,340 @@
+{
+ "key_dectus_medallion_left_limgrave": [
+  1046360500
+ ],
+ "key_rusty_key_stormveil_castle": [
+  10000500
+ ],
+ "key_haligtree_secret_medallion_right_liurnia": [
+  101300
+ ],
+ "key_glintstone_key_liurnia": [
+  1034450100
+ ],
+ "key_imbued_sword_key_liurnia": [
+  1033470020
+ ],
+ "key_imbued_sword_key_academy_of_raya_lucaria": [
+  14000630
+ ],
+ "key_dark_moon_ring_academy_of_raya_lucaria": [
+  14000960
+ ],
+ "key_imbued_sword_key_caelid": [
+  1050390910
+ ],
+ "key_dectus_medallion_right_dragonbarrow": [
+  1051390900
+ ],
+ "key_rold_medallion_leyndell": [
+  100010
+ ],
+ "key_stargazer_heirloom_cursemark_of_death_divine_tower_of_liurnia": [
+  34110500,
+  34110501
+ ],
+ "key_drawing_room_key_volcano_manor": [
+  100720
+ ],
+ "key_haligtree_secret_medallion_left_mountaintops_of_the_giants": [
+  1051580800
+ ],
+ "key_well_depths_key_belurat": [
+  20000510
+ ],
+ "key_imbued_sword_key_castle_ensis": [
+  2048440800
+ ],
+ "key_replaces_hole_laden_necklace_ruins_map_scadu_altus": [
+  106600,
+  106601
+ ],
+ "key_o_mother_scadu_altus": [
+  1032500030
+ ],
+ "key_gaol_upper_level_key_charos_hidden_grave": [
+  41020000
+ ],
+ "key_gaol_lower_level_key_charos_hidden_grave": [
+  41020320
+ ],
+ "pickup_sacred_tear_limgrave": [
+  1046380100
+ ],
+ "pickup_golden_seed_limgrave": [
+  1046360100
+ ],
+ "pickup_golden_seed_limgrave_2": [
+  1041380100
+ ],
+ "pickup_golden_seed_stormveil_castle": [
+  10000730
+ ],
+ "pickup_sacred_tear_weeping_peninsula": [
+  1043350100
+ ],
+ "pickup_sacred_tear_weeping_peninsula_2": [
+  1044330100
+ ],
+ "pickup_sacred_tear_weeping_peninsula_3": [
+  1041330200
+ ],
+ "pickup_golden_seed_weeping_peninsula": [
+  1044320020
+ ],
+ "pickup_sacred_tear_liurnia": [
+  1039390000
+ ],
+ "pickup_golden_seed_liurnia": [
+  1035500300
+ ],
+ "pickup_golden_seed_liurnia_2": [
+  1037500100
+ ],
+ "pickup_golden_seed_liurnia_3": [
+  1036440300
+ ],
+ "pickup_sacred_tear_liurnia_2": [
+  1036490000
+ ],
+ "pickup_sacred_tear_liurnia_3": [
+  1037490100
+ ],
+ "pickup_golden_seed_academy_of_raya_lucaria": [
+  1035460100
+ ],
+ "pickup_golden_seed_academy_of_raya_lucaria_2": [
+  14000990
+ ],
+ "pickup_golden_seed_siofra_river": [
+  12020040
+ ],
+ "pickup_sacred_tear_caelid": [
+  1050380020
+ ],
+ "pickup_golden_seed_caelid": [
+  1049370020
+ ],
+ "pickup_golden_seed_caelid_2": [
+  1050390100
+ ],
+ "pickup_golden_seed_dragonbarrow": [
+  1051430020
+ ],
+ "pickup_sacred_tear_altus_plateau": [
+  1040510400
+ ],
+ "pickup_sacred_tear_altus_plateau_2": [
+  1039520400
+ ],
+ "pickup_golden_seed_altus_plateau": [
+  1042540400
+ ],
+ "pickup_golden_seed_2x_altus_plateau": [
+  1043520400
+ ],
+ "pickup_golden_seed_altus_plateau_2": [
+  1038510400
+ ],
+ "pickup_golden_seed_altus_plateau_3": [
+  1039510400
+ ],
+ "pickup_golden_seed_altus_plateau_4": [
+  1041540400
+ ],
+ "pickup_golden_seed_capital_outskirts": [
+  1042510400
+ ],
+ "pickup_golden_seed_leyndell": [
+  11000990
+ ],
+ "pickup_golden_seed_mt_gelmir": [
+  1036540400
+ ],
+ "pickup_golden_seed_mt_gelmir_2": [
+  1037530400
+ ],
+ "pickup_golden_seed_ainsel_river": [
+  12010100
+ ],
+ "pickup_golden_seed_forbidden_lands": [
+  1049520800
+ ],
+ "pickup_sacred_tear_mountaintops_of_the_giants": [
+  1054550800
+ ],
+ "pickup_golden_seed_mountaintops_of_the_giants": [
+  1052570800
+ ],
+ "pickup_sacred_tear_mountaintops_of_the_giants_2": [
+  1051530800
+ ],
+ "pickup_golden_seed_mountaintops_of_the_giants_2": [
+  1052530800
+ ],
+ "pickup_golden_seed_farum_azula": [
+  13000990
+ ],
+ "pickup_golden_seed_farum_azula_2": [
+  13000980
+ ],
+ "pickup_golden_seed_consecrated_snowfield": [
+  1048570800
+ ],
+ "pickup_golden_seed_consecrated_snowfield_2": [
+  1049550800
+ ],
+ "pickup_golden_seed_mohgwyn": [
+  12050010
+ ],
+ "blessing_scadutree_fragment_gravesite_plain": [
+  2045420700
+ ],
+ "blessing_scadutree_fragment_gravesite_plain_2": [
+  2048430700
+ ],
+ "blessing_scadutree_fragment_gravesite_plain_3": [
+  2046420700
+ ],
+ "blessing_scadutree_fragment_gravesite_plain_4": [
+  2047440750
+ ],
+ "blessing_scadutree_fragment_2x_gravesite_plain": [
+  2048410700
+ ],
+ "blessing_revered_spirit_ash_gravesite_plain": [
+  2045410700
+ ],
+ "blessing_revered_spirit_ash_gravesite_plain_2": [
+  2047410700
+ ],
+ "blessing_revered_spirit_ash_gravesite_plain_3": [
+  2046440700
+ ],
+ "blessing_scadutree_fragment_belurat": [
+  20000620
+ ],
+ "blessing_revered_spirit_ash_belurat": [
+  20000700
+ ],
+ "blessing_revered_spirit_ash_2x_belurat": [
+  20000170
+ ],
+ "blessing_revered_spirit_ash_belurat_2": [
+  20000800
+ ],
+ "blessing_revered_spirit_ash_ellac_river": [
+  2047430700
+ ],
+ "blessing_scadutree_fragment_cerulean_coast": [
+  2048370050
+ ],
+ "blessing_scadutree_fragment_cerulean_coast_2": [
+  2047400100
+ ],
+ "blessing_scadutree_fragment_castle_ensis": [
+  2047440720
+ ],
+ "blessing_scadutree_fragment_scadu_altus": [
+  2048440500
+ ],
+ "blessing_scadutree_fragment_scadu_altus_2": [
+  2049440530
+ ],
+ "blessing_scadutree_fragment_scadu_altus_3": [
+  2048450520
+ ],
+ "blessing_scadutree_fragment_scadu_altus_4": [
+  2048460510
+ ],
+ "blessing_scadutree_fragment_scadu_altus_5": [
+  2049450510
+ ],
+ "blessing_scadutree_fragment_2x_scadu_altus": [
+  2047460500
+ ],
+ "blessing_revered_spirit_ash_scadu_altus": [
+  2050440500
+ ],
+ "blessing_revered_spirit_ash_scadu_altus_2": [
+  2049440500
+ ],
+ "blessing_scadutree_fragment_scadu_altus_6": [
+  2050430500
+ ],
+ "blessing_scadutree_fragment_lower_scadu_altus": [
+  2050450730
+ ],
+ "blessing_revered_spirit_ash_lower_scadu_altus": [
+  2050430720
+ ],
+ "blessing_revered_spirit_ash_lower_scadu_altus_2": [
+  2050460700
+ ],
+ "blessing_scadutree_fragment_shadow_keep_church_district": [
+  21000400
+ ],
+ "blessing_scadutree_fragment_shadow_keep_specimen_storehouse": [
+  21010200
+ ],
+ "blessing_scadutree_fragment_shadow_keep_specimen_storehouse_2": [
+  21010500
+ ],
+ "blessing_revered_spirit_ash_shadow_keep_specimen_storehouse": [
+  21010460
+ ],
+ "blessing_revered_spirit_ash_shadow_keep_specimen_storehouse_2": [
+  21010020
+ ],
+ "blessing_scadutree_fragment_cerulean_coast_3": [
+  22000000
+ ],
+ "blessing_scadutree_fragment_rauh_base": [
+  2046450040
+ ],
+ "blessing_scadutree_fragment_ancient_ruins_of_rauh": [
+  2046470750
+ ],
+ "blessing_scadutree_fragment_ancient_ruins_of_rauh_2": [
+  2044450000
+ ],
+ "blessing_revered_spirit_ash_ancient_ruins_of_rauh": [
+  2044460000
+ ],
+ "blessing_scadutree_fragment_scaduview": [
+  2049480000
+ ],
+ "blessing_scadutree_fragment_5x_scaduview": [
+  2049490500
+ ],
+ "blessing_scadutree_fragment_2x_abyssal_woods": [
+  2053410500
+ ],
+ "blessing_scadutree_fragment_abyssal_woods": [
+  2050430010
+ ],
+ "blessing_revered_spirit_ash_midras_manse": [
+  28000110
+ ],
+ "blessing_scadutree_fragment_jagged_peak": [
+  2053390020
+ ],
+ "blessing_scadutree_fragment_enir_ilim": [
+  20010350
+ ],
+ "blessing_scadutree_fragment_enir_ilim_2": [
+  20010470
+ ],
+ "blessing_scadutree_fragment_enir_ilim_3": [
+  20010550
+ ],
+ "blessing_revered_spirit_ash_enir_ilim": [
+  20010400
+ ],
+ "blessing_revered_spirit_ash_2x_enir_ilim": [
+  20010200
+ ],
+ "blessing_scadutree_fragment_enir_ilim_4": [
+  20000820
+ ]
+}

@@ -1,0 +1,24 @@
+{
+  "eventFlagManager": {
+    "pattern": "44 89 7c 24 28 4c 8b 25 ? ? ? ? 4d 85 e4",
+    "operandOffset": 8,
+    "instructionEnd": 12
+  },
+  "worldChrMan": {
+    "pattern": "48 8b 35 ? ? ? ? 48 85 f6 ? ? bb 01 00 00 00 89 5c 24 20 48 8b b6",
+    "operandOffset": 3,
+    "instructionEnd": 7
+  },
+  "player": {
+    "note": "From SoulSplitter's table for game versions 1.12 to 1.16. Not yet confirmed on 1.17; the reader reports no position rather than a wrong one if they are off.",
+    "playerInsOffset": "0x1E508",
+    "mapIdOffset": "0x6D0",
+    "positionOffset": "0x6D4"
+  },
+  "gameDataMan": {
+    "note": "From The Grand Archives' Elden Ring table. GameDataMan + 0x8 is the main player's data, where the inventory is.",
+    "pattern": "48 8B 05 ? ? ? ? 48 85 C0 74 05 48 8B 40 58 C3 C3",
+    "operandOffset": 3,
+    "instructionEnd": 7
+  }
+}
