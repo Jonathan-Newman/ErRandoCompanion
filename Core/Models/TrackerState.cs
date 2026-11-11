@@ -56,6 +56,12 @@ public sealed class TrackerState
     /// <summary>Checks put aside for now ("skipped for now"): left out of the nearest list and the dead-end count.</summary>
     public HashSet<string> Skipped { get; set; } = [];
 
+    /// <summary>
+    /// Ticked checks of the full list (every slot the randomizer could fill, see <see cref="AllChecks.AllChecksSeed"/>),
+    /// by slot id ("lot:10000420", "shop:100012"). Kept apart from <see cref="CheckedLocations"/>, the main checklist.
+    /// </summary>
+    public HashSet<string> AllChecked { get; set; } = [];
+
     public const int MaxTargets = 5;
 
     /// <summary>Checks the player is hunting, by location id, numbered 1 to <see cref="MaxTargets"/>. Each number is used once.</summary>

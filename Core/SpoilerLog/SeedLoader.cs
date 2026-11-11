@@ -1,4 +1,5 @@
 using System.IO;
+using ErRandoCompanion.Core.AllChecks;
 using ErRandoCompanion.Core.Data;
 using ErRandoCompanion.Core.Navigation;
 
@@ -18,6 +19,9 @@ public sealed record LoadedSeed(ParsedSpoilerLog Log, SeedFlags Flags, MapLinks 
 
     /// <summary>Which arena each boss is in (see <see cref="BossArenas"/>); set by <see cref="SeedLoader.Load"/>.</summary>
     public IReadOnlyDictionary<string, string> BossArenas { get; init; } = new Dictionary<string, string>();
+
+    /// <summary>Every check the randomizer could fill in this seed, or null when the randomizer folder lacks its slot tables.</summary>
+    public AllChecksSeed? All { get; init; }
 
     /// <summary>Every Site of Grace, named and placed, for "warp to the nearest grace" hints.</summary>
     public IReadOnlyList<Grace> Graces { get; init; } = [];
@@ -55,6 +59,25 @@ public static class SeedLoader
             Pickups = ItemPickups.Build(regulation, log.RandomizerDirectory),
             MapNames = ItemPickups.LoadMapNames(log.RandomizerDirectory),
             ItemNames = ItemPickups.LoadNames(Path.Combine(log.RandomizerDirectory, "diste", "Names")),
+            All = LoadAll(directory, regulation, log.Options),
         };
+    }
+
+    /// <summary>The full check list, from the randomizer's diste\Base tables; null when they are missing or unreadable.</summary>
+    public static AllChecksSeed? LoadAll(string randomizerDirectory, Regulation regulation, IReadOnlySet<string> options)
+    {
+        var folder = Path.Combine(randomizerDirectory, "diste", "Base");
+        var annotations = Path.Combine(folder, "annotations.txt");
+        var slots = Path.Combine(folder, "itemslots.txt");
+        if (!File.Exists(annotations) || !File.Exists(slots))
+            return null;
+        try
+        {
+            return AllChecksSeed.Build(RandomizerLogic.Load(annotations), SlotCatalog.Load(slots), regulation, options);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or FormatException)
+        {
+            return null;
+        }
     }
 }

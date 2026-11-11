@@ -13,6 +13,9 @@ and has an in-game overlay.
 - **Auto-tracking.** Reads the running game and ticks checks, key items and bosses as you get them.
 - **In-game overlay.** The checklist inside Elden Ring, with keyboard and controller support, targets, a guide arrow, the
   game's own beacon and map markers on your target, and a "check found" popup.
+- **Every check, too.** An All checks tab with every slot the randomizer can fill in your seed (about 4,800: every
+  pickup, chest, enemy drop, boss reward, quest and shop item), grouped by place and opened or locked by the
+  randomizer's own logic. Built for chaotic seeds.
 - **Map.** Every check on the world map, surface, underground and Land of Shadow (map pictures are made from your own
   game, see below).
 - **Routing help.** Nearest checks, walk or warp to a Site of Grace you have found, and what's left in each region.

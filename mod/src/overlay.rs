@@ -28,8 +28,11 @@ const YELLOW: [f32; 4] = [1.0, 0.85, 0.3, 1.0];
 const DETAILS: [f32; 4] = [0.62, 0.64, 0.68, 1.0];
 
 const FILTERS: [&str; 4] = ["Available", "Locked", "Checked", "All"];
-const TABS: [&str; 8] = ["Checks", "Targets", "Items", "Randomizer", "Settings", "Runs", "Found", "Progress"];
+const TABS: [&str; 9] = ["Checks", "Targets", "Items", "Randomizer", "Settings", "Runs", "Found", "Progress", "All"];
 const PROGRESS_TAB: usize = 7;
+const ALL_TAB: usize = 8;
+const ALL_FILTERS: [&str; 4] = ["Open", "Locked", "Checked", "All"];
+const ALL_KINDS: [&str; 7] = ["All", "Pickup", "Chest", "Enemy drop", "Boss", "Quest", "Shop"];
 const FOUND_KINDS: [&str; 9] = ["All", "Weapons", "Armour", "Talismans", "Ashes of War", "Spells", "Spirit Ashes", "Items", "Drop or other"];
 
 /// Stick travel ignored around the centre, as XInput suggests for the left stick.
@@ -195,6 +198,11 @@ pub struct Overlay {
     hotkeys_down: [bool; 3],
     /// Whether the Progress tab was on screen last frame.
     progress_shown: bool,
+    all_shown: bool,
+    /// The place expanded in the All tab.
+    all_place: Option<String>,
+    all_filter: usize,
+    all_kind: usize,
     /// A finished run's summary was asked for, so opening the Progress tab must not load the open run's over it.
     report_requested: bool,
 }
@@ -258,6 +266,11 @@ impl Overlay {
             hidden: false,
             hotkeys_down: [false; 3],
             progress_shown: false,
+            all_shown: false,
+            // For testing outside the game: a place of the All tab to start with open.
+            all_place: std::env::var("ER_MOD_START_PLACE").ok().inspect(|p| crate::worker::set_all_place(Some(p.clone()))),
+            all_filter: 0,
+            all_kind: 0,
             report_requested: false,
         }
     }
@@ -471,7 +484,8 @@ impl Overlay {
                             4 => self.settings_tab(ui, snapshot),
                             5 => self.runs_tab(ui, snapshot),
                             6 => self.found_tab(ui, snapshot),
-                            _ => self.progress_tab(ui, snapshot),
+                            7 => self.progress_tab(ui, snapshot),
+                            _ => self.all_tab(ui, snapshot),
                         }
                     }
                 }
@@ -689,13 +703,20 @@ impl Overlay {
             ui.open_popup("target");
         }
         if let Some(_menu) = ui.begin_popup("target") {
+            // A pressed in this menu belongs to it. The menu closes on the press and focus goes back to the
+            // row, so without this the release would count as A on the row and toggle the target off again.
+            if (self.pad_held | self.pad_released) & pad::A != 0 {
+                self.hold_done.store(true, Ordering::Relaxed);
+            }
             for number in 1..=5 {
                 if ui.menu_item_config(format!("Target {number}")).selected(check.target == Some(number)).build() {
                     self.send(Command::SetTarget(check.id.clone(), Some(number)));
+                    check.target = Some(number);
                 }
             }
             if check.target.is_some() && ui.menu_item("Clear target") {
                 self.send(Command::SetTarget(check.id.clone(), None));
+                check.target = None;
             }
             if check.status != "checked" {
                 ui.separator();
@@ -1231,6 +1252,107 @@ impl Overlay {
 
     /// Everything picked up in this run, newest first, with where. Rows are all one height, so only those on screen
     /// are laid out, however long the list grows.
+    /// Every check the randomizer could fill in this seed, by place. Says where each is and what the unrandomized
+    /// game had there, never what it holds now. Ticks here are apart from the Checks tab.
+    fn all_tab(&mut self, ui: &Ui, snapshot: &Snapshot) {
+        let Some(all) = snapshot.all_places.as_ref() else {
+            ui.text_disabled("Reading the full list...");
+            return;
+        };
+        if let Some(message) = &all.message {
+            ui.text_wrapped(message);
+            return;
+        }
+        ui.text_colored(GOLD, format!("{} / {} checked, {} open now", all.done, all.total, all.open));
+        ui.same_line();
+        ui.text_disabled(format!("({} ticked by hand)", all.by_hand));
+        ui.set_next_item_width(110.0);
+        ui.combo_simple_string("##allfilter", &mut self.all_filter, &ALL_FILTERS);
+        ui.same_line();
+        ui.set_next_item_width(130.0);
+        ui.combo_simple_string("##allkind", &mut self.all_kind, &ALL_KINDS);
+        ui.same_line();
+        ui.text_disabled("Every slot of the seed, by the randomizer's own logic.");
+
+        let filter = ALL_FILTERS[self.all_filter];
+        let kind = ALL_KINDS[self.all_kind];
+        ui.child_window("allchecks").build(|| {
+            for place in &all.places {
+                let shown = match filter {
+                    "Open" => place.open > 0,
+                    "Checked" => place.done > 0,
+                    "Locked" => place.total - place.done - place.open > 0,
+                    _ => true,
+                };
+                if !shown {
+                    continue;
+                }
+                let _id = ui.push_id(&place.name);
+                let expanded = self.all_place.as_deref() == Some(place.name.as_str());
+                let open = if place.open > 0 { format!(", {} open", place.open) } else { String::new() };
+                let label = format!("{} {}  ({} / {}{})", if expanded { "-" } else { "+" }, place.name, place.done, place.total, open);
+                let colour = if place.done == place.total { GREY } else if place.open > 0 { [1.0, 1.0, 1.0, 1.0] } else { GREY };
+                let clicked = {
+                    let _c = ui.push_style_color(StyleColor::Text, colour);
+                    ui.selectable_config(&label).selected(expanded).build()
+                };
+                if clicked {
+                    self.all_place = if expanded { None } else { Some(place.name.clone()) };
+                    crate::worker::set_all_place(self.all_place.clone());
+                    self.send(Command::LoadAll);
+                }
+                if !expanded {
+                    continue;
+                }
+                if snapshot.all_checks_place.as_deref() != Some(place.name.as_str()) {
+                    ui.text_disabled("    Reading...");
+                    continue;
+                }
+                ui.indent_by(16.0);
+                let mut any = false;
+                for check in &snapshot.all_checks {
+                    let status_shown = match filter {
+                        "Open" => check.status == "available",
+                        "Locked" => check.status == "locked",
+                        "Checked" => check.status == "checked",
+                        _ => true,
+                    };
+                    if !status_shown || (kind != "All" && check.kind != kind) {
+                        continue;
+                    }
+                    any = true;
+                    let _cid = ui.push_id(&check.id);
+                    let mut ticked = check.status == "checked";
+                    if ui.checkbox("##tick", &mut ticked) {
+                        self.send(Command::SetAllChecked(check.id.clone(), ticked));
+                    }
+                    ui.same_line();
+                    let colour = match check.status.as_str() {
+                        "checked" => GREEN,
+                        "locked" => GREY,
+                        _ => [1.0, 1.0, 1.0, 1.0],
+                    };
+                    ui.group(|| {
+                        ui.text_colored(colour, if check.description.is_empty() { "Somewhere here" } else { &check.description });
+                        let mut detail = format!("{}  -  was {}", check.kind, check.replaces);
+                        if check.missable {
+                            detail.push_str("  -  missable");
+                        }
+                        if check.by_hand {
+                            detail.push_str("  -  tick by hand");
+                        }
+                        let _d = ui.push_style_color(StyleColor::Text, DETAILS);
+                        ui.text_wrapped(detail);
+                    });
+                }
+                if !any {
+                    ui.text_disabled("Nothing here with this filter.");
+                }
+                ui.unindent_by(16.0);
+            }
+        });
+    }
+
     fn found_tab(&mut self, ui: &Ui, snapshot: &Snapshot) {
         ui.set_next_item_width(150.0);
         ui.combo_simple_string("##kind", &mut self.found_kind, &FOUND_KINDS);
@@ -1697,6 +1819,13 @@ impl ImguiRenderLoop for Overlay {
         }
         self.progress_shown = progress_shown;
         crate::worker::set_progress_open(progress_shown);
+        // The full list is thousands of checks: its places are read while the All tab shows, its checks one place at a time.
+        let all_shown = self.visible && self.tab == ALL_TAB;
+        crate::worker::set_all_open(all_shown);
+        if all_shown && !self.all_shown {
+            self.send(Command::LoadAll);
+        }
+        self.all_shown = all_shown;
         let shows_nearby = self.config.mini_hud && self.config.nearby_checks > 0 && !self.out_of_game && !self.in_boss_fight && !self.hidden;
         crate::worker::set_nearby(if shows_nearby { self.config.nearby_checks + 5 } else { 0 });
         // While the panel is open the game sees an idle controller, keyboard and mouse, and shows its

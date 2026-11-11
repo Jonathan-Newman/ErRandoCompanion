@@ -40,6 +40,8 @@ In-game overlay plan. The desktop app stays alongside the mod.
 | 34 | Found tab places: the randomizer's placeholder text ("aaaa...") replaced by the nearest grace, distance and height; saved entries mended | Done |
 | 35 | Game save backed up (compressed) with each run backup; restored from the app's Backups window with the game closed | Done |
 | 36 | Map pictures made in the app from the player's own game (archives, Oodle, BC7/BC1 tiles), so no FromSoftware art ships | Done; decoders match Pillow, checked against the real game |
+| 37 | All checks: every slot the randomizer can fill in a seed (its itemslots.txt), by place, open or locked by its own area logic (annotations.txt), auto-ticked from the seed's regulation flags; app tab and overlay All tab | Done; checked against a real seed (4,823 checks, 93% auto-tracked), needs an in-game check |
+| 38 | Fix: picking a target number with the controller (Y, then A) no longer clears the target again | Built; needs an in-game check |
 
 ## Ongoing
 - After a game update, check `ErRandoCompanionMod.log`. If auto-tracking or the cursor stops working, the memory patterns need updating (`Data\signatures.json` and `mod/src/game_input.rs`).

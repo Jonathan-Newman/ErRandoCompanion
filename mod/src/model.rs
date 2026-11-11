@@ -54,6 +54,41 @@ pub struct Split {
     pub best: Option<f64>,
 }
 
+/// A place in the full check list (every slot the randomizer could fill), with its counts.
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct AllPlace {
+    pub name: String,
+    pub done: i32,
+    pub total: i32,
+    pub open: i32,
+}
+
+/// The full check list's places and totals; `message` says why there is no list.
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct AllPlaces {
+    pub message: Option<String>,
+    pub done: i32,
+    pub total: i32,
+    pub open: i32,
+    pub by_hand: i32,
+    pub places: Vec<AllPlace>,
+}
+
+/// One check of the full list: where it is and what the unrandomized game had there, never what it holds now.
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct AllCheck {
+    pub id: String,
+    pub description: String,
+    pub kind: String,
+    pub replaces: String,
+    pub missable: bool,
+    pub by_hand: bool,
+    pub status: String,
+}
+
 /// One region's checks; open means available and not skipped.
 #[derive(Clone, Debug, Default, Deserialize)]
 #[serde(rename_all = "camelCase", default)]

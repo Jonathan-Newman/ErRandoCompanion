@@ -11,7 +11,7 @@ use std::time::{Duration, Instant};
 use serde_json::json;
 
 use crate::log;
-use crate::model::{Backup, BossChoice, Check, FinishedRun, FoundEntry, GoalKind, Item, Poll, RegionCount, Report, Setting, Summary, Unlock};
+use crate::model::{AllCheck, AllPlaces, Backup, BossChoice, Check, FinishedRun, FoundEntry, GoalKind, Item, Poll, RegionCount, Report, Setting, Summary, Unlock};
 use crate::native::Native;
 
 const POLL_EVERY: Duration = Duration::from_secs(1);
@@ -24,6 +24,18 @@ static FOUND_OPEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool
 
 /// Whether the Progress tab is open, so the open run's report follows it.
 static PROGRESS_OPEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
+/// Whether the All tab is open, and which of its places is expanded, so only that place's checks are fetched.
+static ALL_OPEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+static ALL_PLACE: Mutex<Option<String>> = Mutex::new(None);
+
+pub fn set_all_open(open: bool) {
+    ALL_OPEN.store(open, Ordering::Relaxed);
+}
+
+pub fn set_all_place(place: Option<String>) {
+    *ALL_PLACE.lock().unwrap_or_else(|p| p.into_inner()) = place;
+}
 
 pub fn set_progress_open(open: bool) {
     PROGRESS_OPEN.store(open, Ordering::Relaxed);
@@ -58,6 +70,10 @@ pub enum Command {
     SkipNearest,
     /// Reads a run's report: the open run (None), or a finished one by name.
     LoadReport(Option<String>),
+    /// Ticks or unticks a check of the full list by hand.
+    SetAllChecked(String, bool),
+    /// Reads the full list's places, and the expanded place's checks.
+    LoadAll,
 }
 
 #[derive(Default)]
@@ -86,6 +102,11 @@ pub struct Snapshot {
     pub regions: Vec<RegionCount>,
     /// The open run's report while the Progress tab shows it, or a finished run's when asked for.
     pub report: Option<Report>,
+    /// The full check list's places while the All tab is open.
+    pub all_places: Option<AllPlaces>,
+    /// The checks of one place of the full list, and which place they are.
+    pub all_checks: Vec<AllCheck>,
+    pub all_checks_place: Option<String>,
     pub poll: Option<Poll>,
     /// The last command that failed, shown until dismissed.
     pub notice: Option<String>,
@@ -164,6 +185,7 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
             Ok(Command::LoadBackups) => load_backups(&native, &shared),
             Ok(Command::LoadFound) => load_found(&native, &shared),
             Ok(Command::LoadReport(name)) => load_report(&native, &shared, name),
+            Ok(Command::LoadAll) => load_all(&native, &shared),
             Ok(command) => {
                 let restored = matches!(command, Command::RestoreBackup(..));
                 if let Err(e) = apply(&native, command) {
@@ -218,7 +240,8 @@ fn apply(native: &Native, command: Command) -> Result<(), String> {
         Command::OpenNewestSeed => json!({ "op": "openNewestSeed" }),
         Command::LoadBackups => return Ok(()),
         Command::ToggleGoalBoss(id) => json!({ "op": "toggleGoalBoss", "id": id }),
-        Command::LoadFound | Command::LoadReport(_) => return Ok(()),
+        Command::LoadFound | Command::LoadReport(_) | Command::LoadAll => return Ok(()),
+        Command::SetAllChecked(id, checked) => json!({ "op": "setAllChecked", "id": id, "checked": checked }),
         Command::ToggleSkip(id) => json!({ "op": "toggleSkip", "id": id }),
         Command::SkipNearest => json!({ "op": "skipNearest" }),
         Command::RestoreBackup(name, id) => json!({ "op": "restoreBackup", "name": name, "id": id }),
@@ -259,6 +282,9 @@ fn refresh(native: &Native, shared: &Shared) {
             if follow && PROGRESS_OPEN.load(Ordering::Relaxed) {
                 load_report(native, shared, None);
             }
+            if ALL_OPEN.load(Ordering::Relaxed) {
+                load_all(native, shared);
+            }
             let mut snapshot = shared.lock();
             snapshot.seeds = seeds;
             snapshot.ready = true;
@@ -273,6 +299,28 @@ fn load_report(native: &Native, shared: &Shared, name: Option<String>) {
         Ok(report) => {
             let mut snapshot = shared.lock();
             snapshot.report = Some(report);
+            snapshot.generation += 1;
+        }
+        Err(e) => shared.lock().notice = Some(e),
+    }
+}
+
+fn load_all(native: &Native, shared: &Shared) {
+    let place = ALL_PLACE.lock().unwrap_or_else(|p| p.into_inner()).clone();
+    let read = || -> Result<_, String> {
+        let places = native.call::<AllPlaces>(json!({ "op": "allPlaces" }))?;
+        let checks = match &place {
+            Some(name) => native.call::<Vec<AllCheck>>(json!({ "op": "allChecks", "place": name }))?,
+            None => Vec::new(),
+        };
+        Ok((places, checks))
+    };
+    match read() {
+        Ok((places, checks)) => {
+            let mut snapshot = shared.lock();
+            snapshot.all_places = Some(places);
+            snapshot.all_checks = checks;
+            snapshot.all_checks_place = place;
             snapshot.generation += 1;
         }
         Err(e) => shared.lock().notice = Some(e),
@@ -425,11 +473,41 @@ mod tests {
         };
 
         commands.send(Command::SetTarget(id.clone(), Some(2))).unwrap();
-        wait_for(&shared, "the target", |s| s.summary.targets.iter().any(|t| t.number == 2 && t.id == id && t.active));
+        // The run may already have other targets, one of them the active one.
+        wait_for(&shared, "the target", |s| s.summary.targets.iter().any(|t| t.number == 2 && t.id == id));
         commands.send(Command::SetChecked(id.clone(), true)).unwrap();
-        wait_for(&shared, "the check", |s| s.summary.checked == before + 1 && s.summary.targets.is_empty());
+        wait_for(&shared, "the check", |s| s.summary.checked == before + 1 && !s.summary.targets.iter().any(|t| t.id == id));
         commands.send(Command::SetChecked(id.clone(), false)).unwrap();
         wait_for(&shared, "the uncheck", |s| s.summary.checked == before);
+
+        // The full list: its places, then one place's checks, ticked and unticked by hand.
+        set_all_open(true);
+        commands.send(Command::LoadAll).unwrap();
+        wait_for(&shared, "the full list", |s| s.all_places.is_some());
+        let place = {
+            let s = shared.lock();
+            let all = s.all_places.as_ref().unwrap();
+            println!("full list: {} / {} checked, {} open, {} places, message: {:?}", all.done, all.total, all.open, all.places.len(), all.message);
+            assert!(all.message.is_none() && all.total > 3000);
+            all.places.iter().find(|p| p.open > 0).expect("a place with open checks").clone()
+        };
+        set_all_place(Some(place.name.clone()));
+        commands.send(Command::LoadAll).unwrap();
+        wait_for(&shared, "a place's checks", |s| s.all_checks_place.as_deref() == Some(place.name.as_str()));
+        let check = {
+            let s = shared.lock();
+            assert_eq!(s.all_checks.len() as i32, place.total);
+            s.all_checks.iter().find(|c| c.status == "available").unwrap().clone()
+        };
+        println!("{}: {} checks; ticking '{}' ({}, was {})", place.name, place.total, check.description, check.kind, check.replaces);
+        commands.send(Command::SetAllChecked(check.id.clone(), true)).unwrap();
+        wait_for(&shared, "the full-list tick", |s| {
+            s.all_checks.iter().any(|c| c.id == check.id && c.status == "checked")
+                && s.all_places.as_ref().is_some_and(|a| a.places.iter().any(|p| p.name == place.name && p.done == place.done + 1))
+        });
+        commands.send(Command::SetAllChecked(check.id.clone(), false)).unwrap();
+        wait_for(&shared, "the full-list untick", |s| s.all_checks.iter().any(|c| c.id == check.id && c.status != "checked"));
+        set_all_open(false);
 
         commands.send(Command::SetTarget("nowhere".into(), Some(1))).unwrap();
         wait_for(&shared, "an error notice", |s| s.notice.as_deref().is_some_and(|n| n.contains("nowhere")));

@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Windows.Input;
 using System.Windows.Threading;
+using ErRandoCompanion.Core.AllChecks;
 using ErRandoCompanion.Core.Data;
 using ErRandoCompanion.Core.Logic;
 using ErRandoCompanion.Core.Models;
@@ -58,6 +59,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     private TrackerState _state = new();
     private LogicEvaluator? _logic;
     private AutoTracker? _autoTracker;
+    private AllChecksSeed? _allSeed;
     private LocationFilter _filter = LocationFilter.Available;
     private bool _autoTrack = true;
     private bool _isPolling;
@@ -83,6 +85,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
         _preferences = Preferences.Load(_preferencesPath);
         _newLogTimer.Tick += OnNewLogSettled;
         OpenSeed = new RelayCommand(OpenEnteredSeed, () => !string.IsNullOrWhiteSpace(_seedInput));
+        AllChecks = new AllChecksViewModel(OnAllChecksTicked);
 
         var dataDirectory = Path.Combine(AppContext.BaseDirectory, "Data");
         try
@@ -145,6 +148,9 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     }
 
     public IReadOnlyList<RegionGroupViewModel> Regions { get; } = [];
+
+    /// <summary>The All checks tab: every check the randomizer could fill in this seed.</summary>
+    public AllChecksViewModel AllChecks { get; }
     public IReadOnlyList<ItemViewModel> KeyItems { get; } = [];
     public IReadOnlyList<ItemViewModel> ShortcutItems { get; } = [];
     public IReadOnlyList<ItemViewModel> OtherItems { get; } = [];
@@ -699,6 +705,8 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     private void LoadSeedFlags(bool applyOptions)
     {
         SeedFlags? seed = null;
+        _allSeed = null;
+        string? noFullList = null;
         _bossArenas = null;
         _graces = null;
         _pickups = new Dictionary<uint, Pickup>();
@@ -719,6 +727,10 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                 _itemNames = loaded.ItemNames;
                 _graces = new GraceTracker(loaded.Graces);
                 _graceHintFor = (null, -2);
+                _allSeed = loaded.All;
+                noFullList = loaded.All is null
+                    ? @"The randomizer folder has no diste\Base\itemslots.txt or annotations.txt, so the full list cannot be made."
+                    : null;
 
                 if (applyOptions)
                     loaded.Log.ApplyOptionsTo(_state);
@@ -736,6 +748,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
 
         // Only a seed linked to its log is tracked, so opening another seed cannot fill it with this save's progress.
         _autoTracker = seed is null ? null : new AutoTracker(_data!, _state, seed);
+        AllChecks.Load(_allSeed, _data!, _state, noFullList);
         // Older entries may hold the randomizer's placeholder text for a place.
         if (seed is not null && PickupLog.Repair(_state, _pickups) > 0)
             Save();
@@ -787,7 +800,10 @@ public sealed class MainViewModel : ObservableObject, IDisposable
             var scanPickups = pickups.Count > 0 && !_ownership.IsReadOnly && _polls++ % PickupLog.ScanEvery == 0;
             IEnumerable<uint> flags = _autoTracker.PendingFlags();
             if (scanPickups)
-                flags = flags.Concat(PickupLog.Pending(_state, pickups)).Concat(_graces?.Pending ?? []).ToList();
+            {
+                flags = flags.Concat(PickupLog.Pending(_state, pickups)).Concat(_graces?.Pending ?? [])
+                    .Concat(_allSeed?.PendingFlags(_state) ?? []).Distinct().ToList();
+            }
             var result = await Task.Run(() => game.Poll(flags));
             if (result.Status == ReaderStatus.Connected && result.Player is not null && _graces?.Update(result.FlagsOn) == true)
                 RefreshGraceHint();
@@ -816,6 +832,11 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                 var mapName = _mapNames.GetValueOrDefault(who.Map.ToString());
                 var before = _state.Found.Count;
                 var added = PickupLog.Record(_state, pickups, result.FlagsOn, now, mapName);
+                if (_allSeed?.Apply(_state, result.FlagsOn) > 0)
+                {
+                    Save();
+                    AllChecks.Refresh(_state);
+                }
                 // Then whatever else arrived in the inventory: random drops, purchases, crafting.
                 if (await Task.Run(game.ReadInventory) is { } inventory)
                 {
@@ -1059,6 +1080,13 @@ public sealed class MainViewModel : ObservableObject, IDisposable
         Changed();
     }
 
+    // A tick in the full list touches nothing else, so only that list is worked out again.
+    private void OnAllChecksTicked()
+    {
+        Save();
+        AllChecks.Refresh(_state);
+    }
+
     private void FollowTarget(int number)
     {
         _state.ActiveTarget = number;
@@ -1171,6 +1199,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
         DoneCount = done;
         TotalCount = total;
         Map?.Refresh();
+        AllChecks.Refresh(_state);
     }
 
     private void RefreshTargets()

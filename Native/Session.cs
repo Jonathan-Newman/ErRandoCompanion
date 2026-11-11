@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using ErRandoCompanion.Core.AllChecks;
 using ErRandoCompanion.Core.Data;
 using ErRandoCompanion.Core.Logic;
 using ErRandoCompanion.Core.Models;
@@ -214,6 +215,47 @@ public sealed class Session : IDisposable
         RunTimeline.Compare(splits, best).Select(s => new SplitInfo(s.Number, s.Name, s.Seconds, s.Best)).ToList();
 
     /// <summary>Each region's checks by state, in the data's order.</summary>
+    /// <summary>The full check list's places, or why there is none.</summary>
+    public AllPlacesInfo AllPlaces()
+    {
+        if (_seed?.All is not { } all)
+        {
+            var why = _seed is null
+                ? "Load this run's spoiler log to see every check."
+                : @"The randomizer folder has no diste\Base\itemslots.txt or annotations.txt, so the full list cannot be made.";
+            return new AllPlacesInfo(why, 0, 0, 0, 0, []);
+        }
+        var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state);
+        var statuses = all.Checks.Select(c => (c.Place, Status: logic.StatusOf(c))).ToList();
+        var byPlace = statuses.ToLookup(s => s.Place);
+        return new AllPlacesInfo(null,
+            statuses.Count(s => s.Status == LocationStatus.Checked), statuses.Count, statuses.Count(s => s.Status == LocationStatus.Available),
+            all.Checks.Count(c => !c.Trackable),
+            all.Places.Select(p => new AllPlaceInfo(p, byPlace[p].Count(s => s.Status == LocationStatus.Checked), byPlace[p].Count(),
+                byPlace[p].Count(s => s.Status == LocationStatus.Available))).ToList());
+    }
+
+    /// <summary>The checks of one place in the full list, in the randomizer's order.</summary>
+    public IReadOnlyList<AllCheckInfo> AllChecks(string place)
+    {
+        if (_seed?.All is not { } all)
+            return [];
+        var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state);
+        return all.Checks.Where(c => c.Place == place)
+            .Select(c => new AllCheckInfo(c.Id, c.Slot.Description, c.Slot.Kind, c.Slot.Replaces, c.Slot.Missable, !c.Trackable,
+                Camel(logic.StatusOf(c).ToString())))
+            .ToList();
+    }
+
+    public Summary SetAllChecked(string id, bool isChecked)
+    {
+        if (_seed?.All is not { } all || all.Checks.All(c => c.Id != id))
+            throw new SessionException($"There is no check '{id}' in the full list.");
+        if (isChecked ? _state.AllChecked.Add(id) : _state.AllChecked.Remove(id))
+            Save();
+        return Summary();
+    }
+
     public IReadOnlyList<RegionInfo> Regions() =>
         RunReports.Regions(_data, _state, _logic).Select(r => new RegionInfo(r.Region, r.Open, r.Skipped, r.Locked, r.Done, r.Total)).ToList();
 
@@ -380,7 +422,8 @@ public sealed class Session : IDisposable
         var scanPickups = pickups.Count > 0 && !_ownership.IsReadOnly && _polls++ % PickupLog.ScanEvery == 0;
         var flags = _autoTracker?.PendingFlags() ?? [];
         var graceFlags = scanPickups && _graces is not null ? _graces.Pending : [];
-        var result = _game.Poll(scanPickups ? flags.Concat(PickupLog.Pending(_state, pickups)).Concat(graceFlags) : flags);
+        var allFlags = scanPickups ? _seed?.All?.PendingFlags(_state) ?? [] : [];
+        var result = _game.Poll(scanPickups ? flags.Concat(PickupLog.Pending(_state, pickups)).Concat(graceFlags).Concat(allFlags).Distinct() : flags);
         if (result.Status == GameStatus.Connected && result.Player is not null)
             _graces?.Update(result.FlagsOn);
         _lastPlayer = result.Player;
@@ -409,6 +452,7 @@ public sealed class Session : IDisposable
             var mapName = _seed!.MapNames.GetValueOrDefault(who.Map.ToString());
             var before = _state.Found.Count;
             var added = PickupLog.Record(_state, pickups, result.FlagsOn, now, mapName);
+            added += _seed.All?.Apply(_state, result.FlagsOn) ?? 0;
             // Then whatever else arrived in the inventory: random drops, purchases, crafting.
             var inventory = _game.ReadInventory();
             _inventoryReadable = inventory is not null;

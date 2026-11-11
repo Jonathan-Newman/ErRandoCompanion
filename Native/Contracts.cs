@@ -47,6 +47,18 @@ public sealed record TimedInfo(string Name, double Seconds);
 
 public sealed record PlaceCount(string Place, int Count);
 
+/// <summary>A place in the full check list, with its counts.</summary>
+public sealed record AllPlaceInfo(string Name, int Done, int Total, int Open);
+
+/// <summary>
+/// The full check list's places and totals. Message says why there is no list (no spoiler log, missing tables),
+/// and is null when there is one.
+/// </summary>
+public sealed record AllPlacesInfo(string? Message, int Done, int Total, int Open, int ByHand, IReadOnlyList<AllPlaceInfo> Places);
+
+/// <summary>One check of the full list: where it is and what the unrandomized game had there, never what it holds now.</summary>
+public sealed record AllCheckInfo(string Id, string Description, string Kind, string Replaces, bool Missable, bool ByHand, string Status);
+
 /// <summary>The longest wait between ticked checks: from and to in played seconds, and the check that ended it.</summary>
 public sealed record StretchInfo(double From, double To, string EndedWith);
 
@@ -161,6 +173,8 @@ public sealed record PollInfo(string Status, string Message, bool Changed, Playe
     DefaultIgnoreCondition = JsonIgnoreCondition.Never)]
 [JsonSerializable(typeof(SessionOptions))]
 [JsonSerializable(typeof(Summary))]
+[JsonSerializable(typeof(AllPlacesInfo))]
+[JsonSerializable(typeof(IReadOnlyList<AllCheckInfo>))]
 [JsonSerializable(typeof(IReadOnlyList<string>))]
 [JsonSerializable(typeof(IReadOnlyList<CheckInfo>))]
 [JsonSerializable(typeof(IReadOnlyList<ItemInfo>))]

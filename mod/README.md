@@ -178,6 +178,13 @@ never where they are).
 **Items.** The top lists each key or shortcut item you are still missing and how many locked checks it would open right
 now, with their regions. It only asks the logic "what if I had it", so it never says where an item is.
 
+**All.** Every check the randomizer could fill in this seed, not just the main checklist: every pickup, chest, enemy
+drop, boss reward, quest reward and shop item (about 4,800 with the DLC). They are grouped by place, with done, total
+and open counts; pick a place to see its checks. Open and locked follow the randomizer's own logic. Each check says
+where it is and what the unrandomized game had there ("was Iron Whetblade"), never what it holds now. Most are ticked
+automatically; the few the game keeps no flag for (unlimited shop stock, some drops) say "tick by hand". Ticks here
+are kept apart from the Checks tab, so they do not change your goal or counts there.
+
 **Found.** Everything you pick up in a run (weapons, armour, talismans, ashes of war, spells, spirit ashes and other
 items), newest first, with where it was and when, filterable by kind and searchable.
 
