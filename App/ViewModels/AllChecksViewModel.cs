@@ -183,7 +183,7 @@ public sealed class AllChecksViewModel : ObservableObject
         _state = state;
         if (_seed is null || _data is null)
             return;
-        var logic = new AllChecksLogic(_seed.Logic, _seed.Options, _data, state);
+        var logic = new AllChecksLogic(_seed.Logic, _seed.Options, _data, state, _seed.KnownItems);
         foreach (var row in _rows)
             row.Update(logic.StatusOf(row.Check));
         foreach (var place in Places)

@@ -59,12 +59,12 @@ public static class SeedLoader
             Pickups = ItemPickups.Build(regulation, log.RandomizerDirectory),
             MapNames = ItemPickups.LoadMapNames(log.RandomizerDirectory),
             ItemNames = ItemPickups.LoadNames(Path.Combine(log.RandomizerDirectory, "diste", "Names")),
-            All = LoadAll(directory, regulation, log.Options),
+            All = LoadAll(directory, regulation, log),
         };
     }
 
     /// <summary>The full check list, from the randomizer's diste\Base tables; null when they are missing or unreadable.</summary>
-    public static AllChecksSeed? LoadAll(string randomizerDirectory, Regulation regulation, IReadOnlySet<string> options)
+    public static AllChecksSeed? LoadAll(string randomizerDirectory, Regulation regulation, ParsedSpoilerLog log)
     {
         var folder = Path.Combine(randomizerDirectory, "diste", "Base");
         var annotations = Path.Combine(folder, "annotations.txt");
@@ -73,7 +73,9 @@ public static class SeedLoader
             return null;
         try
         {
-            return AllChecksSeed.Build(RandomizerLogic.Load(annotations), SlotCatalog.Load(slots), regulation, options);
+            var names = ItemPickups.LoadNames(Path.Combine(randomizerDirectory, "diste", "Names")).Values;
+            return AllChecksSeed.Build(RandomizerLogic.Load(annotations), SlotCatalog.Load(slots), regulation, log.Options,
+                log.EnemyTypeDrops, log.PlacementCounts, names);
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or FormatException)
         {

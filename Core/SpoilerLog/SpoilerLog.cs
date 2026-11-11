@@ -6,6 +6,12 @@ namespace ErRandoCompanion.Core.SpoilerLog;
 public sealed class SpoilerLogException(string message, Exception? inner = null) : Exception(message, inner);
 
 /// <summary>
+/// A drop every enemy of a kind can give, as the log writes it: "Item: From Imp. Replaces Imp Head (Cat).". The enemy
+/// and the replaced item may be shown; <see cref="Item"/> is what the seed put there, a spoiler, used only to track it.
+/// </summary>
+public sealed record EnemyTypeDrop(string Item, string Enemy, string Replaces);
+
+/// <summary>
 /// What the tracker takes from a randomizer spoiler log. <see cref="SoldItems"/> and the rest of the
 /// log's placements are spoilers, so nothing from them may reach the player.
 /// </summary>
@@ -26,6 +32,12 @@ public sealed class ParsedSpoilerLog
     /// Spoiler data: used only to count a "defeat these bosses" goal, never shown. Empty without enemy randomization.
     /// </summary>
     public IReadOnlyList<(int Arena, int Boss)> BossPlacements { get; init; } = [];
+
+    /// <summary>Drops any enemy of a kind can give, which no single place has (see <see cref="EnemyTypeDrop"/>). Spoiler data.</summary>
+    public IReadOnlyList<EnemyTypeDrop> EnemyTypeDrops { get; init; } = [];
+
+    /// <summary>How many places the seed puts each item in, by name without its count. Spoiler data, for tracking only.</summary>
+    public IReadOnlyDictionary<string, int> PlacementCounts { get; init; } = new Dictionary<string, int>();
 
     /// <summary>
     /// True when both logs describe the same randomization: the randomizer gives the same items for the same seed,
@@ -84,6 +96,8 @@ public static class SpoilerLogParser
         var options = optionsLine[OptionsPrefix.Length..].Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
         var sold = new Dictionary<string, bool>();
+        var drops = new List<EnemyTypeDrop>();
+        var counts = new Dictionary<string, int>();
         for (var i = start + 1; i < end; i++)
         {
             // Format: "Item [Nx] in Region[ - Area]: Description. [Near ...] Replaces Original [Nx]."
@@ -91,9 +105,21 @@ public static class SpoilerLogParser
             var inIndex = line.IndexOf(" in ", StringComparison.Ordinal);
             var colon = inIndex < 0 ? -1 : line.IndexOf(": ", inIndex, StringComparison.Ordinal);
             if (colon < 0)
+            {
+                // Or, for a drop of every enemy of a kind: "Item [Nx]: From Imp. Replaces Original [Nx]."
+                var from = line.LastIndexOf(": From ", StringComparison.Ordinal);
+                var replaces = line.LastIndexOf(". Replaces ", StringComparison.Ordinal);
+                if (from > 0 && replaces > from && line.EndsWith('.') && !line.StartsWith(' '))
+                {
+                    var item = StripCount(line[..from]);
+                    drops.Add(new EnemyTypeDrop(item, line[(from + 7)..replaces], StripCount(line[(replaces + 11)..^1])));
+                    counts[item] = counts.GetValueOrDefault(item) + 1;
+                }
                 continue;
+            }
 
             var name = StripCount(line[..inIndex]);
+            counts[name] = counts.GetValueOrDefault(name) + 1;
             var isSold = string.CompareOrdinal(line, colon + 2, SoldPrefix, 0, SoldPrefix.Length) == 0;
             sold[name] = sold.GetValueOrDefault(name) || isSold;
         }
@@ -112,6 +138,8 @@ public static class SpoilerLogParser
                 : Path.GetDirectoryName(Path.GetDirectoryName(Path.GetFullPath(logPath))) ?? "",
             SoldItems = sold,
             BossPlacements = bosses,
+            EnemyTypeDrops = drops,
+            PlacementCounts = counts,
         };
     }
 

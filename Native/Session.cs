@@ -225,7 +225,7 @@ public sealed class Session : IDisposable
                 : @"The randomizer folder has no diste\Base\itemslots.txt or annotations.txt, so the full list cannot be made.";
             return new AllPlacesInfo(why, 0, 0, 0, 0, []);
         }
-        var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state);
+        var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state, all.KnownItems);
         var statuses = all.Checks.Select(c => (c.Place, Status: logic.StatusOf(c))).ToList();
         var byPlace = statuses.ToLookup(s => s.Place);
         return new AllPlacesInfo(null,
@@ -240,7 +240,7 @@ public sealed class Session : IDisposable
     {
         if (_seed?.All is not { } all)
             return [];
-        var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state);
+        var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state, all.KnownItems);
         return all.Checks.Where(c => c.Place == place)
             .Select(c => new AllCheckInfo(c.Id, c.Slot.Description, c.Slot.Kind, c.Slot.Replaces, c.Slot.Missable, !c.Trackable,
                 Camel(logic.StatusOf(c).ToString())))
@@ -452,7 +452,6 @@ public sealed class Session : IDisposable
             var mapName = _seed!.MapNames.GetValueOrDefault(who.Map.ToString());
             var before = _state.Found.Count;
             var added = PickupLog.Record(_state, pickups, result.FlagsOn, now, mapName);
-            added += _seed.All?.Apply(_state, result.FlagsOn) ?? 0;
             // Then whatever else arrived in the inventory: random drops, purchases, crafting.
             var inventory = _game.ReadInventory();
             _inventoryReadable = inventory is not null;
@@ -462,6 +461,8 @@ public sealed class Session : IDisposable
                 if (gains.Count > 0)
                     added += PickupLog.RecordReceived(_state, gains, _seed.ItemNames, PickupLog.Given(_state.Found.Skip(before)), now, mapName);
             }
+            // The full list last: its drops are ticked from what was just received.
+            added += _seed.All?.Apply(_state, result.FlagsOn) ?? 0;
             if (added > 0)
             {
                 TrySave();

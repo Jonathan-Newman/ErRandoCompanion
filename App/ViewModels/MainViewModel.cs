@@ -832,17 +832,18 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                 var mapName = _mapNames.GetValueOrDefault(who.Map.ToString());
                 var before = _state.Found.Count;
                 var added = PickupLog.Record(_state, pickups, result.FlagsOn, now, mapName);
-                if (_allSeed?.Apply(_state, result.FlagsOn) > 0)
-                {
-                    Save();
-                    AllChecks.Refresh(_state);
-                }
                 // Then whatever else arrived in the inventory: random drops, purchases, crafting.
                 if (await Task.Run(game.ReadInventory) is { } inventory)
                 {
                     var gains = _received.Compare(inventory.Held, inventory.Stored);
                     if (gains.Count > 0)
                         added += PickupLog.RecordReceived(_state, gains, _itemNames, PickupLog.Given(_state.Found.Skip(before)), now, mapName);
+                }
+                // The full list last: its drops are ticked from what was just received.
+                if (_allSeed?.Apply(_state, result.FlagsOn) > 0)
+                {
+                    Save();
+                    AllChecks.Refresh(_state);
                 }
                 if (added > 0)
                 {

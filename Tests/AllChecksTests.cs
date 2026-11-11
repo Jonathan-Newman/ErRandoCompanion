@@ -176,6 +176,68 @@ public class AllChecksTests(ITestOutputHelper output)
         Assert.True(seed.Checks.Single(c => c.Id == "shop:200").Trackable);
     }
 
+    [Fact]
+    public void ReadsDropsOfEveryEnemyOfAKind()
+    {
+        string[] lines =
+        [
+            "Options and seed: dlc seed:1",
+            "-- Spoilers:",
+            "Shortbow: From Albinauric. Replaces Dirty Chainmail.",
+            "Ash of War: Glintblade Phalanx: From Imp. Replaces Imp Head (Cat).",
+            "Uchigatana in Limgrave: From Shiny Item. Near The First Step. Replaces Golden Rune [1].",
+            "Shortbow in Stormveil Castle: On a corpse. Replaces Iron Whetblade.",
+            "-- End of item spoilers",
+        ];
+        var log = SpoilerLogParser.Parse(lines, "log.txt");
+        Assert.Equal(2, log.EnemyTypeDrops.Count);
+        Assert.Equal(new EnemyTypeDrop("Ash of War: Glintblade Phalanx", "Imp", "Imp Head (Cat)"), log.EnemyTypeDrops[1]);
+        Assert.Equal(2, log.PlacementCounts["Shortbow"]);
+        Assert.Equal(1, log.PlacementCounts["Uchigatana"]);
+    }
+
+    [Fact]
+    public void TicksEnemyDropsFromWhatArrives()
+    {
+        EnemyTypeDrop[] drops = [new("Glintstone Staff", "Imp", "Imp Head (Cat)"), new("Shortbow", "Albinauric", "Dirty Chainmail")];
+        var placements = new Dictionary<string, int> { ["Glintstone Staff"] = 1, ["Shortbow"] = 2 };
+        var seed = AllChecksSeed.Build(Logic, SlotCatalog.Parse(Slots), new Regulation { Lots = new Dictionary<int, IReadOnlyList<LotEntry>>(), ShopRows = [] },
+            new HashSet<string>(), drops, placements);
+        var imp = seed.Checks.Single(c => c.Id == "drop:imp:impheadcat");
+        Assert.Equal(AllChecksSeed.AnyArea, imp.Place);
+        Assert.Equal("Dropped by any Imp", imp.Slot.Description);
+        Assert.True(imp.Trackable);
+        // The Shortbow is in two places, so finding one says nothing about this drop: it is ticked by hand.
+        Assert.False(seed.Checks.Single(c => c.Id == "drop:albinauric:dirtychainmail").Trackable);
+
+        var state = TrackerState.Create("test", TestData.Load());
+        Assert.Equal(LocationStatus.Available, new AllChecksLogic(Logic, seed.Options, TestData.Load(), state).StatusOf(imp));
+        // Picked up somewhere does not count; received as a drop does, upgraded or not.
+        state.Found.Add(new FoundItem { Items = ["Glintstone Staff"] });
+        Assert.Equal(0, seed.Apply(state, new HashSet<uint>()));
+        state.Found.Add(new FoundItem { Items = ["Glintstone Staff +3"], Source = FoundItem.DropOrOther });
+        Assert.Equal(1, seed.Apply(state, new HashSet<uint>()));
+        Assert.Contains(imp.Id, state.AllChecked);
+    }
+
+    [Fact]
+    public void UnlockItemsAreOwnedOnceFound()
+    {
+        var logic = RandomizerLogic.Parse(Annotations.Replace("Req: dlc AND start", "Req: start AND bonepeddlersbellbearing"));
+        var seed = AllChecksSeed.Build(logic, SlotCatalog.Parse(Slots), new Regulation { Lots = new Dictionary<int, IReadOnlyList<LotEntry>>(), ShopRows = [] },
+            new HashSet<string>(), knownItems: ["Bone Peddler's Bell Bearing"]);
+        var data = TestData.Load();
+        var state = TrackerState.Create("test", data);
+        // Before pickups are tracked nothing is known, so the shop is not locked for good.
+        Assert.True(new AllChecksLogic(logic, seed.Options, data, state, seed.KnownItems).IsReachable("land_of_shadow"));
+        state.PickupsScanned = true;
+        Assert.False(new AllChecksLogic(logic, seed.Options, data, state, seed.KnownItems).IsReachable("land_of_shadow"));
+        state.Found.Add(new FoundItem { Items = ["Bone Peddler's Bell Bearing"] });
+        var after = new AllChecksLogic(logic, seed.Options, data, state, seed.KnownItems);
+        Assert.True(after.IsReachable("land_of_shadow"));
+        Assert.Empty(after.Unknown);
+    }
+
     private static AllChecksSeed Build(IReadOnlyCollection<string> options)
     {
         var regulation = new Regulation
@@ -200,13 +262,16 @@ public class AllChecksTests(ITestOutputHelper output)
         var logPath = Directory.GetFiles(Path.Combine(folder, "spoiler_logs"), "*.txt").OrderBy(File.GetLastWriteTimeUtc).Last();
         var log = SpoilerLogParser.Parse(File.ReadAllLines(logPath), logPath);
         var regulation = Regulation.Load(Path.Combine(folder, SeedLoader.RegulationFile), Path.Combine(folder, SeedLoader.OodleFile));
-        var seed = SeedLoader.LoadAll(folder, regulation, log.Options);
+        var seed = SeedLoader.LoadAll(folder, regulation, log);
         Assert.NotNull(seed);
 
         var data = TestData.Load();
         var state = TrackerState.Create("test", data);
-        var logic = new AllChecksLogic(seed.Logic, seed.Options, data, state);
+        var logic = new AllChecksLogic(seed.Logic, seed.Options, data, state, seed.KnownItems);
         var available = seed.Checks.Count(c => logic.StatusOf(c) == LocationStatus.Available);
+        var anywhere = seed.Checks.Where(c => c.Place == AllChecksSeed.AnyArea).ToList();
+        output.WriteLine($"Enemy drops anywhere: {anywhere.Count} ({anywhere.Count(c => c.Trackable)} auto-tracked) from {log.EnemyTypeDrops.Count} log lines");
+        Assert.True(anywhere.Count > 100);
         output.WriteLine($"{seed.Checks.Count} checks in {seed.Places.Count} places; {seed.Checks.Count(c => c.Trackable)} auto-tracked; {available} open at the start");
         foreach (var kind in seed.Checks.GroupBy(c => c.Slot.Kind))
             output.WriteLine($"  {kind.Key}: {kind.Count()} ({kind.Count(c => c.Trackable)} auto-tracked)");
@@ -218,7 +283,9 @@ public class AllChecksTests(ITestOutputHelper output)
         // With every key item, all of it opens.
         foreach (var item in data.Items)
             state.Items[item.Name] = item.MaxCount;
-        var everything = new AllChecksLogic(seed.Logic, seed.Options, data, state);
+        // Unlock items such as bell bearings are owned once found; this pretends every item has been.
+        state.PickupsScanned = false;
+        var everything = new AllChecksLogic(seed.Logic, seed.Options, data, state, seed.KnownItems);
         var locked = seed.Checks.Where(c => everything.StatusOf(c) == LocationStatus.Locked).ToList();
         output.WriteLine($"Locked with every item: {locked.Count}: {string.Join("; ", locked.Take(8).Select(c => $"{c.Place} ({c.Slot.Area}, {c.Slot.QuestRequirements})"))}");
         Assert.True(locked.Count < seed.Checks.Count / 50);

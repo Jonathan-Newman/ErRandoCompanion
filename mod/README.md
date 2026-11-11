@@ -183,7 +183,9 @@ drop, boss reward, quest reward and shop item (about 4,800 with the DLC). They a
 and open counts; pick a place to see its checks. Open and locked follow the randomizer's own logic. Each check says
 where it is and what the unrandomized game had there ("was Iron Whetblade"), never what it holds now. Most are ticked
 automatically; the few the game keeps no flag for (unlimited shop stock, some drops) say "tick by hand". Ticks here
-are kept apart from the Checks tab, so they do not change your goal or counts there.
+are kept apart from the Checks tab, so they do not change your goal or counts there. Drops that any enemy of a kind can give ("Dropped by any
+Imp") are listed under "Enemy drops anywhere". Shop items that need an unlock (a bell bearing, a prayer book, a scroll)
+open once that item shows up in the Found tab.
 
 **Found.** Everything you pick up in a run (weapons, armour, talismans, ashes of war, spells, spirit ashes and other
 items), newest first, with where it was and when, filterable by kind and searchable.
