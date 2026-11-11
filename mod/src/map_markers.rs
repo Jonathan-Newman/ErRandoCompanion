@@ -88,6 +88,50 @@ static TEXT_POINTERS: OnceLock<[usize; MARKERS]> = OnceLock::new();
 type LookupEntry = unsafe extern "system" fn(*mut c_void, u32, u32, i32) -> *const u16;
 static LOOKUP_ORIGINAL: OnceLock<LookupEntry> = OnceLock::new();
 
+/// The title screen's "App Ver." label (GR_MenuText 401320): the game writes the version number after it, bottom right.
+const MENU_TEXT_BANK: u32 = 200;
+const APP_VERSION_TEXT: i32 = 401320;
+/// The credit line put above that label, in the game's own text, as other mods do there. Empty when it is off.
+static TITLE_LINE: OnceLock<Vec<u16>> = OnceLock::new();
+/// The label with the credit line above it, made the first time the game asks, from whatever the game's text is.
+static TITLE_TEXT: OnceLock<Vec<u16>> = OnceLock::new();
+
+/// Hooks the game's message lookup, for the map markers' names and the title screen credit. Returns whether the
+/// credit is now in the game's own text, so the overlay need not draw it.
+pub fn install_text_hook(title_line: Option<&str>) -> bool {
+    let line: Vec<u16> = title_line.map(|t| t.encode_utf16().collect()).unwrap_or_default();
+    let _ = TITLE_LINE.set(line);
+    match unsafe { ensure_text_hook() } {
+        Ok(()) => title_line.is_some(),
+        Err(e) => {
+            log::write(&format!("The game's text could not be hooked, so the title credit is drawn instead: {e}"));
+            false
+        }
+    }
+}
+
+/// Installs the text hook once.
+unsafe fn ensure_text_hook() -> Result<(), String> {
+    if LOOKUP_ORIGINAL.get().is_some() {
+        return Ok(());
+    }
+    let lookup = memory::find_global(&memory::pattern(LOOKUP_CALLER_PATTERN), 0x19, 0x1D).ok_or("the text lookup was not found")?;
+    {
+        let mut texts = TEXTS.lock().unwrap_or_else(|p| p.into_inner());
+        let pointers = std::array::from_fn(|i| texts.0[i].as_mut_ptr() as usize);
+        let _ = TEXT_POINTERS.set(pointers);
+    }
+    match MH_Initialize() {
+        MH_STATUS::MH_OK | MH_STATUS::MH_ERROR_ALREADY_INITIALIZED => {}
+        status => return Err(format!("MinHook: {status:?}")),
+    }
+    let hook = MhHook::new(lookup as *mut c_void, lookup_entry as *mut c_void).map_err(|s| format!("text hook: {s:?}"))?;
+    let _ = LOOKUP_ORIGINAL.set(std::mem::transmute::<*mut c_void, LookupEntry>(hook.trampoline()));
+    hook.queue_enable().map_err(|s| format!("text hook: {s:?}"))?;
+    MH_ApplyQueued().ok().map_err(|s| format!("text hook: {s:?}"))?;
+    Ok(())
+}
+
 /// Reads where every check is, for the map markers and the beacon.
 pub fn load_pins(directory: &Path) {
     match std::fs::read_to_string(directory.join("Data").join("map_data.json"))
@@ -137,22 +181,8 @@ pub fn install(icon: u16) {
 
 unsafe fn start() -> Result<(), String> {
     let param_list = memory::find_global(&memory::pattern(PARAM_LIST_PATTERN), 3, 7).ok_or("the param list was not found")?;
-    let lookup = memory::find_global(&memory::pattern(LOOKUP_CALLER_PATTERN), 0x19, 0x1D).ok_or("the text lookup was not found")?;
     let owner_lookup = memory::find_global(&memory::pattern(OWNER_LOOKUP_PATTERN), 0x1A, 0x1E).ok_or("the game's memory pools were not found")?;
-
-    {
-        let mut texts = TEXTS.lock().unwrap_or_else(|p| p.into_inner());
-        let pointers = std::array::from_fn(|i| texts.0[i].as_mut_ptr() as usize);
-        let _ = TEXT_POINTERS.set(pointers);
-    }
-    match MH_Initialize() {
-        MH_STATUS::MH_OK | MH_STATUS::MH_ERROR_ALREADY_INITIALIZED => {}
-        status => return Err(format!("MinHook: {status:?}")),
-    }
-    let hook = MhHook::new(lookup as *mut c_void, lookup_entry as *mut c_void).map_err(|s| format!("text hook: {s:?}"))?;
-    let _ = LOOKUP_ORIGINAL.set(std::mem::transmute::<*mut c_void, LookupEntry>(hook.trampoline()));
-    hook.queue_enable().map_err(|s| format!("text hook: {s:?}"))?;
-    MH_ApplyQueued().ok().map_err(|s| format!("text hook: {s:?}"))?;
+    ensure_text_hook()?;
 
     // The game loads its params a few seconds into startup.
     let header = (0..600)
@@ -398,12 +428,50 @@ unsafe extern "system" fn lookup_entry(repository: *mut c_void, unknown: u32, ba
         }
     }
     let original = LOOKUP_ORIGINAL.get().expect("text hook without its original");
+    if bank == MENU_TEXT_BANK && id == APP_VERSION_TEXT {
+        if let Some(line) = TITLE_LINE.get().filter(|l| !l.is_empty()) {
+            // Our line, then the label as the game (or another mod hooking it too) has it. Made once and kept,
+            // so the pointer the game holds stays valid.
+            let text = TITLE_TEXT.get_or_init(|| {
+                let label = original(repository, unknown, bank, id);
+                title_text(line, if label.is_null() { &[] } else { wide(label) })
+            });
+            return text.as_ptr();
+        }
+    }
     original(repository, unknown, bank, id)
+}
+
+/// The credit line and the game's label, on two lines, ending in the null the game reads up to.
+fn title_text(line: &[u16], label: &[u16]) -> Vec<u16> {
+    let mut text = line.to_vec();
+    text.push(u16::from(b'\n'));
+    text.extend_from_slice(label);
+    text.push(0);
+    text
+}
+
+/// The text a null-terminated UTF-16 pointer points to.
+unsafe fn wide<'a>(text: *const u16) -> &'a [u16] {
+    let mut length = 0;
+    while *text.add(length) != 0 && length < 4096 {
+        length += 1;
+    }
+    std::slice::from_raw_parts(text, length)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn puts_the_credit_above_the_version_label() {
+        let line: Vec<u16> = "Companion v1".encode_utf16().collect();
+        let label: Vec<u16> = "App Ver.".encode_utf16().collect();
+        let text = title_text(&line, &label);
+        assert_eq!(String::from_utf16(&text[..text.len() - 1]).unwrap(), "Companion v1\nApp Ver.");
+        assert_eq!(text.last(), Some(&0));
+    }
 
     #[test]
     fn places_pins_on_their_tile_and_layer() {

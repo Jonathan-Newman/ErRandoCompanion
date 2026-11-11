@@ -248,8 +248,8 @@ impl Config {
              ; hide_on_main_menu: hidden and closed on the title screen and loading screens (turn off if the\n\
              ; overlay never appears after a game update)\n\
              hide_on_main_menu={}\n\
-             ; title_credit: the companion's name, version and author on the title screen; title_credit_corner:\n\
-             ; top-left, top-right, bottom-left or bottom-right\n\
+             ; title_credit: the companion's name, version and author in the title screen's version text, bottom right;\n\
+             ; title_credit_corner (top-left, top-right, bottom-left or bottom-right) is only used if that text cannot be changed\n\
              title_credit={}\ntitle_credit_corner={}\n\
              ",
             self.toggle_key, self.pad_toggle, self.text_scale, self.map_markers, self.map_icon,

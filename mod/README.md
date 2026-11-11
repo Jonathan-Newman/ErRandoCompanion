@@ -123,8 +123,12 @@ button. `found_popup` / `found_sound` turn them off. Finds during a boss fight s
 **Main menu.** On the title screen and loading screens (no character loaded) nothing else shows and the checklist will
 not open. If a game update ever stops the overlay appearing at all, set `hide_on_main_menu=false`.
 
-**Title screen.** The companion shows its name, version and author in a corner. Turn it off with `title_credit=false`,
-or move it with `title_credit_corner` (`top-left`, `top-right`, `bottom-left` or `bottom-right`).
+**Title screen.** The companion adds its name, version and author to the game's own version text in the bottom right
+corner, on the line above "App Ver.", as other mods such as Seamless Co-op do. Turn it off with `title_credit=false`.
+If a game update ever stops that working, the overlay draws the line in a corner instead (`title_credit_corner`).
+
+**Small display size.** Long lines (a target's name and route, the nearest grace) wrap at the box's usual width, two
+lines at most, ending in "..." if longer, so the box never grows across the screen.
 
 **Auto-tracking status.** The top of the checklist says whether auto-tracking is on, and if not, why (no spoiler log,
 the desktop app has the run, the game version is not supported, Easy Anti-Cheat). The small display warns too when it

@@ -118,6 +118,37 @@ fn fit(ui: &Ui, text: &str, room: f32) -> String {
     format!("{}...", cut.trim_end())
 }
 
+/// Word-wraps `text` to `room` pixels in at most `max_lines` lines, ending the last with an ellipsis if it is cut short.
+fn wrap_lines(ui: &Ui, text: &str, room: f32, max_lines: usize) -> Vec<String> {
+    let words: Vec<&str> = text.split_whitespace().collect();
+    let mut lines: Vec<String> = Vec::new();
+    let mut i = 0;
+    while i < words.len() && lines.len() < max_lines {
+        if lines.len() + 1 == max_lines {
+            // The last line takes the rest, shortened if it does not fit.
+            lines.push(fit(ui, &words[i..].join(" "), room));
+            break;
+        }
+        let mut line = words[i].to_string();
+        i += 1;
+        while i < words.len() {
+            let longer = format!("{line} {}", words[i]);
+            if ui.calc_text_size(&longer)[0] > room {
+                break;
+            }
+            line = longer;
+            i += 1;
+        }
+        lines.push(fit(ui, &line, room));
+    }
+    lines
+}
+
+/// The widest a line of the small display may be, so a long target name wraps instead of stretching the box.
+fn mini_room(ui: &Ui) -> f32 {
+    ui.current_font_size() * 21.0
+}
+
 /// Seconds A must be held on a check to tick it by hand.
 const HOLD_TO_TICK: f32 = 0.6;
 
@@ -1543,21 +1574,28 @@ impl Overlay {
                     if self.config.show_deaths && summary.deaths > 0 {
                         ui.text_disabled(format!("Deaths: {}", summary.deaths));
                     }
+                    // Long lines wrap at the box's usual width, two lines at most, so the box never grows to fit them.
+                    let room = mini_room(ui);
+                    let wrapped = |colour: [f32; 4], text: &str| {
+                        for line in wrap_lines(ui, text, room, 2) {
+                            ui.text_colored(colour, line);
+                        }
+                    };
                     if self.config.show_guide {
-                        if let Some(text) = guide_text(snapshot) {
-                            ui.text_colored(GOLD, text);
+                        if let Some(text) = self.tests.guide.clone().or_else(|| guide_text(snapshot)) {
+                            wrapped(GOLD, &text);
                         }
                     }
                     if self.config.show_grace {
                         if let Some(text) = grace_text(snapshot) {
-                            ui.text_disabled(text);
+                            wrapped(GREY, &text);
                         }
                     }
                     if let Some(text) = dead_end_text(snapshot, 1) {
-                        ui.text_colored(YELLOW, text);
+                        wrapped(YELLOW, &text);
                     }
                     if let Some(problem) = snapshot.poll.as_ref().and_then(|p| tracking_problem(&p.tracking)) {
-                        ui.text_colored(YELLOW, problem);
+                        wrapped(YELLOW, &problem);
                     }
                     if self.using_pad {
                         ui.text_disabled(format!("{}: checklist", self.config.pad_toggle));
@@ -1594,7 +1632,9 @@ impl Overlay {
                 None => format!(" {}", compass(check.dx, check.dz)),
             };
             let entrance = if check.mode == "toEntrance" { ", entrance" } else { "" };
-            ui.text(format!("{}  {}{way}{entrance}", check.name, distance_text(check.distance)));
+            let after = format!("  {}{way}{entrance}", distance_text(check.distance));
+            let name_room = (mini_room(ui) - ui.calc_text_size(&after)[0] - ui.text_line_height()).max(40.0);
+            ui.text(format!("{}{after}", fit(ui, &check.name, name_room)));
         }
     }
 
@@ -1918,7 +1958,7 @@ impl Overlay {
             return;
         }
         // On the title screen (no character loaded), the companion signs its name, like the game's own version line.
-        if self.config.title_credit && (out_of_game(&snapshot) || self.tests.title) {
+        if self.config.title_credit && !CREDIT_IN_GAME.load(Ordering::Relaxed) && (out_of_game(&snapshot) || self.tests.title) {
             title_credit(ui, &self.config.title_credit_corner);
         }
         if self.in_boss_fight || self.out_of_game {
@@ -1972,6 +2012,8 @@ struct TestHooks {
     arrow: Option<f32>,
     /// Acts as if on the title screen, which the test window cannot be.
     title: bool,
+    /// A target line to show, as there is no player to guide.
+    guide: Option<String>,
 }
 
 impl TestHooks {
@@ -1980,6 +2022,7 @@ impl TestHooks {
             badges: std::env::var_os("ER_MOD_TEST_BADGES").is_some(),
             arrow: std::env::var("ER_MOD_TEST_ARROW").ok().and_then(|d| d.parse().ok()),
             title: std::env::var_os("ER_MOD_TEST_TITLE").is_some(),
+            guide: std::env::var("ER_MOD_TEST_GUIDE").ok(),
         }
     }
 }
@@ -2033,7 +2076,14 @@ fn route_text(guide: &crate::model::Guide) -> String {
 }
 
 /// The companion's name, version and author, as the title screen shows it.
-pub const CREDIT: &str = concat!("Elden Ring Randomizer Companion v", env!("CARGO_PKG_VERSION"), "  -  by Moordoor");
+pub const CREDIT: &str = concat!("Elden Ring Randomizer Companion v", env!("CARGO_PKG_VERSION"), " by Moordoor");
+
+/// Whether the credit is in the game's own title screen text, so the overlay need not draw it.
+static CREDIT_IN_GAME: AtomicBool = AtomicBool::new(false);
+
+pub fn set_credit_in_game(in_game: bool) {
+    CREDIT_IN_GAME.store(in_game, Ordering::Relaxed);
+}
 
 /// Draws the credit small in a corner of the screen, with a soft shadow so it reads over the title art.
 fn title_credit(ui: &Ui, corner: &str) {

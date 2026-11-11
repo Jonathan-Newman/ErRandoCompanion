@@ -51,6 +51,9 @@ fn start(directory: PathBuf, module: HINSTANCE) {
     camera::install();
     let config = config::Config::load(&directory);
     map_markers::load_pins(&directory);
+    // The title screen credit goes into the game's own version text; the overlay draws it only if that fails.
+    let credit = config.title_credit.then_some(overlay::CREDIT);
+    overlay::set_credit_in_game(map_markers::install_text_hook(credit));
     if config.map_markers {
         map_markers::install(config.map_icon);
     }
