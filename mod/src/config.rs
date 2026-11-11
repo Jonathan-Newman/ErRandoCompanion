@@ -19,6 +19,9 @@ pub struct Config {
     pub nearby_checks: usize,
     /// Hides the overlay, and keeps it closed, while a boss health bar is on screen.
     pub hide_in_boss_fights: bool,
+    /// Hides the overlay, and keeps it closed, while the game has put its HUD away: at a grace, in a shop or an NPC's
+    /// menu, and in cutscenes.
+    pub hide_in_menus: bool,
     /// A popup, and a sound, when auto-tracking ticks a check.
     pub found_popup: bool,
     pub found_sound: bool,
@@ -129,6 +132,7 @@ impl Config {
             beacon: true,
             nearby_checks: 3,
             hide_in_boss_fights: true,
+            hide_in_menus: true,
             found_popup: true,
             found_sound: true,
             found_sound_choice: "chime".into(),
@@ -172,6 +176,7 @@ impl Config {
                         "beacon_on_target" => config.beacon = value != "false",
                         "nearby_checks" => config.nearby_checks = value.parse::<usize>().unwrap_or(3).min(10),
                         "hide_in_boss_fights" => config.hide_in_boss_fights = value != "false",
+                        "hide_in_menus" => config.hide_in_menus = value != "false",
                         "found_popup" => config.found_popup = value != "false",
                         "found_sound" => config.found_sound = value != "false",
                         "found_sound_choice" if crate::sound::CHOICES.iter().any(|c| c.0 == value) => config.found_sound_choice = value.to_string(),
@@ -238,6 +243,8 @@ impl Config {
              beacon_on_target={}\n\
              ; hide_in_boss_fights: hides the overlay and keeps it closed while a boss health bar is showing\n\
              hide_in_boss_fights={}\n\
+             ; hide_in_menus: hides the overlay and keeps it closed at a grace, in shops and NPC menus, and in cutscenes\n\
+             hide_in_menus={}\n\
              ; found_popup / found_sound: a popup and a sound when a check is ticked automatically\n\
              ; (put a ErRandoCompanionMod.wav beside the DLL to use your own sound)\n\
              found_popup={}\nfound_sound={}\n\
@@ -255,7 +262,7 @@ impl Config {
             self.toggle_key, self.pad_toggle, self.text_scale, self.map_markers, self.map_icon,
             self.skip_key, self.layout_key, self.hide_key, self.pad_skip, self.pad_layout, self.pad_hide,
             LAYOUT_NAMES[self.layout].to_lowercase(), play.text(), plan.text(),
-            self.beacon, self.hide_in_boss_fights, self.found_popup, self.found_sound, self.found_sound_choice, self.found_volume, self.map_icons, self.hide_on_main_menu,
+            self.beacon, self.hide_in_boss_fights, self.hide_in_menus, self.found_popup, self.found_sound, self.found_sound_choice, self.found_volume, self.map_icons, self.hide_on_main_menu,
             self.title_credit, self.title_credit_corner
         );
         let _ = std::fs::write(&self.path, text);

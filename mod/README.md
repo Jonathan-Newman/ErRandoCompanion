@@ -120,6 +120,10 @@ button. `found_popup` / `found_sound` turn them off. Finds during a boss fight s
 **Boss fights.** While a boss health bar is on screen the overlay hides and will not open, so it never gets in the way
 (`hide_in_boss_fights=false` turns this off).
 
+**Graces, shops and cutscenes.** While you sit at a Site of Grace, use a shop or talk to an NPC, or watch a cutscene,
+the overlay hides itself and the checklist closes, the same as the game's own HUD. It comes back when the game's HUD
+does. `hide_in_menus=false` turns this off.
+
 **Main menu.** On the title screen and loading screens (no character loaded) nothing else shows and the checklist will
 not open. If a game update ever stops the overlay appearing at all, set `hide_on_main_menu=false`.
 

@@ -45,6 +45,7 @@ In-game overlay plan. The desktop app stays alongside the mod.
 | 39 | Title credit in the game's own version text (above "App Ver.", through the message lookup hook the map markers use); the overlay draws it only if that fails | Built; needs an in-game check |
 | 40 | Small display: long lines wrap at its usual width, two lines at most, then "..." | Done; checked in the test window |
 | 41 | All checks: drops any enemy of a kind gives ("From Imp"), and unlock items (bell bearings, prayer books) counted from the Found log | Done |
+| 42 | Hide at graces, in shops and NPC menus, and in cutscenes, following the game's HUD state (CSFeManImp + 0x78: 0 hidden, 2 popup menu) | Built; needs an in-game check (the log records each HUD state) |
 
 ## Ongoing
 - After a game update, check `ErRandoCompanionMod.log`. If auto-tracking or the cursor stops working, the memory patterns need updating (`Data\signatures.json` and `mod/src/game_input.rs`).

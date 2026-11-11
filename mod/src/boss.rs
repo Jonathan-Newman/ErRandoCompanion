@@ -1,4 +1,5 @@
-//! Whether a boss health bar is on screen, so the overlay can keep out of the way during a fight.
+//! Whether a boss health bar is on screen, so the overlay can keep out of the way during a fight; and whether the
+//! game has hidden its own HUD for a menu or a cutscene (CSFeManImp + 0x78, the HUD state), for the same reason.
 //!
 //! The front-end manager (CSFeManImp) keeps three boss health bar entries of 0x20 bytes at +0x5BF0:
 //! the boss name's text id at +0x0 and the boss's handle at +0x8. An unused entry has no name and an
@@ -23,11 +24,39 @@ const RECHECK_MS: u64 = 100;
 static LAST_CHECK_MS: AtomicU64 = AtomicU64::new(0);
 static START: OnceLock<Instant> = OnceLock::new();
 
+/// The front-end manager's HUD state: 0 hides the HUD (cutscenes), 1 shows it all (the Esc menu), 2 is for popup
+/// menus (sitting at a grace, shops, talking to NPCs), 3 is normal play.
+const HUD_STATE_OFFSET: usize = 0x78;
+const HUD_HIDDEN: u8 = 0;
+const HUD_POPUP_MENU: u8 = 2;
+static LAST_HUD_STATE: AtomicUsize = AtomicUsize::new(usize::MAX);
+
 pub fn install() {
     match memory::find_global(&memory::pattern(FE_MAN_PATTERN), 3, 7) {
         Some(address) => FE_MAN.store(address, Ordering::SeqCst),
         None => log::write("Could not find the game's health bars, so the overlay stays up in boss fights."),
     }
+}
+
+/// True while the game has put its HUD away for a cutscene or a popup menu (a grace, a shop, an NPC). Reading a
+/// byte is cheap, so this is read every frame. False when the manager cannot be read.
+pub fn in_menu_or_cutscene() -> bool {
+    let global = FE_MAN.load(Ordering::Relaxed);
+    let Some(manager) = (global != 0).then(|| memory::read::<usize>(global)).flatten().filter(|&m| m != 0) else {
+        return false;
+    };
+    let Some(state) = memory::read::<u8>(manager + HUD_STATE_OFFSET) else { return false };
+    // Logged on each change, so the log shows which states the game uses where.
+    if LAST_HUD_STATE.swap(state as usize, Ordering::Relaxed) != state as usize {
+        log::write(&format!("The game's HUD state is now {state}{}.", match state {
+            HUD_HIDDEN => " (HUD hidden: a cutscene); overlay hidden",
+            HUD_POPUP_MENU => " (a grace, shop or NPC menu); overlay hidden",
+            1 => " (Esc menu)",
+            3 => " (normal play)",
+            _ => "",
+        }));
+    }
+    matches!(state, HUD_HIDDEN | HUD_POPUP_MENU)
 }
 
 /// True while any boss health bar is showing (checked at most ten times a second).

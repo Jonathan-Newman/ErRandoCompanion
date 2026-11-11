@@ -185,6 +185,8 @@ pub struct Overlay {
     frame: u32,
     /// A boss health bar is showing and the setting to stay out of the way is on.
     in_boss_fight: bool,
+    /// At a grace, in a shop or an NPC's menu, or in a cutscene: the game has put its HUD away, so does the overlay.
+    in_menu: bool,
     /// No character is loaded, and the setting to stay hidden then is on.
     out_of_game: bool,
     /// The last find already turned into a popup, and the popups up now.
@@ -266,6 +268,7 @@ impl Overlay {
             hide_b: false,
             frame: 0,
             in_boss_fight: false,
+            in_menu: false,
             out_of_game: false,
             last_found: 0,
             // For testing outside the game: a find to show at once.
@@ -957,6 +960,7 @@ impl Overlay {
             changed = true;
         }
         changed |= ui.checkbox("Hide everything during boss fights (while a boss health bar shows)", &mut self.config.hide_in_boss_fights);
+        changed |= ui.checkbox("Hide everything at graces, in shops and menus, and in cutscenes", &mut self.config.hide_in_menus);
         changed |= ui.checkbox("Show a popup when a check is ticked automatically", &mut self.config.found_popup);
         changed |= ui.checkbox("Play a sound when a check is ticked automatically", &mut self.config.found_sound);
         if self.config.found_sound {
@@ -1840,9 +1844,11 @@ impl ImguiRenderLoop for Overlay {
         self.poll_hotkey();
         // A boss health bar on screen closes the panel and keeps everything hidden until the fight ends.
         self.in_boss_fight = self.config.hide_in_boss_fights && crate::boss::in_fight();
+        // The game's own menus and cutscenes do the same: the overlay steps aside until the game's HUD is back.
+        self.in_menu = self.config.hide_in_menus && crate::boss::in_menu_or_cutscene();
         // No character loaded (the title screen or a loading screen): nothing shows, nothing opens.
         self.out_of_game = self.config.hide_on_main_menu && out_of_game(&self.shared.lock());
-        if self.in_boss_fight || self.out_of_game || self.hidden {
+        if self.in_boss_fight || self.in_menu || self.out_of_game || self.hidden {
             self.visible = false;
         }
         // A few extra, since checks that are already targets are left out of the list.
@@ -1866,7 +1872,7 @@ impl ImguiRenderLoop for Overlay {
             self.send(Command::LoadAll);
         }
         self.all_shown = all_shown;
-        let shows_nearby = self.config.mini_hud && self.config.nearby_checks > 0 && !self.out_of_game && !self.in_boss_fight && !self.hidden;
+        let shows_nearby = self.config.mini_hud && self.config.nearby_checks > 0 && !self.out_of_game && !self.in_boss_fight && !self.in_menu && !self.hidden;
         crate::worker::set_nearby(if shows_nearby { self.config.nearby_checks + 5 } else { 0 });
         // While the panel is open the game sees an idle controller, keyboard and mouse, and shows its
         // own cursor as it does in its menus. If it cannot, ImGui draws one.
@@ -1961,7 +1967,7 @@ impl Overlay {
         if self.config.title_credit && !CREDIT_IN_GAME.load(Ordering::Relaxed) && (out_of_game(&snapshot) || self.tests.title) {
             title_credit(ui, &self.config.title_credit_corner);
         }
-        if self.in_boss_fight || self.out_of_game {
+        if self.in_boss_fight || self.in_menu || self.out_of_game {
             return;
         }
         if self.visible {
