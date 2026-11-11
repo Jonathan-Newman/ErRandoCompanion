@@ -114,7 +114,8 @@ public sealed class MainViewModel : ObservableObject, IDisposable
         if (mapData is not null)
         {
             Map = new MapViewModel(
-                mapData, dataDirectory, Regions.SelectMany(r => r.Locations).ToDictionary(l => l.Location.Id));
+                mapData, new MapArtFiles(Path.Combine(Path.GetDirectoryName(seedsDirectory)!, "MapArt"), dataDirectory),
+                () => _preferences.RandomizerDirectory, Regions.SelectMany(r => r.Locations).ToDictionary(l => l.Location.Id));
         }
 
         var items = _data.Items.Select(i => new ItemViewModel(i, SetItemCount)).ToList();

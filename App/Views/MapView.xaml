@@ -1,8 +1,10 @@
 <UserControl x:Class="ErRandoCompanion.App.Views.MapView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ErRandoCompanion.App.Views">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="Visible" />
+        <local:NotConverter x:Key="Not" />
 
         <Geometry x:Key="PickupShape">M 8,2 A 6,6 0 1 1 8,14 A 6,6 0 1 1 8,2 Z</Geometry>
         <Geometry x:Key="BossShape">M 8,0.5 L 15.5,8 L 8,15.5 L 0.5,8 Z</Geometry>
@@ -31,7 +33,7 @@
                     <MatrixTransform x:Name="WorldTransform" />
                 </Canvas.RenderTransform>
 
-                <Image Source="{Binding Sheet.ImagePath}" Width="{Binding Sheet.Width}" Height="{Binding Sheet.Height}"
+                <Image Source="{Binding Sheet.Image}" Width="{Binding Sheet.Width}" Height="{Binding Sheet.Height}"
                        Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" IsHitTestVisible="False" />
 
                 <ItemsControl ItemsSource="{Binding Sheet.Labels}" IsHitTestVisible="False">
@@ -140,6 +142,34 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Canvas>
+        </Border>
+
+        <!-- No map pictures yet: they are made from the player's own game, never shipped with the app. -->
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="22,18" Width="440" CornerRadius="6"
+                Background="#F21D1A15" BorderBrush="{StaticResource Gold}" BorderThickness="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasArt}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <StackPanel>
+                <TextBlock Text="Map pictures" Style="{StaticResource Heading}" Margin="0,0,0,6" />
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,12"
+                           Text="The world map art belongs to FromSoftware, so it does not come with this app. It can be made from your own copy of Elden Ring: this reads the game's files (it never changes them) and takes a few seconds." />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                    <Button Content="Make the map from my game" Padding="12,5" Margin="0,0,8,0" Click="OnMakeArt"
+                            IsEnabled="{Binding IsExtracting, Converter={StaticResource Not}}" />
+                    <Button Style="{StaticResource SmallButton}" Content="Choose game folder..." Click="OnMakeArtFromFolder"
+                            IsEnabled="{Binding IsExtracting, Converter={StaticResource Not}}" VerticalAlignment="Center" />
+                </StackPanel>
+                <ProgressBar Height="6" Margin="0,10,0,0" Minimum="0" Maximum="1" Value="{Binding ArtProgress, Mode=OneWay}"
+                             Visibility="{Binding IsExtracting, Converter={StaticResource Visible}}" />
+                <TextBlock Text="{Binding ArtStatus}" Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,8,0,0" />
+            </StackPanel>
         </Border>
 
         <!-- Sheet choice and options. -->

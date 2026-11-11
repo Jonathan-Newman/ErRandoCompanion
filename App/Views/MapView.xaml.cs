@@ -180,4 +180,34 @@ public partial class MapView : UserControl
         if (_map?.SelectedPin is { } pin)
             ShowInListRequested?.Invoke(pin.Location);
     }
+
+    private async void OnMakeArt(object sender, RoutedEventArgs e)
+    {
+        if (_map is null)
+            return;
+        // Look in the usual places first; only ask when the game cannot be found.
+        if (_map.FindGameFolder() is { } folder)
+            await _map.ExtractArtAsync(folder);
+        else
+            await AskForGameFolder("Elden Ring was not found. Choose its Game folder (the one with eldenring.exe in it).");
+    }
+
+    private async void OnMakeArtFromFolder(object sender, RoutedEventArgs e) =>
+        await AskForGameFolder("Choose Elden Ring's Game folder (the one with eldenring.exe in it)");
+
+    private async Task AskForGameFolder(string title)
+    {
+        if (_map is null)
+            return;
+        var dialog = new Microsoft.Win32.OpenFolderDialog { Title = title, InitialDirectory = _map.FindGameFolder() ?? "" };
+        if (dialog.ShowDialog(Window.GetWindow(this)) != true)
+            return;
+        if (!ErRandoCompanion.Core.MapArt.MapArtExtractor.IsGameFolder(dialog.FolderName))
+        {
+            MessageBox.Show(Window.GetWindow(this), "That folder does not have eldenring.exe and the game's Data0.bhd in it. "
+                + @"It is usually ...\steamapps\common\ELDEN RING\Game.","Map pictures", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
+        await _map.ExtractArtAsync(dialog.FolderName);
+    }
 }

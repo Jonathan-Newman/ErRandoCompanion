@@ -1,4 +1,6 @@
 using System.IO;
+using System.Windows.Media;
+using ErRandoCompanion.Core.MapArt;
 using ErRandoCompanion.Core.Models;
 
 namespace ErRandoCompanion.App.ViewModels;
@@ -34,18 +36,25 @@ public sealed class MapSheetViewModel : ObservableObject
     private readonly Action<MapSheetViewModel> _select;
     private bool _isSelected;
     private string _title = "";
+    private ImageSource? _image;
 
-    public MapSheetViewModel(MapInfo map, string dataDirectory, IReadOnlyList<MapPinViewModel> pins, Action<MapSheetViewModel> select)
+    public MapSheetViewModel(MapInfo map, IReadOnlyList<MapPinViewModel> pins, Action<MapSheetViewModel> select)
     {
         Map = map;
         Pins = pins;
         _select = select;
-        ImagePath = Path.Combine(dataDirectory, map.Image);
         Labels = map.Labels.Select(l => new MapLabelViewModel(l.Name, l.U * map.Width, l.V * map.Height)).ToList();
     }
 
     public MapInfo Map { get; }
-    public string ImagePath { get; }
+    /// <summary>The map picture, or null until the player has made it from their game.</summary>
+    public ImageSource? Image
+    {
+        get => _image;
+        private set => Set(ref _image, value);
+    }
+
+    public void LoadImage(MapArtFiles art) => Image = MapArtFiles.Load(art.Find(Map.Image));
     public double Width => Map.Width;
     public double Height => Map.Height;
     public IReadOnlyList<MapPinViewModel> Pins { get; }
@@ -86,13 +95,21 @@ public sealed class MapViewModel : ObservableObject
 {
     private MapSheetViewModel? _sheet;
     private MapPinViewModel? _selectedPin;
+    private readonly MapArtFiles _art;
+    private readonly Func<string?> _randomizerDirectory;
+    private bool _hasArt;
+    private bool _isExtracting;
+    private string _artStatus = "";
+    private double _artProgress;
 
-    public MapViewModel(MapData data, string dataDirectory, IReadOnlyDictionary<string, LocationViewModel> locations)
+    public MapViewModel(MapData data, MapArtFiles art, Func<string?> randomizerDirectory,
+        IReadOnlyDictionary<string, LocationViewModel> locations)
     {
+        _art = art;
+        _randomizerDirectory = randomizerDirectory;
         Sheets = data.Maps
             .Select(map => new MapSheetViewModel(
                 map,
-                dataDirectory,
                 data.Pins
                     .Where(p => p.Map == map.Id && locations.ContainsKey(p.Id))
                     .Select(p => new MapPinViewModel(p, locations[p.Id], map))
@@ -101,6 +118,75 @@ public sealed class MapViewModel : ObservableObject
             .ToList();
         if (Sheets.Count > 0)
             SelectSheet(Sheets[0]);
+        LoadArt();
+    }
+
+    /// <summary>False until the map pictures have been made from the player's game.</summary>
+    public bool HasArt
+    {
+        get => _hasArt;
+        private set => Set(ref _hasArt, value);
+    }
+
+    public bool IsExtracting
+    {
+        get => _isExtracting;
+        private set => Set(ref _isExtracting, value);
+    }
+
+    public string ArtStatus
+    {
+        get => _artStatus;
+        private set => Set(ref _artStatus, value);
+    }
+
+    public double ArtProgress
+    {
+        get => _artProgress;
+        private set => Set(ref _artProgress, value);
+    }
+
+    public string ArtDirectory => _art.ArtDirectory;
+
+    private void LoadArt()
+    {
+        foreach (var sheet in Sheets)
+            sheet.LoadImage(_art);
+        HasArt = Sheets.All(s => s.Image is not null);
+    }
+
+    /// <summary>The game folder if it can be found without asking.</summary>
+    public string? FindGameFolder() => MapArtFiles.FindGameFolder(_randomizerDirectory());
+
+    /// <summary>Makes the map pictures from the game in <paramref name="gameFolder"/>. Never writes to that folder.</summary>
+    public async Task ExtractArtAsync(string gameFolder)
+    {
+        if (IsExtracting)
+            return;
+        IsExtracting = true;
+        ArtStatus = "Reading the game's map tiles...";
+        ArtProgress = 0;
+        var progress = new Progress<(string Status, double Done)>(p =>
+        {
+            ArtStatus = p.Status;
+            ArtProgress = p.Done;
+        });
+        IProgress<(string, double)> report = progress;
+        try
+        {
+            await Task.Run(() => _art.Extract(gameFolder, (status, done) => report.Report((status, done))));
+            LoadArt();
+            ArtStatus = HasArt ? "" : "The map pictures were made but could not be opened.";
+        }
+        catch (Exception e) when (e is MapArtException or IOException or UnauthorizedAccessException or InvalidDataException
+                                       or DllNotFoundException or EntryPointNotFoundException or BadImageFormatException)
+        {
+            ArtStatus = $"Could not make the map: {e.Message}";
+        }
+        finally
+        {
+            IsExtracting = false;
+        }
     }
 
     /// <summary>Asks the view to bring a pin into view.</summary>

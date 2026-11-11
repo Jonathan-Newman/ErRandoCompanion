@@ -39,6 +39,7 @@ In-game overlay plan. The desktop app stays alongside the mod.
 | 33 | Route distance: walk from here or warp to a found grace, whichever is shorter; dungeon checks through their entrance then inside; how far up or down (straight lines between those points, not the terrain; real navmeshes were tested and set aside) | Built; needs an in-game check |
 | 34 | Found tab places: the randomizer's placeholder text ("aaaa...") replaced by the nearest grace, distance and height; saved entries mended | Done |
 | 35 | Game save backed up (compressed) with each run backup; restored from the app's Backups window with the game closed | Done |
+| 36 | Map pictures made in the app from the player's own game (archives, Oodle, BC7/BC1 tiles), so no FromSoftware art ships | Done; decoders match Pillow, checked against the real game |
 
 ## Ongoing
 - After a game update, check `ErRandoCompanionMod.log`. If auto-tracking or the cursor stops working, the memory patterns need updating (`Data\signatures.json` and `mod/src/game_input.rs`).

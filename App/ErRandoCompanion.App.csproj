@@ -7,7 +7,8 @@
 
   <ItemGroup>
     <Content Include="..\Data\*.json" Link="Data\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\Data\*.jpg" Link="Data\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <!-- FromSoftware's map art. Release builds for GitHub pass -p:IncludeMapArt=false so the exe carries none of it. -->
+    <Content Include="..\Data\*.jpg" Link="Data\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" Condition="'$(IncludeMapArt)' != 'false'" />
     <Content Include="..\LICENSE;..\THIRD_PARTY_NOTICES.md" Link="%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
     <Content Include="..\licenses\*.txt" Link="licenses\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
   </ItemGroup>
