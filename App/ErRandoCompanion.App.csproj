@@ -24,7 +24,7 @@
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
     <Product>Elden Ring Randomizer Companion</Product>
     <AssemblyTitle>Elden Ring Randomizer Companion</AssemblyTitle>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
 </Project>
