@@ -10,8 +10,24 @@ namespace ErRandoCompanion.App.ViewModels;
 public sealed class AllCheckRow(SeedCheck check, Action<AllCheckRow, bool> setChecked) : ObservableObject
 {
     private LocationStatus _status;
+    private string _odds = "";
+    private bool _overdue;
 
     public SeedCheck Check => check;
+
+    /// <summary>For a drop of every enemy of a kind: kills, the chance a kill gives it, and how likely it is still missing.</summary>
+    public string Odds
+    {
+        get => _odds;
+        private set => Set(ref _odds, value);
+    }
+
+    /// <summary>It would usually have dropped by now.</summary>
+    public bool IsOverdue
+    {
+        get => _overdue;
+        private set => Set(ref _overdue, value);
+    }
     public string Description => check.Slot.Description.Length > 0 ? check.Slot.Description : "Somewhere here";
 
     public string Detail { get; } = string.Join("  ·  ", new[]
@@ -38,7 +54,12 @@ public sealed class AllCheckRow(SeedCheck check, Action<AllCheckRow, bool> setCh
         set => setChecked(this, value);
     }
 
-    public void Update(LocationStatus status) => Status = status;
+    public void Update(LocationStatus status, DropOdds? odds)
+    {
+        Status = status;
+        Odds = odds?.Text() ?? "";
+        IsOverdue = odds?.IsOverdue == true;
+    }
 }
 
 /// <summary>A place in the full list, with its counts.</summary>
@@ -92,7 +113,7 @@ public sealed class AllChecksViewModel : ObservableObject
 
     public ObservableCollection<AllPlaceRow> Places { get; } = [];
     public ObservableCollection<AllCheckRow> Visible { get; } = [];
-    public IReadOnlyList<string> Filters { get; } = ["Open", "Locked", "Checked", "All"];
+    public IReadOnlyList<string> Filters { get; } = ["Open", "Locked", "Checked", "Overdue", "All"];
     public IReadOnlyList<string> Kinds { get; } = ["All", .. CheckKinds.All];
 
     public bool HasList => _seed is not null;
@@ -185,7 +206,7 @@ public sealed class AllChecksViewModel : ObservableObject
             return;
         var logic = new AllChecksLogic(_seed.Logic, _seed.Options, _data, state, _seed.KnownItems);
         foreach (var row in _rows)
-            row.Update(logic.StatusOf(row.Check));
+            row.Update(logic.StatusOf(row.Check), _seed.OddsOf(row.Check, state));
         foreach (var place in Places)
             place.Refresh();
         var done = _rows.Count(r => r.Status == LocationStatus.Checked);
@@ -213,6 +234,7 @@ public sealed class AllChecksViewModel : ObservableObject
                 "Open" => r.Status == LocationStatus.Available,
                 "Locked" => r.Status == LocationStatus.Locked,
                 "Checked" => r.Status == LocationStatus.Checked,
+                "Overdue" => r.IsOverdue,
                 _ => true,
             })
             .Where(r => _kind == "All" || r.Check.Slot.Kind == _kind)

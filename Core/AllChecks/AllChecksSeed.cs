@@ -19,8 +19,47 @@ public sealed record SeedCheck(SlotEntry Slot, string Place, IReadOnlyList<uint>
     /// </summary>
     public IReadOnlySet<string> TrackItems { get; init; } = new HashSet<string>();
 
+    /// <summary>For a drop of every enemy of a kind: the kind ("Imp"), as the log and the randomizer's model names call it.</summary>
+    public string? Enemy { get; init; }
+
+    /// <summary>For a drop of every enemy of a kind: every item the seed put there (normalized). Spoiler data: never shown.</summary>
+    public IReadOnlySet<string> DropItems { get; init; } = new HashSet<string>();
+
     /// <summary>False for checks auto-tracking cannot see (unlimited shop stock, some rewards): ticked by hand.</summary>
-    public bool Trackable => Flags.Count > 0 || TrackItems.Count > 0;
+    public bool Trackable => Flags.Count > 0 || TrackItems.Count > 0 || DropItems.Count > 0;
+}
+
+/// <summary>
+/// What the kills say about a drop: how many enemies of its kind were killed, the chance each kill had of giving it,
+/// and the chance it would still not have dropped after that many. Null chances when no kill could have given it.
+/// </summary>
+public sealed record DropOdds(int Kills, double? PerKill, double? StillMissing)
+{
+    /// <summary>Below this chance of still missing, the drop is overdue: it would usually have dropped by now.</summary>
+    public const double Overdue = 0.1;
+
+    public bool IsOverdue => StillMissing is < Overdue;
+
+    /// <summary>"23 killed  ·  5% a kill  ·  31% chance of no drop yet", or null before any kill.</summary>
+    public string? Text()
+    {
+        if (Kills == 0)
+            return null;
+        var text = $"{Kills} killed";
+        if (PerKill is { } p)
+            text += $"  ·  {Percent(p)} a kill";
+        if (StillMissing is { } missing)
+            text += IsOverdue ? $"  ·  overdue: only {Percent(missing)} chance of no drop by now" : $"  ·  {Percent(missing)} chance of no drop yet";
+        return text;
+    }
+
+    private static string Percent(double value) => value switch
+    {
+        >= 0.995 => "100%",
+        >= 0.1 => $"{value * 100:0}%",
+        >= 0.001 => $"{value * 100:0.#}%",
+        _ => "under 0.1%",
+    };
 }
 
 /// <summary>
@@ -40,11 +79,19 @@ public sealed class AllChecksSeed
     /// <summary>Where drops any enemy of a kind can give are listed: they belong to no one place.</summary>
     public const string AnyArea = "Enemy drops anywhere";
 
+    /// <summary>
+    /// Each enemy kind's (NpcParam row's) drop table: its rows, each rolled on a kill, as (item, chance) entries.
+    /// Spoiler data, for counting and odds only: never shown.
+    /// </summary>
+    public IReadOnlyDictionary<int, IReadOnlyList<IReadOnlyList<(string Item, double Chance)>>> DropTables { get; init; } =
+        new Dictionary<int, IReadOnlyList<IReadOnlyList<(string Item, double Chance)>>>();
+
     /// <summary>Areas in the order the randomizer lists them, which roughly follows the game.</summary>
     public required IReadOnlyList<string> Places { get; init; }
 
     public static AllChecksSeed Build(RandomizerLogic logic, IReadOnlyList<SlotEntry> slots, Regulation regulation, IReadOnlySet<string> options,
-        IReadOnlyList<EnemyTypeDrop>? drops = null, IReadOnlyDictionary<string, int>? placements = null, IEnumerable<string>? knownItems = null)
+        IReadOnlyList<EnemyTypeDrop>? drops = null, IReadOnlyDictionary<string, int>? placements = null, IEnumerable<string>? knownItems = null,
+        IReadOnlyDictionary<(int Category, int Id), string>? itemNames = null)
     {
         var shopFlags = regulation.ShopRows
             .Where(s => s.Flag != 0 && s.Quantity > 0)
@@ -74,7 +121,30 @@ public sealed class AllChecksSeed
             var onlyHere = placements is not null && items.All(i => placements.GetValueOrDefault(i.Key) == i.Count());
             var slot = new SlotEntry($"drop:{RandomizerLogic.Normalize(enemy)}:{RandomizerLogic.Normalize(replaced)}", false, 0, "",
                 $"Dropped by any {enemy}", replaced, CheckKinds.EnemyDrop, "", false, new HashSet<string>());
-            checks.Add(new SeedCheck(slot, AnyArea, []) { TrackItems = onlyHere ? items.Select(i => ItemKey(i.Key)).ToHashSet() : new HashSet<string>() });
+            checks.Add(new SeedCheck(slot, AnyArea, [])
+            {
+                TrackItems = onlyHere ? items.Select(i => ItemKey(i.Key)).ToHashSet() : new HashSet<string>(),
+                Enemy = enemy,
+                DropItems = items.Select(i => ItemKey(i.Key)).ToHashSet(),
+            });
+        }
+
+        // Every enemy kind's drop table, by item name, for counting drops after kills and for the odds.
+        var tables = new Dictionary<int, IReadOnlyList<IReadOnlyList<(string Item, double Chance)>>>();
+        if (itemNames is not null)
+        {
+            foreach (var npc in regulation.NpcDropLots.Keys)
+            {
+                var rows = regulation.DropRows(npc)
+                    .Select(row => (IReadOnlyList<(string, double)>)row
+                        .Where(e => e.Category is >= 1 and <= 6)
+                        .Select(e => (ItemKey(ItemPickups.NameOf(itemNames, e.Category, e.ItemId)), e.Chance))
+                        .ToList())
+                    .Where(row => row.Count > 0)
+                    .ToList();
+                if (rows.Count > 0)
+                    tables[npc] = rows;
+            }
         }
 
         var order = logic.AreaNames.Values.Distinct().Select((name, i) => (name, i)).ToDictionary(x => x.name, x => x.i);
@@ -85,7 +155,72 @@ public sealed class AllChecksSeed
             Checks = checks,
             Places = checks.Select(c => c.Place).Distinct().OrderBy(p => order.GetValueOrDefault(p, int.MaxValue)).ToList(),
             KnownItems = (knownItems ?? []).Select(ItemKey).ToHashSet(),
+            DropTables = tables,
         };
+    }
+
+    /// <summary>The chance one kill of this enemy kind gives any of these items: each row rolled once.</summary>
+    public double ChancePerKill(int npcParam, IReadOnlySet<string> items)
+    {
+        if (!DropTables.TryGetValue(npcParam, out var rows))
+            return 0;
+        var none = 1.0;
+        foreach (var row in rows)
+            none *= 1 - Math.Min(1, row.Where(e => items.Contains(e.Item)).Sum(e => e.Chance));
+        return 1 - none;
+    }
+
+    /// <summary>
+    /// What the run's kills say about a drop of every enemy of a kind: every kill whose drop table could give it counts,
+    /// whatever the enemy is called. Null for any other check.
+    /// </summary>
+    public DropOdds? OddsOf(SeedCheck check, TrackerState state)
+    {
+        if (check.Enemy is null)
+            return null;
+        var kills = 0;
+        var weightedChance = 0.0;
+        var missing = 1.0;
+        foreach (var (npc, count) in state.Kills)
+        {
+            var chance = ChancePerKill(npc, check.DropItems);
+            if (chance <= 0)
+                continue;
+            kills += count;
+            weightedChance += chance * count;
+            missing *= Math.Pow(1 - chance, count);
+        }
+        if (kills == 0)
+            return new DropOdds(0, null, null);
+        return new DropOdds(kills, weightedChance / kills, state.AllChecked.Contains(check.Id) ? null : missing);
+    }
+
+    /// <summary>
+    /// Ticks drops of every enemy of a kind from items that just arrived: an item counts for a kind killed in the last
+    /// few minutes whose drop table has it. Returns how many checks were ticked.
+    /// </summary>
+    public int ApplyDrops(TrackerState state, IEnumerable<string> arrived, IReadOnlyList<int> recentKinds)
+    {
+        var changed = 0;
+        foreach (var item in arrived.Select(ItemKey).Distinct())
+        {
+            foreach (var npc in recentKinds)
+            {
+                if (!DropTables.TryGetValue(npc, out var rows) || !rows.Any(r => r.Any(e => e.Item == item)))
+                    continue;
+                // The drop of this kind, by name; or, when the names differ (horses, strays, crabs), the only drop
+                // that has this item.
+                var kind = state.KillKinds.GetValueOrDefault(npc);
+                var candidates = Checks.Where(c => c.Enemy is not null && c.DropItems.Contains(item)).ToList();
+                var named = candidates.Where(c => c.Enemy == kind).ToList();
+                foreach (var check in named.Count > 0 ? named : candidates.Count == 1 ? candidates : [])
+                {
+                    if (state.AutoCredited.Add(CreditKey(check)) && state.AllChecked.Add(check.Id))
+                        changed++;
+                }
+            }
+        }
+        return changed;
     }
 
     /// <summary>"Rogier's Rapier +8", "Golden Rune [2] x3", "Smithing Stone [1] 3x" all match by name: "rogiersrapier".</summary>

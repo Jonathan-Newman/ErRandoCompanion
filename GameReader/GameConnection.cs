@@ -54,6 +54,7 @@ public sealed partial class GameConnection(GameSignatures signatures, bool readO
     private EventFlagReader? _flags;
     private PlayerReader? _player;
     private InventoryReader? _inventory;
+    private EnemyReader? _enemies;
     private long? _gameDataMan;
     private bool _unsupported;
     private bool _positionUnsupported;
@@ -159,6 +160,7 @@ public sealed partial class GameConnection(GameSignatures signatures, bool readO
                 && SignatureScanner.ResolveAddress(image, baseAddress, worldChrMan) is { } manager)
             {
                 _player = new PlayerReader(_memory!, manager, _playerOffsets);
+                _enemies = new EnemyReader(_memory!, manager, _playerOffsets.PlayerInstance, EnemyOffsets.From(signatures.Enemies));
             }
             else
             {
@@ -191,7 +193,19 @@ public sealed partial class GameConnection(GameSignatures signatures, bool readO
         return image;
     }
 
-    /// <summary>What the player holds now; null when the game is not connected or the inventory cannot be found.</summary>
+    /// <summary>The enemies loaded in the world with their HP; null when the game is not connected or they cannot be read.</summary>
+    public IReadOnlyList<LoadedEnemy>? ReadEnemies()
+    {
+        try
+        {
+            return _enemies?.Read();
+        }
+        catch (Exception e) when (e is Win32Exception or InvalidOperationException)
+        {
+            return null;
+        }
+    }
+
     /// <summary>
     /// The loaded character's death count (GameDataMan+0x94, from fromsoftware-rs's GameDataMan layout), or null when
     /// it cannot be read or does not look like a count.
@@ -234,6 +248,7 @@ public sealed partial class GameConnection(GameSignatures signatures, bool readO
         _flags = null;
         _player = null;
         _inventory = null;
+        _enemies = null;
         _gameDataMan = null;
         // A restarted (perhaps updated) game gets a fresh look.
         _unsupported = false;

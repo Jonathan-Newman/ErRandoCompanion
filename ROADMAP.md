@@ -46,6 +46,7 @@ In-game overlay plan. The desktop app stays alongside the mod.
 | 40 | Small display: long lines wrap at its usual width, two lines at most, then "..." | Done; checked in the test window |
 | 41 | All checks: drops any enemy of a kind gives ("From Imp"), and unlock items (bell bearings, prayer books) counted from the Found log | Done |
 | 42 | Hide at graces, in shops and NPC menus, and in cutscenes, following the game's HUD state (CSFeManImp + 0x78: 0 hidden, 2 popup menu) | Built; needs an in-game check (the log records each HUD state) |
+| 43 | Kills by kind, read from the loaded enemies' HP (WorldChrMan character sets); drop odds and "overdue" for each enemy-type drop from the seed's drop tables; drops ticked when their item arrives soon after a kill that could give it | Built; needs an in-game check (the log says whether enemies can be read) |
 
 ## Ongoing
 - After a game update, check `ErRandoCompanionMod.log`. If auto-tracking or the cursor stops working, the memory patterns need updating (`Data\signatures.json` and `mod/src/game_input.rs`).

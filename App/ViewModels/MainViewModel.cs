@@ -46,6 +46,9 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     private (string? Target, int Graces) _graceHintFor;
     private string? _deadEnd;
     private IReadOnlyDictionary<(int Category, int Id), string> _itemNames = new Dictionary<(int, int), string>();
+    private IReadOnlyDictionary<string, string> _modelNames = new Dictionary<string, string>();
+    private readonly KillCounter _kills = new();
+    private readonly RecentKills _recentKills = new();
     private string _foundFilter = "All";
     private string _foundSearch = "";
     private readonly DispatcherTimer _ownershipTimer = new() { Interval = TimeSpan.FromSeconds(1) };
@@ -309,6 +312,14 @@ public sealed class MainViewModel : ObservableObject, IDisposable
         if (finished > 0)
             left.Add($"{finished} regions finished.");
         Progress = [new ReportSection("What's left, by region", left), .. ReportSections(RunReports.Build(_data, _state, _logic), _bestSplits)];
+        var kills = KillCounter.ByKind(_state);
+        if (kills.Count > 0)
+        {
+            var lines = kills.Take(25).Select(k => $"{k.Kills}   {k.Kind}").ToList();
+            if (kills.Count > 25)
+                lines.Add($"and {kills.Count - 25} other kinds");
+            Progress = [.. Progress, new ReportSection($"Kills ({kills.Sum(k => k.Kills)})", lines)];
+        }
         Raise(nameof(Progress));
 
         var open = RunReports.OpenCount(_data, _state, _logic);
@@ -725,6 +736,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                 _pickups = loaded.Pickups;
                 _mapNames = loaded.MapNames;
                 _itemNames = loaded.ItemNames;
+                _modelNames = loaded.ModelNames;
                 _graces = new GraceTracker(loaded.Graces);
                 _graceHintFor = (null, -2);
                 _allSeed = loaded.All;
@@ -825,6 +837,26 @@ public sealed class MainViewModel : ObservableObject, IDisposable
             if (result.Status == ReaderStatus.Connected && !_ownership.IsReadOnly && _autoTracker.Apply(result.FlagsOn))
                 Changed();
 
+            // Kills: an enemy seen alive and then with no HP. Counted by kind, for the full list's drop odds.
+            if (result.Status == ReaderStatus.Connected && result.Player is not null && !_ownership.IsReadOnly)
+            {
+                if (await Task.Run(game.ReadEnemies) is { } enemies)
+                {
+                    var kills = _kills.Update(enemies.Select(e => new EnemySighting(e.Handle, e.NpcParam, e.Model, e.Hp)));
+                    _recentKills.Add(kills, DateTime.UtcNow);
+                    if (KillCounter.Record(_state, kills, _modelNames))
+                    {
+                        Save();
+                        AllChecks.Refresh(_state);
+                        RefreshProgress(UnlockForecast.Compute(_data!, _state));
+                    }
+                }
+            }
+            else if (result.Player is null)
+            {
+                _kills.Reset();
+            }
+
             // Only in the world: on the title screen the flags are not this character's.
             if (scanPickups && result.Status == ReaderStatus.Connected && result.Player is { } who)
             {
@@ -839,8 +871,12 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                     if (gains.Count > 0)
                         added += PickupLog.RecordReceived(_state, gains, _itemNames, PickupLog.Given(_state.Found.Skip(before)), now, mapName);
                 }
-                // The full list last: its drops are ticked from what was just received.
-                if (_allSeed?.Apply(_state, result.FlagsOn) > 0)
+                // The full list last: its drops are ticked from what was just received, and from kills just before.
+                var drops = _state.Found.Skip(before).Where(f => f.Source == FoundItem.DropOrOther).SelectMany(f => f.Items).ToList();
+                var ticked = _allSeed?.Apply(_state, result.FlagsOn) ?? 0;
+                if (drops.Count > 0)
+                    ticked += _allSeed?.ApplyDrops(_state, drops, _recentKills.Kinds(now)) ?? 0;
+                if (ticked > 0)
                 {
                     Save();
                     AllChecks.Refresh(_state);

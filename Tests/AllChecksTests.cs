@@ -207,8 +207,10 @@ public class AllChecksTests(ITestOutputHelper output)
         Assert.Equal(AllChecksSeed.AnyArea, imp.Place);
         Assert.Equal("Dropped by any Imp", imp.Slot.Description);
         Assert.True(imp.Trackable);
-        // The Shortbow is in two places, so finding one says nothing about this drop: it is ticked by hand.
-        Assert.False(seed.Checks.Single(c => c.Id == "drop:albinauric:dirtychainmail").Trackable);
+        // The Shortbow is in two places, so finding one alone says nothing about this drop; only a kill just before can.
+        var albinauric = seed.Checks.Single(c => c.Id == "drop:albinauric:dirtychainmail");
+        Assert.Empty(albinauric.TrackItems);
+        Assert.Contains("shortbow", albinauric.DropItems);
 
         var state = TrackerState.Create("test", TestData.Load());
         Assert.Equal(LocationStatus.Available, new AllChecksLogic(Logic, seed.Options, TestData.Load(), state).StatusOf(imp));
@@ -272,6 +274,15 @@ public class AllChecksTests(ITestOutputHelper output)
         var anywhere = seed.Checks.Where(c => c.Place == AllChecksSeed.AnyArea).ToList();
         output.WriteLine($"Enemy drops anywhere: {anywhere.Count} ({anywhere.Count(c => c.Trackable)} auto-tracked) from {log.EnemyTypeDrops.Count} log lines");
         Assert.True(anywhere.Count > 100);
+
+        // Kills are put down to these drops by the enemy's model name and by the items in its drop table.
+        var modelNames = SeedLoader.LoadModelNames(folder).Values.ToHashSet();
+        var named = anywhere.Count(c => modelNames.Contains(c.Enemy!));
+        var inTables = anywhere.Count(c => seed.DropTables.Values.Any(rows => rows.Any(r => r.Any(e => c.DropItems.Contains(e.Item)))));
+        output.WriteLine($"Drops whose enemy is a model name: {named} of {anywhere.Count}; whose items are in a drop table: {inTables}; drop tables: {seed.DropTables.Count}");
+        output.WriteLine($"Unnamed enemies: {string.Join(", ", anywhere.Where(c => !modelNames.Contains(c.Enemy!)).Select(c => c.Enemy).Distinct().Take(12))}");
+        Assert.True(named > anywhere.Count * 9 / 10);
+        Assert.True(inTables > anywhere.Count * 9 / 10);
         output.WriteLine($"{seed.Checks.Count} checks in {seed.Places.Count} places; {seed.Checks.Count(c => c.Trackable)} auto-tracked; {available} open at the start");
         foreach (var kind in seed.Checks.GroupBy(c => c.Slot.Kind))
             output.WriteLine($"  {kind.Key}: {kind.Count()} ({kind.Count(c => c.Trackable)} auto-tracked)");

@@ -23,6 +23,9 @@ public sealed record LoadedSeed(ParsedSpoilerLog Log, SeedFlags Flags, MapLinks 
     /// <summary>Every check the randomizer could fill in this seed, or null when the randomizer folder lacks its slot tables.</summary>
     public AllChecksSeed? All { get; init; }
 
+    /// <summary>The randomizer's names for enemy models ("c3080" is "Imp"), for naming the kinds the player kills.</summary>
+    public IReadOnlyDictionary<string, string> ModelNames { get; init; } = new Dictionary<string, string>();
+
     /// <summary>Every Site of Grace, named and placed, for "warp to the nearest grace" hints.</summary>
     public IReadOnlyList<Grace> Graces { get; init; } = [];
 
@@ -60,7 +63,24 @@ public static class SeedLoader
             MapNames = ItemPickups.LoadMapNames(log.RandomizerDirectory),
             ItemNames = ItemPickups.LoadNames(Path.Combine(log.RandomizerDirectory, "diste", "Names")),
             All = LoadAll(directory, regulation, log),
+            ModelNames = LoadModelNames(directory),
         };
+    }
+
+    /// <summary>diste\Names\ModelName.txt: "c3080 Imp" lines. Empty when it is missing.</summary>
+    public static IReadOnlyDictionary<string, string> LoadModelNames(string randomizerDirectory)
+    {
+        var path = Path.Combine(randomizerDirectory, "diste", "Names", "ModelName.txt");
+        var names = new Dictionary<string, string>();
+        if (!File.Exists(path))
+            return names;
+        foreach (var line in File.ReadLines(path))
+        {
+            var space = line.IndexOf(' ');
+            if (space > 0)
+                names.TryAdd(line[..space], line[(space + 1)..].Trim());
+        }
+        return names;
     }
 
     /// <summary>The full check list, from the randomizer's diste\Base tables; null when they are missing or unreadable.</summary>
@@ -73,9 +93,9 @@ public static class SeedLoader
             return null;
         try
         {
-            var names = ItemPickups.LoadNames(Path.Combine(randomizerDirectory, "diste", "Names")).Values;
+            var names = ItemPickups.LoadNames(Path.Combine(randomizerDirectory, "diste", "Names"));
             return AllChecksSeed.Build(RandomizerLogic.Load(annotations), SlotCatalog.Load(slots), regulation, log.Options,
-                log.EnemyTypeDrops, log.PlacementCounts, names);
+                log.EnemyTypeDrops, log.PlacementCounts, names.Values, names);
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or FormatException)
         {

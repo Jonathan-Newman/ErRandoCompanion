@@ -31,7 +31,9 @@ const FILTERS: [&str; 4] = ["Available", "Locked", "Checked", "All"];
 const TABS: [&str; 9] = ["Checks", "Targets", "Items", "Randomizer", "Settings", "Runs", "Found", "Progress", "All"];
 const PROGRESS_TAB: usize = 7;
 const ALL_TAB: usize = 8;
-const ALL_FILTERS: [&str; 4] = ["Open", "Locked", "Checked", "All"];
+const ALL_FILTERS: [&str; 5] = ["Open", "Locked", "Checked", "Overdue", "All"];
+/// Where the full list puts drops any enemy of a kind gives; the only place with overdue drops.
+const ANY_AREA: &str = "Enemy drops anywhere";
 const ALL_KINDS: [&str; 7] = ["All", "Pickup", "Chest", "Enemy drop", "Boss", "Quest", "Shop"];
 const FOUND_KINDS: [&str; 9] = ["All", "Weapons", "Armour", "Talismans", "Ashes of War", "Spells", "Spirit Ashes", "Items", "Drop or other"];
 
@@ -1275,6 +1277,16 @@ impl Overlay {
                 ui.text_disabled(format!("{}  {}", place.count, place.place));
             }
         }
+        if !report.kills.is_empty() {
+            ui.separator();
+            ui.text(format!("Kills ({})", report.kills.iter().map(|k| k.count).sum::<i32>()));
+            for kind in report.kills.iter().take(25) {
+                ui.text_disabled(format!("{}  {}", kind.count, kind.place));
+            }
+            if report.kills.len() > 25 {
+                ui.text_disabled(format!("and {} other kinds", report.kills.len() - 25));
+            }
+        }
         if !report.key_items.is_empty() {
             ui.separator();
             ui.text("Key items, in the order found");
@@ -1301,6 +1313,10 @@ impl Overlay {
         ui.text_colored(GOLD, format!("{} / {} checked, {} open now", all.done, all.total, all.open));
         ui.same_line();
         ui.text_disabled(format!("({} ticked by hand)", all.by_hand));
+        if all.overdue > 0 {
+            ui.same_line();
+            ui.text_colored(YELLOW, format!("{} overdue drops", all.overdue));
+        }
         ui.set_next_item_width(110.0);
         ui.combo_simple_string("##allfilter", &mut self.all_filter, &ALL_FILTERS);
         ui.same_line();
@@ -1317,6 +1333,7 @@ impl Overlay {
                     "Open" => place.open > 0,
                     "Checked" => place.done > 0,
                     "Locked" => place.total - place.done - place.open > 0,
+                    "Overdue" => place.name == ANY_AREA && all.overdue > 0,
                     _ => true,
                 };
                 if !shown {
@@ -1350,6 +1367,7 @@ impl Overlay {
                         "Open" => check.status == "available",
                         "Locked" => check.status == "locked",
                         "Checked" => check.status == "checked",
+                        "Overdue" => check.overdue,
                         _ => true,
                     };
                     if !status_shown || (kind != "All" && check.kind != kind) {
@@ -1378,6 +1396,9 @@ impl Overlay {
                         }
                         let _d = ui.push_style_color(StyleColor::Text, DETAILS);
                         ui.text_wrapped(detail);
+                        if let Some(odds) = &check.odds {
+                            ui.text_colored(if check.overdue { YELLOW } else { DETAILS }, odds);
+                        }
                     });
                 }
                 if !any {

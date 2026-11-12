@@ -62,6 +62,12 @@ public sealed class TrackerState
     /// </summary>
     public HashSet<string> AllChecked { get; set; } = [];
 
+    /// <summary>Enemies killed in this run, by kind (NpcParam row), counted from the game (see <see cref="Logic.KillCounter"/>).</summary>
+    public Dictionary<int, int> Kills { get; set; } = [];
+
+    /// <summary>The name of each kind killed ("Imp"), by NpcParam row.</summary>
+    public Dictionary<int, string> KillKinds { get; set; } = [];
+
     public const int MaxTargets = 5;
 
     /// <summary>Checks the player is hunting, by location id, numbered 1 to <see cref="MaxTargets"/>. Each number is used once.</summary>

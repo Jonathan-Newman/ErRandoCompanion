@@ -179,6 +179,7 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
 
     let mut last_poll: Option<Instant> = None;
     let mut last_inventory: Option<bool> = None;
+    let mut enemies_read: Option<bool> = None;
     loop {
         let wait = last_poll.map_or(Duration::ZERO, |at| POLL_EVERY.saturating_sub(at.elapsed()));
         match commands.recv_timeout(wait) {
@@ -211,6 +212,15 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
                             "The inventory was found: drops and other received items are logged in the Found tab."
                         } else {
                             "The inventory could not be found in this game version, so random drops are not logged."
+                        });
+                    }
+                    // Also once each way: whether the loaded enemies can be read, which kill counting needs.
+                    let can_read = poll.enemies_loaded.map(|n| n > 0);
+                    if can_read.is_some() && can_read != enemies_read {
+                        enemies_read = can_read;
+                        log::write(&match poll.enemies_loaded {
+                            Some(n) if n > 0 => format!("Enemies can be read ({n} loaded): kills are counted."),
+                            _ => "No enemies could be read here; if this stays so in places with enemies, kills are not counted in this game version.".to_string(),
                         });
                     }
                     let before = {

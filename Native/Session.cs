@@ -31,6 +31,9 @@ public sealed class Session : IDisposable
     private int _polls;
     private readonly ReceivedItems _received = new();
     private readonly DeathCounter _deaths = new();
+    private readonly KillCounter _killCounter = new();
+    private readonly RecentKills _recentKills = new();
+    private int? _enemiesLoaded;
     private GraceTracker? _graces;
     private IReadOnlyList<TimedEvent>? _bestSplits;
     private PlayerPosition? _lastPlayer;
@@ -232,7 +235,10 @@ public sealed class Session : IDisposable
             statuses.Count(s => s.Status == LocationStatus.Checked), statuses.Count, statuses.Count(s => s.Status == LocationStatus.Available),
             all.Checks.Count(c => !c.Trackable),
             all.Places.Select(p => new AllPlaceInfo(p, byPlace[p].Count(s => s.Status == LocationStatus.Checked), byPlace[p].Count(),
-                byPlace[p].Count(s => s.Status == LocationStatus.Available))).ToList());
+                byPlace[p].Count(s => s.Status == LocationStatus.Available))).ToList())
+        {
+            Overdue = all.Checks.Count(c => all.OddsOf(c, _state)?.IsOverdue == true),
+        };
     }
 
     /// <summary>The checks of one place in the full list, in the randomizer's order.</summary>
@@ -242,8 +248,13 @@ public sealed class Session : IDisposable
             return [];
         var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state, all.KnownItems);
         return all.Checks.Where(c => c.Place == place)
-            .Select(c => new AllCheckInfo(c.Id, c.Slot.Description, c.Slot.Kind, c.Slot.Replaces, c.Slot.Missable, !c.Trackable,
-                Camel(logic.StatusOf(c).ToString())))
+            .Select(c => (Check: c, Odds: all.OddsOf(c, _state)))
+            .Select(x => new AllCheckInfo(x.Check.Id, x.Check.Slot.Description, x.Check.Slot.Kind, x.Check.Slot.Replaces, x.Check.Slot.Missable,
+                !x.Check.Trackable, Camel(logic.StatusOf(x.Check).ToString()))
+            {
+                Odds = x.Odds?.Text(),
+                Overdue = x.Odds?.IsOverdue == true,
+            })
             .ToList();
     }
 
@@ -279,7 +290,10 @@ public sealed class Session : IDisposable
             report.Deaths.Select(d => new PlaceCount(d.Place, d.Count)).ToList(),
             report.Slowest is { } s ? new StretchInfo(s.From, s.To, s.EndedWith) : null,
             report.KeyItems.Select(k => new TimedInfo(k.Name, k.Seconds)).ToList(),
-            Splits(report.Splits, state == _state ? _bestSplits : null));
+            Splits(report.Splits, state == _state ? _bestSplits : null))
+        {
+            Kills = KillCounter.ByKind(state).Select(k => new PlaceCount(k.Kind, k.Kills)).ToList(),
+        };
     }
 
     /// <summary>Puts a check aside for now, or back.</summary>
@@ -435,6 +449,26 @@ public sealed class Session : IDisposable
         var changed = result.Status == GameStatus.Connected && !_ownership.IsReadOnly && _autoTracker?.Apply(result.FlagsOn) == true;
         if (changed)
             Changed();
+        // Kills: an enemy seen alive and then with no HP, counted by kind for the full list's drop odds.
+        if (!_ownership.IsReadOnly && result.Status == GameStatus.Connected && result.Player is not null)
+        {
+            var enemies = _game.ReadEnemies();
+            _enemiesLoaded = enemies?.Count;
+            if (enemies is not null)
+            {
+                var kills = _killCounter.Update(enemies.Select(e => new EnemySighting(e.Handle, e.NpcParam, e.Model, e.Hp)));
+                _recentKills.Add(kills, DateTime.UtcNow);
+                if (KillCounter.Record(_state, kills, _seed?.ModelNames ?? new Dictionary<string, string>()))
+                {
+                    TrySave();
+                    changed = true;
+                }
+            }
+        }
+        else if (result.Player is null)
+        {
+            _killCounter.Reset();
+        }
         // Deaths, where they happen. The count is one number, so it is read every poll, not to miss the place.
         if (!_ownership.IsReadOnly && result.Status == GameStatus.Connected)
         {
@@ -461,8 +495,11 @@ public sealed class Session : IDisposable
                 if (gains.Count > 0)
                     added += PickupLog.RecordReceived(_state, gains, _seed.ItemNames, PickupLog.Given(_state.Found.Skip(before)), now, mapName);
             }
-            // The full list last: its drops are ticked from what was just received.
+            // The full list last: its drops are ticked from what was just received, and from kills just before.
             added += _seed.All?.Apply(_state, result.FlagsOn) ?? 0;
+            var drops = _state.Found.Skip(before).Where(f => f.Source == FoundItem.DropOrOther).SelectMany(f => f.Items).ToList();
+            if (drops.Count > 0)
+                added += _seed.All?.ApplyDrops(_state, drops, _recentKills.Kinds(now)) ?? 0;
             if (added > 0)
             {
                 TrySave();
@@ -495,6 +532,7 @@ public sealed class Session : IDisposable
             result.Player is { } here && nearby > 0 ? Nearest(here, nearby) : [], tracking, trackingMessage, result.PositionSupported, _state.PlayedSeconds)
         {
             InventoryReadable = _inventoryReadable,
+            EnemiesLoaded = _enemiesLoaded,
         };
     }
 

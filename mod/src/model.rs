@@ -74,6 +74,8 @@ pub struct AllPlaces {
     pub open: i32,
     pub by_hand: i32,
     pub places: Vec<AllPlace>,
+    /// Drops that would usually have dropped by now.
+    pub overdue: i32,
 }
 
 /// One check of the full list: where it is and what the unrandomized game had there, never what it holds now.
@@ -87,6 +89,9 @@ pub struct AllCheck {
     pub missable: bool,
     pub by_hand: bool,
     pub status: String,
+    /// For a drop of every enemy of a kind: kills and odds.
+    pub odds: Option<String>,
+    pub overdue: bool,
 }
 
 /// One region's checks; open means available and not skipped.
@@ -139,6 +144,8 @@ pub struct Report {
     pub slowest: Option<Stretch>,
     pub key_items: Vec<Timed>,
     pub splits: Vec<Split>,
+    /// Enemies killed, by kind, most first.
+    pub kills: Vec<PlaceCount>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
@@ -291,6 +298,8 @@ pub struct Poll {
     pub played_seconds: f64,
     /// Whether the inventory could be read at the last look (for drops); None before the first look.
     pub inventory_readable: Option<bool>,
+    /// How many enemies were loaded at the last look, for counting kills; None when they could not be read.
+    pub enemies_loaded: Option<i32>,
 }
 
 /// A saved copy of a run, from the tracker's backups.

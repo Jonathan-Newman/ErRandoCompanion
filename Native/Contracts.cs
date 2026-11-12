@@ -54,10 +54,21 @@ public sealed record AllPlaceInfo(string Name, int Done, int Total, int Open);
 /// The full check list's places and totals. Message says why there is no list (no spoiler log, missing tables),
 /// and is null when there is one.
 /// </summary>
-public sealed record AllPlacesInfo(string? Message, int Done, int Total, int Open, int ByHand, IReadOnlyList<AllPlaceInfo> Places);
+public sealed record AllPlacesInfo(string? Message, int Done, int Total, int Open, int ByHand, IReadOnlyList<AllPlaceInfo> Places)
+{
+    /// <summary>Drops that would usually have dropped by now, from the kills so far.</summary>
+    public int Overdue { get; init; }
+}
 
 /// <summary>One check of the full list: where it is and what the unrandomized game had there, never what it holds now.</summary>
-public sealed record AllCheckInfo(string Id, string Description, string Kind, string Replaces, bool Missable, bool ByHand, string Status);
+public sealed record AllCheckInfo(string Id, string Description, string Kind, string Replaces, bool Missable, bool ByHand, string Status)
+{
+    /// <summary>For a drop of every enemy of a kind: kills and odds ("23 killed  ·  5% a kill  ·  31% chance of no drop yet").</summary>
+    public string? Odds { get; init; }
+
+    /// <summary>It would usually have dropped by now.</summary>
+    public bool Overdue { get; init; }
+}
 
 /// <summary>The longest wait between ticked checks: from and to in played seconds, and the check that ended it.</summary>
 public sealed record StretchInfo(double From, double To, string EndedWith);
@@ -75,7 +86,11 @@ public sealed record ReportInfo(
     IReadOnlyList<PlaceCount> DeathPlaces,
     StretchInfo? Slowest,
     IReadOnlyList<TimedInfo> KeyItems,
-    IReadOnlyList<SplitInfo> Splits);
+    IReadOnlyList<SplitInfo> Splits)
+{
+    /// <summary>Enemies killed, by kind ("Imp"), most first.</summary>
+    public IReadOnlyList<PlaceCount> Kills { get; init; } = [];
+}
 
 /// <summary>The run's goal and how far along it is.</summary>
 public sealed record GoalInfo(string Kind, int? Count, string Description, int Done, int Needed, bool Met)
@@ -165,6 +180,9 @@ public sealed record PollInfo(string Status, string Message, bool Changed, Playe
 {
     /// <summary>Whether the inventory could be read at the last look (for drops); null before the first look.</summary>
     public bool? InventoryReadable { get; init; }
+
+    /// <summary>How many enemies were loaded at the last look, for counting kills; null when they could not be read.</summary>
+    public int? EnemiesLoaded { get; init; }
 }
 
 [JsonSourceGenerationOptions(

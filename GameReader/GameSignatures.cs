@@ -31,6 +31,9 @@ public sealed class GameSignatures
     /// <summary>Optional: the game data manager, for reading the inventory (drops and other received items).</summary>
     public Signature? GameDataMan { get; set; }
 
+    /// <summary>Optional: hex offsets for reading the loaded enemies (see <see cref="EnemyOffsets"/>), to fix after a game update.</summary>
+    public Dictionary<string, string>? Enemies { get; set; }
+
     /// <exception cref="IOException">The file is missing or unreadable.</exception>
     /// <exception cref="JsonException">The file is damaged, or has no event flag signature.</exception>
     public static GameSignatures Load(string path)

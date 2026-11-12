@@ -466,6 +466,17 @@
                                                     <TextBlock x:Name="What" Text="{Binding Description}" TextWrapping="Wrap" />
                                                     <TextBlock Text="{Binding Check.Place}" Style="{StaticResource Muted}" FontSize="11" />
                                                     <TextBlock Text="{Binding Detail}" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" />
+                                                    <TextBlock x:Name="Odds" Text="{Binding Odds}" FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource TextMuted}">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Odds}" Value="">
+                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
                                                 </StackPanel>
                                             </DockPanel>
                                             <DataTemplate.Triggers>
@@ -477,6 +488,9 @@
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding Status}" Value="Checked">
                                                     <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusChecked}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsOverdue}" Value="True">
+                                                    <Setter TargetName="Odds" Property="Foreground" Value="{StaticResource GoldBright}" />
                                                 </DataTrigger>
                                             </DataTemplate.Triggers>
                                         </DataTemplate>

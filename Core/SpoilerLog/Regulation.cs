@@ -5,7 +5,9 @@ using System.Text;
 
 namespace ErRandoCompanion.Core.SpoilerLog;
 
-public sealed record LotEntry(int ItemId, int Category, int Count, uint Flag);
+/// <param name="Chance">For a drop: how likely this entry is each time its row is rolled, 0 to 1 (its weight out of the
+/// row's, counting the row's "nothing" weight). 1 for a lot that simply gives its items.</param>
+public sealed record LotEntry(int ItemId, int Category, int Count, uint Flag, double Chance = 1);
 
 /// <param name="Flag">Turns on when the stock runs out (a purchase, for one-off items); 0 for unlimited stock.</param>
 /// <param name="RowId">The ShopLineupParam row, which says whose shop it is.</param>
@@ -34,6 +36,9 @@ public sealed class Regulation
     private const string Shops = "ShopLineupParam.param";
     private const string MapLinks = "WorldMapLegacyConvParam.param";
     private const string Graces = "BonfireWarpParam.param";
+    private const string Npcs = "NpcParam.param";
+    // NpcParam's itemLotId_enemy, from the randomizer's NpcParam.xml definition.
+    private const int NpcEnemyLot = 0x30;
 
     private static readonly byte[] AesKey = Convert.FromHexString(
         "99BFFC366A6BC8C6F5827D093602D676C42892A01C207FB024D3AF4E493FEF99");
@@ -46,6 +51,26 @@ public sealed class Regulation
 
     /// <summary>Every Site of Grace you can warp to. The same in every seed.</summary>
     public IReadOnlyList<GraceRow> GraceRows { get; init; } = [];
+
+    /// <summary>The enemy drop tables (ItemLotParam_enemy) alone, with each entry's chance. Spoiler data: never shown.</summary>
+    public IReadOnlyDictionary<int, IReadOnlyList<LotEntry>> EnemyDropLots { get; init; } = new Dictionary<int, IReadOnlyList<LotEntry>>();
+
+    /// <summary>Each enemy kind's (NpcParam row's) first drop table row, where it has one.</summary>
+    public IReadOnlyDictionary<int, int> NpcDropLots { get; init; } = new Dictionary<int, int>();
+
+    /// <summary>
+    /// What an enemy kind can drop: each row of its drop table is rolled on a kill, the first and those right after it.
+    /// Empty when it drops nothing.
+    /// </summary>
+    public IReadOnlyList<IReadOnlyList<LotEntry>> DropRows(int npcParam)
+    {
+        var rows = new List<IReadOnlyList<LotEntry>>();
+        if (!NpcDropLots.TryGetValue(npcParam, out var first))
+            return rows;
+        for (var id = first; EnemyDropLots.TryGetValue(id, out var row) && rows.Count < 10; id++)
+            rows.Add(row);
+        return rows;
+    }
 
     /// <param name="regulationPath">The seed's regulation.bin.</param>
     /// <param name="oodlePath">The game's Oodle library, which the regulation's compression needs.</param>
@@ -69,12 +94,27 @@ public sealed class Regulation
     {
         var files = ReadBinder(binder);
         var lots = new Dictionary<int, IReadOnlyList<LotEntry>>();
+        var enemyLots = new Dictionary<int, IReadOnlyList<LotEntry>>();
 
         // A lot id is only in one table in practice; map lots win as the game checks them first.
         foreach (var table in new[] { EnemyLots, MapLots })
         {
             foreach (var (id, row) in ReadParamRows(RequireFile(files, table)))
+            {
                 lots[id] = ReadLot(row);
+                if (table == EnemyLots)
+                    enemyLots[id] = lots[id];
+            }
+        }
+        var npcLots = new Dictionary<int, int>();
+        if (files.TryGetValue(Npcs, out var npcParam))
+        {
+            foreach (var (id, row) in ReadParamRows(npcParam))
+            {
+                var lot = row.Length >= NpcEnemyLot + 4 ? BitConverter.ToInt32(row, NpcEnemyLot) : 0;
+                if (lot > 0)
+                    npcLots[id] = lot;
+            }
         }
 
         var shops = ReadParamRows(RequireFile(files, Shops))
@@ -91,7 +131,7 @@ public sealed class Regulation
         var graces = files.TryGetValue(Graces, out var graceParam)
             ? ReadParamRows(graceParam).Select(r => ReadGrace(r.Id, r.Row)).Where(g => g.Flag != 0).ToList()
             : [];
-        return new Regulation { Lots = lots, ShopRows = shops, MapLinkRows = links, GraceRows = graces };
+        return new Regulation { Lots = lots, ShopRows = shops, MapLinkRows = links, GraceRows = graces, EnemyDropLots = enemyLots, NpcDropLots = npcLots };
     }
 
     private static byte[] RequireFile(Dictionary<string, byte[]> files, string name) =>
@@ -215,8 +255,13 @@ public sealed class Regulation
         const int entryFlags = 96;
         const int lotFlag = 128;
         const int counts = 138;
+        const int weights = 64;
 
         var flag = BitConverter.ToUInt32(row, lotFlag);
+        // A row gives one of its entries, picked by weight; an entry with no item is the "nothing" chance.
+        var total = 0;
+        for (var i = 0; i < entries; i++)
+            total += BitConverter.ToUInt16(row, weights + i * 2);
         var lot = new List<LotEntry>();
         for (var i = 0; i < entries; i++)
         {
@@ -224,7 +269,8 @@ public sealed class Regulation
             if (id != 0)
             {
                 var entryFlag = BitConverter.ToUInt32(row, entryFlags + i * 4);
-                lot.Add(new LotEntry(id, BitConverter.ToInt32(row, categories + i * 4), row[counts + i], entryFlag != 0 ? entryFlag : flag));
+                var chance = total > 0 ? BitConverter.ToUInt16(row, weights + i * 2) / (double)total : 1;
+                lot.Add(new LotEntry(id, BitConverter.ToInt32(row, categories + i * 4), row[counts + i], entryFlag != 0 ? entryFlag : flag, chance));
             }
         }
         return lot;

@@ -195,6 +195,13 @@ are kept apart from the Checks tab, so they do not change your goal or counts th
 Imp") are listed under "Enemy drops anywhere". Shop items that need an unlock (a bell bearing, a prayer book, a scroll)
 open once that item shows up in the Found tab.
 
+**Kills and drop luck.** The companion counts every enemy you kill, by kind (Progress tab, "Kills"). For each drop
+under "Enemy drops anywhere" it shows how many enemies that could drop it you have killed, the chance each kill had,
+and how likely it is that it still has not dropped. When that falls under 10% the drop is "overdue" (the All tab's
+Overdue filter lists them), so you know whether you are just unlucky or farming the wrong enemy. A drop is ticked
+automatically when its item arrives within a few minutes of killing an enemy that can drop it. Kills are counted from
+the enemies' health, so only kills made while the companion is running count.
+
 **Found.** Everything you pick up in a run (weapons, armour, talismans, ashes of war, spells, spirit ashes and other
 items), newest first, with where it was and when, filterable by kind and searchable.
 
