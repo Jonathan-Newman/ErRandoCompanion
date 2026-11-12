@@ -280,6 +280,143 @@
                         <views:MapView x:Name="MapPane" DataContext="{Binding Map}" />
                     </TabItem>
 
+                    <TabItem Header="All checks" DataContext="{Binding AllChecks}">
+                        <DockPanel Margin="2,0,6,0">
+                            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,8"
+                                       Text="Every place the randomizer could put an item in this seed: pickups, chests, enemy drops, boss rewards, quests and shops. Open and locked follow the randomizer's own logic. It says where each check is and what the unrandomized game had there, never what it holds now. Ticks here are kept apart from the Checklist." />
+                            <TextBlock DockPanel.Dock="Top" Text="{Binding Message}" TextWrapping="Wrap" Margin="0,0,0,8">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Message}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock DockPanel.Dock="Top" Text="{Binding Summary}" Foreground="{StaticResource GoldBright}" Margin="0,0,0,8" />
+                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                                <ComboBox DockPanel.Dock="Left" Width="100" AutomationProperties.Name="Which checks"
+                                          ItemsSource="{Binding Filters}" SelectedItem="{Binding Filter}" />
+                                <ComboBox DockPanel.Dock="Left" Width="120" Margin="8,0,0,0" AutomationProperties.Name="Kind of check"
+                                          ItemsSource="{Binding Kinds}" SelectedItem="{Binding Kind}" />
+                                <TextBox Margin="8,0,0,0" AutomationProperties.Name="Search all checks"
+                                         Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
+                            </DockPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="230" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ListBox ItemsSource="{Binding Places}" SelectedItem="{Binding Place}" Background="Transparent" BorderThickness="0"
+                                         VirtualizingPanel.IsVirtualizing="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         AutomationProperties.Name="Places">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,0,0,4">
+                                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
+                                                <TextBlock Text="{Binding Counts}" Style="{StaticResource Muted}" FontSize="11" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <ListBox Grid.Column="1" Margin="10,0,0,0" ItemsSource="{Binding Visible}" Background="Transparent" BorderThickness="0"
+                                         VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="Checks">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="0,0,0,6">
+                                                <CheckBox DockPanel.Dock="Left" VerticalAlignment="Top" Margin="0,2,8,0" IsChecked="{Binding IsChecked}"
+                                                          AutomationProperties.Name="{Binding Description}" />
+                                                <StackPanel>
+                                                    <TextBlock x:Name="What" Text="{Binding Description}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{Binding Check.Place}" Style="{StaticResource Muted}" FontSize="11" />
+                                                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" />
+                                                    <TextBlock x:Name="Odds" Text="{Binding Odds}" FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource TextMuted}">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Odds}" Value="">
+                                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </DockPanel>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Available">
+                                                    <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusAvailable}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Locked">
+                                                    <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusLocked}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Checked">
+                                                    <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusChecked}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsOverdue}" Value="True">
+                                                    <Setter TargetName="Odds" Property="Foreground" Value="{StaticResource GoldBright}" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </DockPanel>
+                    </TabItem>
+
+                    <TabItem Header="Found">
+                        <DockPanel Margin="2,0,6,0">
+                            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,10"
+                                       Text="Everything you have picked up in this run, newest first, and where. Only pickups you have already made show here. Needs the run's spoiler log. Random drops, purchases and crafting show as &quot;Drop or other&quot;." />
+                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                                <ComboBox DockPanel.Dock="Left" Width="140" AutomationProperties.Name="Kind of item"
+                                          ItemsSource="{Binding FoundKinds}" SelectedItem="{Binding FoundFilter}" />
+                                <TextBox Margin="8,0,0,0" AutomationProperties.Name="Search found items"
+                                         Text="{Binding FoundSearch, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
+                            </DockPanel>
+                            <ListBox ItemsSource="{Binding Found}" VirtualizingPanel.IsVirtualizing="True" Background="Transparent" BorderThickness="0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,0,0,6">
+                                            <TextBlock Text="{Binding Items}" Foreground="{StaticResource GoldBright}" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding Where}" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding When}" Style="{StaticResource Muted}" FontSize="11" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
+                    </TabItem>
+
+                    <TabItem Header="Progress">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="2,0,6,0">
+                                <TextBlock TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,12"
+                                           Text="Open means available and not skipped. Splits compare each step with the same step of your best finished run with this goal. Right-click a check to skip it for now." />
+                                <ItemsControl ItemsSource="{Binding Progress}">
+                                    <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+    <StackPanel Margin="0,0,0,12">
+        <TextBlock Text="{Binding Title}" Style="{StaticResource Heading}" Margin="0,0,0,4" />
+        <ItemsControl ItemsSource="{Binding Lines}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,0,0,2" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
                     <TabItem Header="Run goal">
                         <StackPanel Margin="2,0,6,0">
                             <TextBlock TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,12"
@@ -382,143 +519,6 @@
                                                 </Expander>
                                             </StackPanel>
                                         </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </TabItem>
-
-                    <TabItem Header="Found">
-                        <DockPanel Margin="2,0,6,0">
-                            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,10"
-                                       Text="Everything you have picked up in this run, newest first, and where. Only pickups you have already made show here. Needs the run's spoiler log. Random drops, purchases and crafting show as &quot;Drop or other&quot;." />
-                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
-                                <ComboBox DockPanel.Dock="Left" Width="140" AutomationProperties.Name="Kind of item"
-                                          ItemsSource="{Binding FoundKinds}" SelectedItem="{Binding FoundFilter}" />
-                                <TextBox Margin="8,0,0,0" AutomationProperties.Name="Search found items"
-                                         Text="{Binding FoundSearch, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
-                            </DockPanel>
-                            <ListBox ItemsSource="{Binding Found}" VirtualizingPanel.IsVirtualizing="True" Background="Transparent" BorderThickness="0"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="0,0,0,6">
-                                            <TextBlock Text="{Binding Items}" Foreground="{StaticResource GoldBright}" TextWrapping="Wrap" />
-                                            <TextBlock Text="{Binding Where}" TextWrapping="Wrap" />
-                                            <TextBlock Text="{Binding When}" Style="{StaticResource Muted}" FontSize="11" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </DockPanel>
-                    </TabItem>
-
-                    <TabItem Header="All checks" DataContext="{Binding AllChecks}">
-                        <DockPanel Margin="2,0,6,0">
-                            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,8"
-                                       Text="Every place the randomizer could put an item in this seed: pickups, chests, enemy drops, boss rewards, quests and shops. Open and locked follow the randomizer's own logic. It says where each check is and what the unrandomized game had there, never what it holds now. Ticks here are kept apart from the Checklist." />
-                            <TextBlock DockPanel.Dock="Top" Text="{Binding Message}" TextWrapping="Wrap" Margin="0,0,0,8">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Message}" Value="">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <TextBlock DockPanel.Dock="Top" Text="{Binding Summary}" Foreground="{StaticResource GoldBright}" Margin="0,0,0,8" />
-                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
-                                <ComboBox DockPanel.Dock="Left" Width="100" AutomationProperties.Name="Which checks"
-                                          ItemsSource="{Binding Filters}" SelectedItem="{Binding Filter}" />
-                                <ComboBox DockPanel.Dock="Left" Width="120" Margin="8,0,0,0" AutomationProperties.Name="Kind of check"
-                                          ItemsSource="{Binding Kinds}" SelectedItem="{Binding Kind}" />
-                                <TextBox Margin="8,0,0,0" AutomationProperties.Name="Search all checks"
-                                         Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
-                            </DockPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="230" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <ListBox ItemsSource="{Binding Places}" SelectedItem="{Binding Place}" Background="Transparent" BorderThickness="0"
-                                         VirtualizingPanel.IsVirtualizing="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                         AutomationProperties.Name="Places">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Margin="0,0,0,4">
-                                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
-                                                <TextBlock Text="{Binding Counts}" Style="{StaticResource Muted}" FontSize="11" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                                <ListBox Grid.Column="1" Margin="10,0,0,0" ItemsSource="{Binding Visible}" Background="Transparent" BorderThickness="0"
-                                         VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="Checks">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <DockPanel Margin="0,0,0,6">
-                                                <CheckBox DockPanel.Dock="Left" VerticalAlignment="Top" Margin="0,2,8,0" IsChecked="{Binding IsChecked}"
-                                                          AutomationProperties.Name="{Binding Description}" />
-                                                <StackPanel>
-                                                    <TextBlock x:Name="What" Text="{Binding Description}" TextWrapping="Wrap" />
-                                                    <TextBlock Text="{Binding Check.Place}" Style="{StaticResource Muted}" FontSize="11" />
-                                                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" />
-                                                    <TextBlock x:Name="Odds" Text="{Binding Odds}" FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource TextMuted}">
-                                                        <TextBlock.Style>
-                                                            <Style TargetType="TextBlock">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding Odds}" Value="">
-                                                                        <Setter Property="Visibility" Value="Collapsed" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </TextBlock.Style>
-                                                    </TextBlock>
-                                                </StackPanel>
-                                            </DockPanel>
-                                            <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding Status}" Value="Available">
-                                                    <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusAvailable}" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Status}" Value="Locked">
-                                                    <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusLocked}" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Status}" Value="Checked">
-                                                    <Setter TargetName="What" Property="Foreground" Value="{StaticResource StatusChecked}" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsOverdue}" Value="True">
-                                                    <Setter TargetName="Odds" Property="Foreground" Value="{StaticResource GoldBright}" />
-                                                </DataTrigger>
-                                            </DataTemplate.Triggers>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </Grid>
-                        </DockPanel>
-                    </TabItem>
-
-                    <TabItem Header="Progress">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <StackPanel Margin="2,0,6,0">
-                                <TextBlock TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11" Margin="0,0,0,12"
-                                           Text="Open means available and not skipped. Splits compare each step with the same step of your best finished run with this goal. Right-click a check to skip it for now." />
-                                <ItemsControl ItemsSource="{Binding Progress}">
-                                    <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-    <StackPanel Margin="0,0,0,12">
-        <TextBlock Text="{Binding Title}" Style="{StaticResource Heading}" Margin="0,0,0,4" />
-        <ItemsControl ItemsSource="{Binding Lines}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,0,0,2" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
-</DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </StackPanel>

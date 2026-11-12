@@ -28,9 +28,16 @@ const YELLOW: [f32; 4] = [1.0, 0.85, 0.3, 1.0];
 const DETAILS: [f32; 4] = [0.62, 0.64, 0.68, 1.0];
 
 const FILTERS: [&str; 4] = ["Available", "Locked", "Checked", "All"];
-const TABS: [&str; 9] = ["Checks", "Targets", "Items", "Randomizer", "Settings", "Runs", "Found", "Progress", "All"];
-const PROGRESS_TAB: usize = 7;
-const ALL_TAB: usize = 8;
+// Grouped by use: what to do next, the full list and kills, what you have, how the run is going, then setup.
+const TABS: [&str; 10] = ["Checks", "Targets", "All", "Kills", "Items", "Found", "Progress", "Runs", "Randomizer", "Settings"];
+const TARGETS_TAB: usize = 1;
+const ALL_TAB: usize = 2;
+const KILLS_TAB: usize = 3;
+const ITEMS_TAB: usize = 4;
+const FOUND_TAB: usize = 5;
+const PROGRESS_TAB: usize = 6;
+const RUNS_TAB: usize = 7;
+const RANDOMIZER_TAB: usize = 8;
 const ALL_FILTERS: [&str; 5] = ["Open", "Locked", "Checked", "Overdue", "All"];
 /// Where the full list puts drops any enemy of a kind gives; the only place with overdue drops.
 const ANY_AREA: &str = "Enemy drops anywhere";
@@ -234,6 +241,9 @@ pub struct Overlay {
     /// Whether the Progress tab was on screen last frame.
     progress_shown: bool,
     all_shown: bool,
+    kills_shown: bool,
+    /// The kind expanded in the Kills tab.
+    kill_kind: Option<String>,
     /// The place expanded in the All tab.
     all_place: Option<String>,
     all_filter: usize,
@@ -303,6 +313,8 @@ impl Overlay {
             hotkeys_down: [false; 3],
             progress_shown: false,
             all_shown: false,
+            kills_shown: false,
+            kill_kind: None,
             // For testing outside the game: a place of the All tab to start with open.
             all_place: std::env::var("ER_MOD_START_PLACE").ok().inspect(|p| crate::worker::set_all_place(Some(p.clone()))),
             all_filter: 0,
@@ -508,20 +520,21 @@ impl Overlay {
                         let flags = if self.select_tab == Some(index) { TabItemFlags::SET_SELECTED } else { TabItemFlags::empty() };
                         let Some(_tab) = TabItem::new(name).flags(flags).begin(ui) else { continue };
                         // The backups list costs disk reads, so it is fetched when the Runs tab is opened.
-                        if index == 5 && self.tab != 5 {
+                        if index == RUNS_TAB && self.tab != RUNS_TAB {
                             self.send(Command::LoadBackups);
                         }
                         self.tab = index;
                         match index {
                             0 => self.checks_tab(ui, snapshot),
-                            1 => self.targets_tab(ui, snapshot),
-                            2 => self.items_tab(ui, snapshot),
-                            3 => self.randomizer_tab(ui, snapshot),
-                            4 => self.settings_tab(ui, snapshot),
-                            5 => self.runs_tab(ui, snapshot),
-                            6 => self.found_tab(ui, snapshot),
-                            7 => self.progress_tab(ui, snapshot),
-                            _ => self.all_tab(ui, snapshot),
+                            TARGETS_TAB => self.targets_tab(ui, snapshot),
+                            ALL_TAB => self.all_tab(ui, snapshot),
+                            KILLS_TAB => self.kills_tab(ui, snapshot),
+                            ITEMS_TAB => self.items_tab(ui, snapshot),
+                            FOUND_TAB => self.found_tab(ui, snapshot),
+                            PROGRESS_TAB => self.progress_tab(ui, snapshot),
+                            RUNS_TAB => self.runs_tab(ui, snapshot),
+                            RANDOMIZER_TAB => self.randomizer_tab(ui, snapshot),
+                            _ => self.settings_tab(ui, snapshot),
                         }
                     }
                 }
@@ -1387,7 +1400,7 @@ impl Overlay {
                     };
                     ui.group(|| {
                         ui.text_colored(colour, if check.description.is_empty() { "Somewhere here" } else { &check.description });
-                        let mut detail = format!("{}  -  was {}", check.kind, check.replaces);
+                        let mut detail = format!("{}  -  originally {}", check.kind, check.replaces);
                         if check.missable {
                             detail.push_str("  -  missable");
                         }
@@ -1405,6 +1418,89 @@ impl Overlay {
                     ui.text_disabled("Nothing here with this filter.");
                 }
                 ui.unindent_by(16.0);
+            }
+        });
+    }
+
+    /// Enemies killed by kind, and under each kind the drops it can give: kills, the chance a kill gives each, and how
+    /// likely it is still missing. Overdue drops are listed first. Says what each drop originally was, never what the
+    /// seed put there.
+    fn kills_tab(&mut self, ui: &Ui, snapshot: &Snapshot) {
+        let Some(kinds) = snapshot.kill_kinds.as_ref() else {
+            ui.text_disabled("Reading the kills...");
+            return;
+        };
+        if kinds.is_empty() {
+            ui.text_wrapped("No kills yet. Every enemy you kill while the companion runs is counted here, by kind, with the drops it can give and how lucky you have been.");
+            if let Some(poll) = snapshot.poll.as_ref() {
+                match poll.enemies_loaded {
+                    Some(n) if n > 0 => ui.text_disabled(format!("{n} enemies loaded nearby, {} with no HP left.", poll.enemies_dead.unwrap_or(0))),
+                    Some(_) => ui.text_disabled("No enemies loaded here."),
+                    None => ui.text_disabled("Enemies cannot be read right now (not in the world, or this game version)."),
+                }
+            }
+            return;
+        }
+        let total: i32 = kinds.iter().map(|k| k.kills).sum();
+        ui.text_colored(GOLD, format!("{total} kills, {} kinds", kinds.len()));
+        ui.text_disabled("Pick a kind to see the drops it can give. A drop is overdue when it would usually have dropped by now.");
+
+        ui.child_window("kills").build(|| {
+            // Overdue drops first, from every kind, so a missing drop is easy to see.
+            let mut overdue: Vec<&crate::model::AllCheck> = Vec::new();
+            for kind in kinds {
+                for drop in kind.drops.iter().filter(|d| d.overdue) {
+                    if !overdue.iter().any(|o| o.id == drop.id) {
+                        overdue.push(drop);
+                    }
+                }
+            }
+            if !overdue.is_empty() {
+                ui.text_colored(YELLOW, format!("Overdue ({})", overdue.len()));
+                ui.indent_by(16.0);
+                for drop in overdue {
+                    let _id = ui.push_id(format!("overdue{}", drop.id));
+                    self.drop_row(ui, drop);
+                }
+                ui.unindent_by(16.0);
+                ui.separator();
+            }
+            for kind in kinds {
+                let _id = ui.push_id(&kind.kind);
+                let expanded = self.kill_kind.as_deref() == Some(kind.kind.as_str());
+                let open = kind.drops.iter().filter(|d| d.status != "checked").count();
+                let label = format!("{} {}  -  {} killed{}", if expanded { "-" } else { "+" }, kind.kind, kind.kills,
+                    if kind.drops.is_empty() { String::new() } else { format!(", {} of {} drops still to get", open, kind.drops.len()) });
+                if ui.selectable_config(&label).selected(expanded).build() {
+                    self.kill_kind = if expanded { None } else { Some(kind.kind.clone()) };
+                }
+                if !expanded {
+                    continue;
+                }
+                ui.indent_by(16.0);
+                if kind.drops.is_empty() {
+                    ui.text_disabled("No randomized drops of every enemy of this kind.");
+                }
+                for drop in &kind.drops {
+                    let _did = ui.push_id(&drop.id);
+                    self.drop_row(ui, drop);
+                }
+                ui.unindent_by(16.0);
+            }
+        });
+    }
+
+    /// One drop in the Kills tab: tick box, the drop and what it originally was, and its odds.
+    fn drop_row(&self, ui: &Ui, drop: &crate::model::AllCheck) {
+        let mut ticked = drop.status == "checked";
+        if ui.checkbox("##tick", &mut ticked) {
+            self.send(Command::SetAllChecked(drop.id.clone(), ticked));
+        }
+        ui.same_line();
+        ui.group(|| {
+            ui.text_colored(if ticked { GREEN } else { [1.0, 1.0, 1.0, 1.0] }, format!("{}, originally {}", drop.description, drop.replaces));
+            if let Some(odds) = &drop.odds {
+                ui.text_colored(if drop.overdue { YELLOW } else { DETAILS }, odds);
             }
         });
     }
@@ -1874,7 +1970,7 @@ impl ImguiRenderLoop for Overlay {
         }
         // A few extra, since checks that are already targets are left out of the list.
         // The found list is fetched only while its tab is on screen, and caught up when it comes back.
-        let found_shown = self.visible && self.tab == 6;
+        let found_shown = self.visible && self.tab == FOUND_TAB;
         if found_shown && !self.found_shown {
             self.send(Command::LoadFound);
         }
@@ -1893,6 +1989,12 @@ impl ImguiRenderLoop for Overlay {
             self.send(Command::LoadAll);
         }
         self.all_shown = all_shown;
+        let kills_shown = self.visible && self.tab == KILLS_TAB;
+        crate::worker::set_kills_open(kills_shown);
+        if kills_shown && !self.kills_shown {
+            self.send(Command::LoadKills);
+        }
+        self.kills_shown = kills_shown;
         let shows_nearby = self.config.mini_hud && self.config.nearby_checks > 0 && !self.out_of_game && !self.in_boss_fight && !self.in_menu && !self.hidden;
         crate::worker::set_nearby(if shows_nearby { self.config.nearby_checks + 5 } else { 0 });
         // While the panel is open the game sees an idle controller, keyboard and mouse, and shows its

@@ -95,7 +95,7 @@ public static class SeedLoader
         {
             var names = ItemPickups.LoadNames(Path.Combine(randomizerDirectory, "diste", "Names"));
             return AllChecksSeed.Build(RandomizerLogic.Load(annotations), SlotCatalog.Load(slots), regulation, log.Options,
-                log.EnemyTypeDrops, log.PlacementCounts, names.Values, names);
+                log.EnemyTypeDrops, log.PlacementCounts, names.Values, names, LoadModelNames(randomizerDirectory).Values);
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or FormatException)
         {

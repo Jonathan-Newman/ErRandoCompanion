@@ -47,6 +47,9 @@ public sealed record TimedInfo(string Name, double Seconds);
 
 public sealed record PlaceCount(string Place, int Count);
 
+/// <summary>An enemy kind killed in this run, how many, and the drops of every enemy of a kind it can give, with their odds.</summary>
+public sealed record KillKindInfo(string Kind, int Kills, IReadOnlyList<AllCheckInfo> Drops);
+
 /// <summary>A place in the full check list, with its counts.</summary>
 public sealed record AllPlaceInfo(string Name, int Done, int Total, int Open);
 
@@ -183,6 +186,14 @@ public sealed record PollInfo(string Status, string Message, bool Changed, Playe
 
     /// <summary>How many enemies were loaded at the last look, for counting kills; null when they could not be read.</summary>
     public int? EnemiesLoaded { get; init; }
+
+    /// <summary>How many of those had no HP left (corpses), which shows whether dead enemies stay long enough to count.</summary>
+    public int? EnemiesDead { get; init; }
+
+    /// <summary>Kills counted since the tracker started, and the last kind killed, for the log.</summary>
+    public int KillsCounted { get; init; }
+
+    public string? LastKill { get; init; }
 }
 
 [JsonSourceGenerationOptions(
@@ -192,6 +203,7 @@ public sealed record PollInfo(string Status, string Message, bool Changed, Playe
 [JsonSerializable(typeof(SessionOptions))]
 [JsonSerializable(typeof(Summary))]
 [JsonSerializable(typeof(AllPlacesInfo))]
+[JsonSerializable(typeof(IReadOnlyList<KillKindInfo>))]
 [JsonSerializable(typeof(IReadOnlyList<AllCheckInfo>))]
 [JsonSerializable(typeof(IReadOnlyList<string>))]
 [JsonSerializable(typeof(IReadOnlyList<CheckInfo>))]

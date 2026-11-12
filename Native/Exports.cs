@@ -106,6 +106,7 @@ public static unsafe partial class Exports
             "setSetting" => Ok(session.SetSetting(Text(request, "id"), Text(request, "value")), context.Summary),
             "poll" => Ok(session.Poll(OptionalInt(request, "nearby") ?? 0), context.PollInfo),
             "allPlaces" => Ok(session.AllPlaces(), context.AllPlacesInfo),
+            "kills" => Ok(session.KillKinds(), context.IReadOnlyListKillKindInfo),
             "allChecks" => Ok(session.AllChecks(Text(request, "place")), context.IReadOnlyListAllCheckInfo),
             "setAllChecked" => Ok(session.SetAllChecked(Text(request, "id"), Bool(request, "checked")), context.Summary),
             _ => throw new SessionException($"Unknown op '{op}'."),

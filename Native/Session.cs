@@ -34,6 +34,9 @@ public sealed class Session : IDisposable
     private readonly KillCounter _killCounter = new();
     private readonly RecentKills _recentKills = new();
     private int? _enemiesLoaded;
+    private int? _enemiesDead;
+    private int _killsCounted;
+    private string? _lastKill;
     private GraceTracker? _graces;
     private IReadOnlyList<TimedEvent>? _bestSplits;
     private PlayerPosition? _lastPlayer;
@@ -241,13 +244,41 @@ public sealed class Session : IDisposable
         };
     }
 
+    /// <summary>
+    /// Every enemy kind killed in this run, most killed first, with the drops of every enemy of a kind that it can
+    /// give and their odds. Says what each drop originally was, never what the seed put there.
+    /// </summary>
+    public IReadOnlyList<KillKindInfo> KillKinds()
+    {
+        var all = _seed?.All;
+        var logic = all is null ? null : new AllChecksLogic(all.Logic, all.Options, _data, _state, all.KnownItems);
+        var kinds = _state.Kills.GroupBy(k => _state.KillKinds.GetValueOrDefault(k.Key) ?? $"Enemy {k.Key}");
+        return kinds
+            .Select(kind =>
+            {
+                var npcs = kind.Select(k => k.Key).ToList();
+                var drops = all is null || logic is null
+                    ? []
+                    : AllCheckInfos(all, logic, all.Checks.Where(c => npcs.Any(n => all.CouldDrop(n, c, _state))));
+                return new KillKindInfo(kind.Key, kind.Sum(k => k.Value), drops);
+            })
+            .OrderByDescending(k => k.Kills)
+            .ThenBy(k => k.Kind, StringComparer.Ordinal)
+            .ToList();
+    }
+
     /// <summary>The checks of one place in the full list, in the randomizer's order.</summary>
     public IReadOnlyList<AllCheckInfo> AllChecks(string place)
     {
         if (_seed?.All is not { } all)
             return [];
         var logic = new AllChecksLogic(all.Logic, all.Options, _data, _state, all.KnownItems);
-        return all.Checks.Where(c => c.Place == place)
+        return AllCheckInfos(all, logic, all.Checks.Where(c => c.Place == place));
+    }
+
+    private IReadOnlyList<AllCheckInfo> AllCheckInfos(AllChecksSeed all, AllChecksLogic logic, IEnumerable<SeedCheck> checks)
+    {
+        return checks
             .Select(c => (Check: c, Odds: all.OddsOf(c, _state)))
             .Select(x => new AllCheckInfo(x.Check.Id, x.Check.Slot.Description, x.Check.Slot.Kind, x.Check.Slot.Replaces, x.Check.Slot.Missable,
                 !x.Check.Trackable, Camel(logic.StatusOf(x.Check).ToString()))
@@ -454,10 +485,14 @@ public sealed class Session : IDisposable
         {
             var enemies = _game.ReadEnemies();
             _enemiesLoaded = enemies?.Count;
+            _enemiesDead = enemies?.Count(e => e.Hp <= 0);
             if (enemies is not null)
             {
                 var kills = _killCounter.Update(enemies.Select(e => new EnemySighting(e.Handle, e.NpcParam, e.Model, e.Hp)));
                 _recentKills.Add(kills, DateTime.UtcNow);
+                _killsCounted += kills.Count;
+                if (kills.Count > 0)
+                    _lastKill = KillCounter.KindName(_seed?.ModelNames ?? new Dictionary<string, string>(), kills[^1].Model);
                 if (KillCounter.Record(_state, kills, _seed?.ModelNames ?? new Dictionary<string, string>()))
                 {
                     TrySave();
@@ -533,6 +568,9 @@ public sealed class Session : IDisposable
         {
             InventoryReadable = _inventoryReadable,
             EnemiesLoaded = _enemiesLoaded,
+            EnemiesDead = _enemiesDead,
+            KillsCounted = _killsCounted,
+            LastKill = _lastKill,
         };
     }
 

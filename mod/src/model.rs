@@ -78,6 +78,15 @@ pub struct AllPlaces {
     pub overdue: i32,
 }
 
+/// An enemy kind killed in this run, how many, and the drops it can give with their odds.
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct KillKind {
+    pub kind: String,
+    pub kills: i32,
+    pub drops: Vec<AllCheck>,
+}
+
 /// One check of the full list: where it is and what the unrandomized game had there, never what it holds now.
 #[derive(Clone, Debug, Default, Deserialize)]
 #[serde(rename_all = "camelCase", default)]
@@ -300,6 +309,11 @@ pub struct Poll {
     pub inventory_readable: Option<bool>,
     /// How many enemies were loaded at the last look, for counting kills; None when they could not be read.
     pub enemies_loaded: Option<i32>,
+    /// How many of those had no HP left.
+    pub enemies_dead: Option<i32>,
+    /// Kills counted since the tracker started, and the last kind killed.
+    pub kills_counted: i32,
+    pub last_kill: Option<String>,
 }
 
 /// A saved copy of a run, from the tracker's backups.

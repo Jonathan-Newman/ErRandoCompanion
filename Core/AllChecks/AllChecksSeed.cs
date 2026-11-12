@@ -86,12 +86,26 @@ public sealed class AllChecksSeed
     public IReadOnlyDictionary<int, IReadOnlyList<IReadOnlyList<(string Item, double Chance)>>> DropTables { get; init; } =
         new Dictionary<int, IReadOnlyList<IReadOnlyList<(string Item, double Chance)>>>();
 
+    /// <summary>
+    /// The names kills are given (the randomizer's model names). A drop whose enemy is one of them takes only kills of
+    /// that name; the few the log names otherwise (horses, strays, crabs) take any kill whose table could give them.
+    /// </summary>
+    public IReadOnlySet<string> KindNames { get; init; } = new HashSet<string>();
+
+    /// <summary>Whether a kill of this enemy kind (NpcParam row) could have given this drop.</summary>
+    public bool CouldDrop(int npcParam, SeedCheck check, TrackerState state)
+    {
+        if (check.Enemy is null || ChancePerKill(npcParam, check.DropItems) <= 0)
+            return false;
+        return state.KillKinds.GetValueOrDefault(npcParam) == check.Enemy || !KindNames.Contains(check.Enemy);
+    }
+
     /// <summary>Areas in the order the randomizer lists them, which roughly follows the game.</summary>
     public required IReadOnlyList<string> Places { get; init; }
 
     public static AllChecksSeed Build(RandomizerLogic logic, IReadOnlyList<SlotEntry> slots, Regulation regulation, IReadOnlySet<string> options,
         IReadOnlyList<EnemyTypeDrop>? drops = null, IReadOnlyDictionary<string, int>? placements = null, IEnumerable<string>? knownItems = null,
-        IReadOnlyDictionary<(int Category, int Id), string>? itemNames = null)
+        IReadOnlyDictionary<(int Category, int Id), string>? itemNames = null, IEnumerable<string>? kindNames = null)
     {
         var shopFlags = regulation.ShopRows
             .Where(s => s.Flag != 0 && s.Quantity > 0)
@@ -156,6 +170,7 @@ public sealed class AllChecksSeed
             Places = checks.Select(c => c.Place).Distinct().OrderBy(p => order.GetValueOrDefault(p, int.MaxValue)).ToList(),
             KnownItems = (knownItems ?? []).Select(ItemKey).ToHashSet(),
             DropTables = tables,
+            KindNames = (kindNames ?? []).ToHashSet(),
         };
     }
 
@@ -183,9 +198,9 @@ public sealed class AllChecksSeed
         var missing = 1.0;
         foreach (var (npc, count) in state.Kills)
         {
-            var chance = ChancePerKill(npc, check.DropItems);
-            if (chance <= 0)
+            if (!CouldDrop(npc, check, state))
                 continue;
+            var chance = ChancePerKill(npc, check.DropItems);
             kills += count;
             weightedChance += chance * count;
             missing *= Math.Pow(1 - chance, count);
@@ -211,7 +226,7 @@ public sealed class AllChecksSeed
                 // The drop of this kind, by name; or, when the names differ (horses, strays, crabs), the only drop
                 // that has this item.
                 var kind = state.KillKinds.GetValueOrDefault(npc);
-                var candidates = Checks.Where(c => c.Enemy is not null && c.DropItems.Contains(item)).ToList();
+                var candidates = Checks.Where(c => c.Enemy is not null && c.DropItems.Contains(item) && CouldDrop(npc, c, state)).ToList();
                 var named = candidates.Where(c => c.Enemy == kind).ToList();
                 foreach (var check in named.Count > 0 ? named : candidates.Count == 1 ? candidates : [])
                 {

@@ -23,7 +23,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     private const string SeedsDirectoryOverride = "ER_COMPANION_SEEDS_DIR";
     private const int ChecklistTab = 0;
     private const int MapTab = 1;
-    private const int HistoryTab = 3;
+    private const int HistoryTab = 6;
     private static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(1);
 
     // The randomizer writes its log in pieces, so wait for it to go quiet before reading it.

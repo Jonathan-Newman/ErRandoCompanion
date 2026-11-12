@@ -167,6 +167,10 @@ starting point.
 
 ## Tabs
 
+In order: **Checks** and **Targets** (what to do next), **All** and **Kills** (the full list, and kills with drop
+luck), **Items** and **Found** (what you have), **Progress** and **Runs** (how the run is going), then **Randomizer**
+and **Settings**.
+
 **Runs.** Pick what finishes the run: beat the game (the Elden Beast), beat the DLC (Promised Consort Radahn), defeat
 some or all major bosses, find some or all key items, tick every check, or defeat bosses you tick yourself. With enemy
 randomization a ticked boss counts when you defeat that boss wherever the randomizer put it; the overlay only ever shows
@@ -189,16 +193,17 @@ now, with their regions. It only asks the logic "what if I had it", so it never 
 **All.** Every check the randomizer could fill in this seed, not just the main checklist: every pickup, chest, enemy
 drop, boss reward, quest reward and shop item (about 4,800 with the DLC). They are grouped by place, with done, total
 and open counts; pick a place to see its checks. Open and locked follow the randomizer's own logic. Each check says
-where it is and what the unrandomized game had there ("was Iron Whetblade"), never what it holds now. Most are ticked
+where it is and what the unrandomized game had there ("originally Iron Whetblade"), never what it holds now. Most are ticked
 automatically; the few the game keeps no flag for (unlimited shop stock, some drops) say "tick by hand". Ticks here
 are kept apart from the Checks tab, so they do not change your goal or counts there. Drops that any enemy of a kind can give ("Dropped by any
 Imp") are listed under "Enemy drops anywhere". Shop items that need an unlock (a bell bearing, a prayer book, a scroll)
 open once that item shows up in the Found tab.
 
-**Kills and drop luck.** The companion counts every enemy you kill, by kind (Progress tab, "Kills"). For each drop
-under "Enemy drops anywhere" it shows how many enemies that could drop it you have killed, the chance each kill had,
-and how likely it is that it still has not dropped. When that falls under 10% the drop is "overdue" (the All tab's
-Overdue filter lists them), so you know whether you are just unlucky or farming the wrong enemy. A drop is ticked
+**Kills.** Every enemy you kill, by kind, and under each kind the drops it can give ("Dropped by any Imp,
+originally Imp Head (Cat)"). Each drop shows how many enemies that could drop it you have killed, the chance each
+kill had, and how likely it is that it still has not dropped. When that falls under 10% the drop is "overdue": overdue
+drops are listed first, so you know whether you are just unlucky or farming the wrong enemy. The All tab shows the
+same odds, with an Overdue filter. A drop is ticked
 automatically when its item arrives within a few minutes of killing an enemy that can drop it. Kills are counted from
 the enemies' health, so only kills made while the companion is running count.
 

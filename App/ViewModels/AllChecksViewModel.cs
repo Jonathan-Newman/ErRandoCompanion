@@ -33,7 +33,7 @@ public sealed class AllCheckRow(SeedCheck check, Action<AllCheckRow, bool> setCh
     public string Detail { get; } = string.Join("  ·  ", new[]
     {
         check.Slot.Kind,
-        $"was {check.Slot.Replaces}",
+        $"originally {check.Slot.Replaces}",
         check.Slot.Missable ? "missable" : "",
         check.Trackable ? "" : "tick by hand",
     }.Where(s => s.Length > 0));

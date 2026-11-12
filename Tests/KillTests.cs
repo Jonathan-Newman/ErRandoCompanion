@@ -57,6 +57,11 @@ public class KillTests
         Assert.True(seed.OddsOf(imp, state)!.IsOverdue);
         Assert.Contains("overdue", seed.OddsOf(imp, state)!.Text());
 
+        // A kill of another kind with the same item in its table does not count toward the Imp's drop.
+        state.Kills[200] = 50;
+        state.KillKinds[200] = "Albinauric";
+        Assert.Equal(30, seed.OddsOf(imp, state)!.Kills);
+
         // The staff arrives after an Imp kill: the Imp drop is ticked. An item no recent kill could give is not.
         Assert.Equal(0, seed.ApplyDrops(state, ["Glintstone Staff"], []));
         Assert.Equal(0, seed.ApplyDrops(state, ["Uchigatana"], [100]));
@@ -86,11 +91,11 @@ public class KillTests
                 [500] = [new LotEntry(33000000, 2, 1, 0, 0.1)],
                 [501] = [new LotEntry(1000, 1, 1, 0, 0.5)],
             },
-            NpcDropLots = new Dictionary<int, int> { [100] = 500 },
+            NpcDropLots = new Dictionary<int, int> { [100] = 500, [200] = 500 },
         };
         var names = new Dictionary<(int, int), string> { [(2, 33000000)] = "Glintstone Staff", [(1, 1000)] = "Golden Rune [1]" };
         var logic = RandomizerLogic.Parse("Areas:\n- Name: start\n  Text: Limgrave\n");
         return AllChecksSeed.Build(logic, [], regulation, new HashSet<string>(),
-            [new EnemyTypeDrop("Glintstone Staff", "Imp", "Imp Head (Cat)")], new Dictionary<string, int> { ["Glintstone Staff"] = 2 }, [], names);
+            [new EnemyTypeDrop("Glintstone Staff", "Imp", "Imp Head (Cat)")], new Dictionary<string, int> { ["Glintstone Staff"] = 2 }, [], names, ["Imp", "Albinauric"]);
     }
 }

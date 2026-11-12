@@ -11,7 +11,7 @@ use std::time::{Duration, Instant};
 use serde_json::json;
 
 use crate::log;
-use crate::model::{AllCheck, AllPlaces, Backup, BossChoice, Check, FinishedRun, FoundEntry, GoalKind, Item, Poll, RegionCount, Report, Setting, Summary, Unlock};
+use crate::model::{AllCheck, AllPlaces, Backup, KillKind, BossChoice, Check, FinishedRun, FoundEntry, GoalKind, Item, Poll, RegionCount, Report, Setting, Summary, Unlock};
 use crate::native::Native;
 
 const POLL_EVERY: Duration = Duration::from_secs(1);
@@ -28,6 +28,13 @@ static PROGRESS_OPEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicB
 /// Whether the All tab is open, and which of its places is expanded, so only that place's checks are fetched.
 static ALL_OPEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
 static ALL_PLACE: Mutex<Option<String>> = Mutex::new(None);
+
+/// Whether the Kills tab is open, so its list follows the kills while it shows.
+static KILLS_OPEN: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);
+
+pub fn set_kills_open(open: bool) {
+    KILLS_OPEN.store(open, Ordering::Relaxed);
+}
 
 pub fn set_all_open(open: bool) {
     ALL_OPEN.store(open, Ordering::Relaxed);
@@ -74,6 +81,8 @@ pub enum Command {
     SetAllChecked(String, bool),
     /// Reads the full list's places, and the expanded place's checks.
     LoadAll,
+    /// Reads the kills by kind, with their drops.
+    LoadKills,
 }
 
 #[derive(Default)]
@@ -107,6 +116,8 @@ pub struct Snapshot {
     /// The checks of one place of the full list, and which place they are.
     pub all_checks: Vec<AllCheck>,
     pub all_checks_place: Option<String>,
+    /// Kills by kind with the drops each can give, while the Kills tab is open.
+    pub kill_kinds: Option<Vec<KillKind>>,
     pub poll: Option<Poll>,
     /// The last command that failed, shown until dismissed.
     pub notice: Option<String>,
@@ -180,6 +191,8 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
     let mut last_poll: Option<Instant> = None;
     let mut last_inventory: Option<bool> = None;
     let mut enemies_read: Option<bool> = None;
+    let mut kills_logged = 0;
+    let mut last_enemy_summary: Option<Instant> = None;
     loop {
         let wait = last_poll.map_or(Duration::ZERO, |at| POLL_EVERY.saturating_sub(at.elapsed()));
         match commands.recv_timeout(wait) {
@@ -187,6 +200,7 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
             Ok(Command::LoadFound) => load_found(&native, &shared),
             Ok(Command::LoadReport(name)) => load_report(&native, &shared, name),
             Ok(Command::LoadAll) => load_all(&native, &shared),
+            Ok(Command::LoadKills) => load_kills(&native, &shared),
             Ok(command) => {
                 let restored = matches!(command, Command::RestoreBackup(..));
                 if let Err(e) = apply(&native, command) {
@@ -223,6 +237,22 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
                             _ => "No enemies could be read here; if this stays so in places with enemies, kills are not counted in this game version.".to_string(),
                         });
                     }
+                    // The first kill, and a line a minute while enemies are loaded: enough to tell from the log whether
+                    // kills are being seen.
+                    if poll.kills_counted > 0 && kills_logged == 0 {
+                        log::write(&format!("First kill counted: {}.", poll.last_kill.as_deref().unwrap_or("an enemy")));
+                    }
+                    if let Some(loaded) = poll.enemies_loaded.filter(|&n| n > 0) {
+                        if last_enemy_summary.map_or(true, |at| at.elapsed() >= Duration::from_secs(60)) {
+                            last_enemy_summary = Some(Instant::now());
+                            log::write(&format!(
+                                "Enemies: {loaded} loaded, {} with no HP left; {} kills counted since starting.",
+                                poll.enemies_dead.unwrap_or(0),
+                                poll.kills_counted
+                            ));
+                        }
+                    }
+                    kills_logged = poll.kills_counted;
                     let before = {
                         let mut snapshot = shared.lock();
                         snapshot.poll = Some(poll);
@@ -250,7 +280,7 @@ fn apply(native: &Native, command: Command) -> Result<(), String> {
         Command::OpenNewestSeed => json!({ "op": "openNewestSeed" }),
         Command::LoadBackups => return Ok(()),
         Command::ToggleGoalBoss(id) => json!({ "op": "toggleGoalBoss", "id": id }),
-        Command::LoadFound | Command::LoadReport(_) | Command::LoadAll => return Ok(()),
+        Command::LoadFound | Command::LoadReport(_) | Command::LoadAll | Command::LoadKills => return Ok(()),
         Command::SetAllChecked(id, checked) => json!({ "op": "setAllChecked", "id": id, "checked": checked }),
         Command::ToggleSkip(id) => json!({ "op": "toggleSkip", "id": id }),
         Command::SkipNearest => json!({ "op": "skipNearest" }),
@@ -295,6 +325,9 @@ fn refresh(native: &Native, shared: &Shared) {
             if ALL_OPEN.load(Ordering::Relaxed) {
                 load_all(native, shared);
             }
+            if KILLS_OPEN.load(Ordering::Relaxed) {
+                load_kills(native, shared);
+            }
             let mut snapshot = shared.lock();
             snapshot.seeds = seeds;
             snapshot.ready = true;
@@ -309,6 +342,17 @@ fn load_report(native: &Native, shared: &Shared, name: Option<String>) {
         Ok(report) => {
             let mut snapshot = shared.lock();
             snapshot.report = Some(report);
+            snapshot.generation += 1;
+        }
+        Err(e) => shared.lock().notice = Some(e),
+    }
+}
+
+fn load_kills(native: &Native, shared: &Shared) {
+    match native.call::<Vec<KillKind>>(json!({ "op": "kills" })) {
+        Ok(kinds) => {
+            let mut snapshot = shared.lock();
+            snapshot.kill_kinds = Some(kinds);
             snapshot.generation += 1;
         }
         Err(e) => shared.lock().notice = Some(e),
@@ -509,7 +553,7 @@ mod tests {
             assert_eq!(s.all_checks.len() as i32, place.total);
             s.all_checks.iter().find(|c| c.status == "available").unwrap().clone()
         };
-        println!("{}: {} checks; ticking '{}' ({}, was {})", place.name, place.total, check.description, check.kind, check.replaces);
+        println!("{}: {} checks; ticking '{}' ({}, originally {})", place.name, place.total, check.description, check.kind, check.replaces);
         commands.send(Command::SetAllChecked(check.id.clone(), true)).unwrap();
         wait_for(&shared, "the full-list tick", |s| {
             s.all_checks.iter().any(|c| c.id == check.id && c.status == "checked")
