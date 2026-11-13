@@ -23,3 +23,6 @@ Data/map_*.jpg
 regulation.bin
 *.pickle
 __pycache__/
+
+# A local .NET SDK choice, not part of the project
+global.json
