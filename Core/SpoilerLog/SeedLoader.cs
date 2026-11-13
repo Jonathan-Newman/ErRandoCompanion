@@ -1,6 +1,7 @@
 using System.IO;
 using ErRandoCompanion.Core.AllChecks;
 using ErRandoCompanion.Core.Data;
+using ErRandoCompanion.Core.Logic;
 using ErRandoCompanion.Core.Navigation;
 
 namespace ErRandoCompanion.Core.SpoilerLog;
@@ -22,6 +23,9 @@ public sealed record LoadedSeed(ParsedSpoilerLog Log, SeedFlags Flags, MapLinks 
 
     /// <summary>Every check the randomizer could fill in this seed, or null when the randomizer folder lacks its slot tables.</summary>
     public AllChecksSeed? All { get; init; }
+
+    /// <summary>Ticks checks and key items from items that arrive with no flag set, as for a guest in Seamless Co-op.</summary>
+    public ReceivedTracker? Received { get; init; }
 
     /// <summary>The randomizer's names for enemy models ("c3080" is "Imp"), for naming the kinds the player kills.</summary>
     public IReadOnlyDictionary<string, string> ModelNames { get; init; } = new Dictionary<string, string>();
@@ -55,8 +59,11 @@ public static class SeedLoader
         var regulation = Regulation.Load(Path.Combine(directory, RegulationFile), Path.Combine(directory, OodleFile));
         var goods = SeedFlags.ParseGoodsNames(File.ReadLines(Path.Combine(directory, "diste", "Names", "EquipParamGoods.txt")));
         var links = new MapLinks(regulation.MapLinkRows);
-        return new LoadedSeed(log, SeedFlags.Build(data, log, regulation, goods), links)
+        var flags = SeedFlags.Build(data, log, regulation, goods);
+        var itemNames = ItemPickups.LoadNames(Path.Combine(log.RandomizerDirectory, "diste", "Names"));
+        return new LoadedSeed(log, flags, links)
         {
+            Received = ReceivedTracker.Build(data, flags, regulation, itemNames, log.PlacementCounts),
             Graces = Grace.Build(regulation.GraceRows, Grace.LoadNames(directory), links),
             BossArenas = BossArenas.Build(data, log.BossPlacements),
             Pickups = ItemPickups.Build(regulation, log.RandomizerDirectory),

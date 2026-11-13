@@ -19,6 +19,9 @@ public sealed record SeedCheck(SlotEntry Slot, string Place, IReadOnlyList<uint>
     /// </summary>
     public IReadOnlySet<string> TrackItems { get; init; } = new HashSet<string>();
 
+    /// <summary>Every item the seed put in this slot (normalized), for ticking it from an arrival on its map. Spoiler data: never shown.</summary>
+    public IReadOnlySet<string> GivenItems { get; init; } = new HashSet<string>();
+
     /// <summary>For a drop of every enemy of a kind: the kind ("Imp"), as the log and the randomizer's model names call it.</summary>
     public string? Enemy { get; init; }
 
@@ -112,6 +115,13 @@ public sealed class AllChecksSeed
             .GroupBy(s => s.RowId)
             .ToDictionary(g => g.Key, g => g.Select(s => s.Flag).Distinct().ToList());
 
+        // An item the seed puts in only one place tells which check it came from when it arrives without a flag (a
+        // guest in Seamless Co-op picks things up without their flags being set).
+        var counts = placements is null ? null : ReceivedTracker.PlacementsByKey(placements);
+        IReadOnlySet<string> UniqueItems(IEnumerable<string> names) =>
+            counts is null ? new HashSet<string>() : names.Select(ItemKey).Where(k => counts.GetValueOrDefault(k) == 1).ToHashSet();
+        var shopItems = regulation.ShopRows.GroupBy(s => s.RowId).ToDictionary(g => g.Key, g => g.ToList());
+
         // An area no amount of items can open in this seed (the DLC with the DLC off) has no checks in it.
         var possible = new AllChecksLogic(logic, options, null, null);
         var checks = new List<SeedCheck>();
@@ -122,7 +132,18 @@ public sealed class AllChecksSeed
             IReadOnlyList<uint> flags = slot.IsShop
                 ? shopFlags.GetValueOrDefault(slot.Row) ?? []
                 : (regulation.Lots.GetValueOrDefault(slot.Row) ?? []).Select(e => e.Flag).Where(f => f != 0).Distinct().ToList();
-            checks.Add(new SeedCheck(slot, logic.AreaNames[slot.Area], flags));
+            var given = itemNames is null
+                ? []
+                : slot.IsShop
+                    ? (shopItems.GetValueOrDefault(slot.Row) ?? []).Select(s => ItemPickups.NameOf(itemNames, ReceivedTracker.ShopCategory(s.ItemType), s.ItemId))
+                    : (regulation.Lots.GetValueOrDefault(slot.Row) ?? []).Where(e => e.Category is >= 1 and <= 6)
+                        .Select(e => ItemPickups.NameOf(itemNames, e.Category, e.ItemId));
+            var givenList = given.ToList();
+            checks.Add(new SeedCheck(slot, logic.AreaNames[slot.Area], flags)
+            {
+                TrackItems = UniqueItems(givenList),
+                GivenItems = givenList.Select(ItemKey).ToHashSet(),
+            });
         }
 
         // Drops any enemy of a kind can give: one check per enemy and replaced item (an enemy's variants each have a
@@ -208,6 +229,35 @@ public sealed class AllChecksSeed
         if (kills == 0)
             return new DropOdds(0, null, null);
         return new DropOdds(kills, weightedChance / kills, state.AllChecked.Contains(check.Id) ? null : missing);
+    }
+
+    /// <summary>
+    /// Ticks places from items that arrived with no flag (a guest in Seamless Co-op): when only one unticked place on
+    /// the player's map holds the item, that is where it came from. Returns how many checks were ticked.
+    /// </summary>
+    public int ApplyOnMap(TrackerState state, IEnumerable<string> arrived, string? playerMap)
+    {
+        if (string.IsNullOrEmpty(playerMap))
+            return 0;
+        var changed = 0;
+        foreach (var item in arrived.Select(i => ItemKey(SpoilerLogParser.StripCount(StripTimes(i)))).Distinct())
+        {
+            var here = Checks
+                .Where(c => c.Slot.Map == playerMap && c.GivenItems.Contains(item)
+                    && !state.AllChecked.Contains(c.Id) && !state.AutoCredited.Contains(CreditKey(c)))
+                .Take(2)
+                .ToList();
+            if (here.Count == 1 && state.AutoCredited.Add(CreditKey(here[0])) && state.AllChecked.Add(here[0].Id))
+                changed++;
+        }
+        return changed;
+    }
+
+    // "Golden Rune [2] x3", as the Found log writes several, to "Golden Rune [2]".
+    private static string StripTimes(string item)
+    {
+        var split = item.LastIndexOf(" x", StringComparison.Ordinal);
+        return split > 0 && int.TryParse(item[(split + 2)..], out _) ? item[..split] : item;
     }
 
     /// <summary>

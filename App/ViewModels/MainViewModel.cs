@@ -63,6 +63,8 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     private LogicEvaluator? _logic;
     private AutoTracker? _autoTracker;
     private AllChecksSeed? _allSeed;
+    private ReceivedTracker? _receivedTracker;
+    private MapLinks _links = new([]);
     private LocationFilter _filter = LocationFilter.Available;
     private bool _autoTrack = true;
     private bool _isPolling;
@@ -717,6 +719,7 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     {
         SeedFlags? seed = null;
         _allSeed = null;
+        _receivedTracker = null;
         string? noFullList = null;
         _bossArenas = null;
         _graces = null;
@@ -740,6 +743,8 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                 _graces = new GraceTracker(loaded.Graces);
                 _graceHintFor = (null, -2);
                 _allSeed = loaded.All;
+                _receivedTracker = loaded.Received;
+                _links = loaded.Links;
                 noFullList = loaded.All is null
                     ? @"The randomizer folder has no diste\Base\itemslots.txt or annotations.txt, so the full list cannot be made."
                     : null;
@@ -880,6 +885,15 @@ public sealed class MainViewModel : ObservableObject, IDisposable
                 {
                     Save();
                     AllChecks.Refresh(_state);
+                }
+                // Items no flag explained: in someone else's world (Seamless Co-op) pickups set no flags, so the
+                // checklist and key items are ticked from what arrives instead.
+                if (drops.Count > 0)
+                {
+                    var near = ReceivedTracker.DistanceFrom(who.Map, who.X, who.Y, who.Z, _pins, _links);
+                    var onMap = _allSeed?.ApplyOnMap(_state, drops, who.Map.ToString()) ?? 0;
+                    if (_receivedTracker?.Apply(_state, drops, near) == true || onMap > 0)
+                        Changed();
                 }
                 if (added > 0)
                 {

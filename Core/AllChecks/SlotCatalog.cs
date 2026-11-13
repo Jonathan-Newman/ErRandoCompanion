@@ -23,7 +23,11 @@ public static class CheckKinds
 /// </summary>
 public sealed record SlotEntry(
     string Id, bool IsShop, int Row, string Area, string Description, string Replaces, string Kind,
-    string QuestRequirements, bool Missable, IReadOnlySet<string> Tags);
+    string QuestRequirements, bool Missable, IReadOnlySet<string> Tags)
+{
+    /// <summary>The map the slot is in ("m10_00_00_00"), or "" when the randomizer does not say.</summary>
+    public string Map { get; init; } = "";
+}
 
 /// <summary>Every item slot the randomizer knows, read once per randomizer folder. Holds no seed data.</summary>
 public static partial class SlotCatalog
@@ -54,11 +58,16 @@ public static partial class SlotCatalog
 
             // One entry per lot or shop row; a lot giving several items is one pickup.
             var rows = new Dictionary<(bool Shop, int Row), List<string>>();
+            var maps = new Dictionary<(bool Shop, int Row), string>();
             foreach (Match m in EntryLine().Matches(block))
             {
                 var key = (m.Groups[2].Value == "shop", int.Parse(m.Groups[3].Value, CultureInfo.InvariantCulture));
                 if (!rows.TryGetValue(key, out var names))
                     rows[key] = names = [];
+                var lineEnd = block.IndexOf('\n', m.Index + 1);
+                var map = MapIn().Match(lineEnd < 0 ? block[m.Index..] : block[m.Index..lineEnd]);
+                if (map.Success)
+                    maps.TryAdd(key, map.Groups[1].Value);
                 var name = m.Groups[1].Value.Replace("''", "'").TrimStart('\'', '"');
                 if (!names.Contains(name))
                     names.Add(name);
@@ -70,7 +79,10 @@ public static partial class SlotCatalog
                 if (!seen.Add(id))
                     continue;
                 entries.Add(new SlotEntry(id, shop, row, area, description, string.Join(", ", names),
-                    KindOf(shop, tags, description, hasEvent), quest, tags.Contains("missable"), tags));
+                    KindOf(shop, tags, description, hasEvent), quest, tags.Contains("missable"), tags)
+                {
+                    Map = maps.GetValueOrDefault((shop, row)) ?? "",
+                });
             }
         }
         return entries;
@@ -110,6 +122,9 @@ public static partial class SlotCatalog
 
     [GeneratedRegex(@"\n  - ['""]?(.+?) - (lot|shop) (\d+)\[")]
     private static partial Regex EntryLine();
+
+    [GeneratedRegex(@" in (m\d\d_\d\d_\d\d_\d\d) \(")]
+    private static partial Regex MapIn();
 
     [GeneratedRegex(@"\n  - By (.+?) \([^)\n]*\) - ([\d.]+) away, [\d.]+ o'clock, (-?[\d.]+) height offset")]
     private static partial Regex ByLine();

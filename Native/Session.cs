@@ -535,6 +535,18 @@ public sealed class Session : IDisposable
             var drops = _state.Found.Skip(before).Where(f => f.Source == FoundItem.DropOrOther).SelectMany(f => f.Items).ToList();
             if (drops.Count > 0)
                 added += _seed.All?.ApplyDrops(_state, drops, _recentKills.Kinds(now)) ?? 0;
+            // Items no flag explained: in someone else's world (Seamless Co-op) pickups set no flags, so the
+            // checklist and key items are ticked from what arrives instead.
+            if (drops.Count > 0)
+            {
+                var near = ReceivedTracker.DistanceFrom(who.Map, who.X, who.Y, who.Z, _pins, _seed.Links);
+                var onMap = _seed.All?.ApplyOnMap(_state, drops, who.Map.ToString()) ?? 0;
+                if (_seed.Received?.Apply(_state, drops, near) == true || onMap > 0)
+                {
+                    Changed();
+                    added++;
+                }
+            }
             if (added > 0)
             {
                 TrySave();

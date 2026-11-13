@@ -158,6 +158,12 @@ backed up first, so a restore can be undone. The desktop app has the same list b
 back from the desktop app's Backups window, with Elden Ring closed; the save there now is kept as
 `<save>.before-restore` first. A save holds every character on it, not just the run's.
 
+**Seamless Co-op.** In someone else's world your game does not set the pickup flags auto-tracking normally reads, so
+a guest's pickups arrive in the inventory unexplained. The companion ticks from those instead: an item the seed puts in
+only one place ticks that place; one it puts in several ticks the nearest such check within 60 m of where you are;
+and in the All tab, the only unticked place on your map that holds it. Key items, Great Runes and Stonesword Keys
+count toward what you own the same way. Each player tracks their own pickups with their own copy of the companion.
+
 **Run timer.** Each run counts its played time (only while a character is in the world, so menus and loading screens
 do not count). The top of the checklist shows it with your pace in checks an hour; the small display shows the time too
 (`show_timer=false` hides it). Whichever of the overlay and the desktop app owns the run does the counting.

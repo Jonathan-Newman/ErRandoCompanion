@@ -48,6 +48,7 @@ In-game overlay plan. The desktop app stays alongside the mod.
 | 42 | Hide at graces, in shops and NPC menus, and in cutscenes, following the game's HUD state (CSFeManImp + 0x78: 0 hidden, 2 popup menu) | Built; needs an in-game check (the log records each HUD state) |
 | 43 | Kills by kind, read from the loaded enemies' HP (WorldChrMan character sets); drop odds and "overdue" for each enemy-type drop from the seed's drop tables; drops ticked when their item arrives soon after a kill that could give it | Built; needs an in-game check (the log says whether enemies can be read) |
 | 44 | Overlay Kills tab (kills by kind, the drops each can give, odds, overdue first); tabs grouped by use, Randomizer and Settings last; "originally X" wording for the unrandomized item; kills only count toward drops of their own kind | Done; the kill counting itself still needs an in-game check |
+| 45 | Seamless Co-op guests: tick from items that arrive with no flag (unique items anywhere, others by the nearest pin within 60 m, All checks by the only place on the map); key items counted once even if their flag turns on later | Built; needs an in-game check as a guest |
 
 ## Ongoing
 - After a game update, check `ErRandoCompanionMod.log`. If auto-tracking or the cursor stops working, the memory patterns need updating (`Data\signatures.json` and `mod/src/game_input.rs`).
