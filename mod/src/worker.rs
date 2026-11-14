@@ -11,7 +11,7 @@ use std::time::{Duration, Instant};
 use serde_json::json;
 
 use crate::log;
-use crate::model::{AllCheck, AllPlaces, Backup, KillKind, BossChoice, Check, FinishedRun, FoundEntry, GoalKind, Item, Poll, RegionCount, Report, Setting, Summary, Unlock};
+use crate::model::{AllCheck, AllPlaces, Backup, KillKind, UpdateInfo, BossChoice, Check, FinishedRun, FoundEntry, GoalKind, Item, Poll, RegionCount, Report, Setting, Summary, Unlock};
 use crate::native::Native;
 
 const POLL_EVERY: Duration = Duration::from_secs(1);
@@ -83,6 +83,12 @@ pub enum Command {
     LoadAll,
     /// Reads the kills by kind, with their drops.
     LoadKills,
+    /// Looks on GitHub for a newer release; forced, or at most about once a day.
+    CheckUpdate(bool),
+    /// Downloads the newest overlay and puts it in place for the next start of the game.
+    InstallUpdate,
+    /// Turns the update checks on or off (shared with the desktop app).
+    SetCheckForUpdates(bool),
 }
 
 #[derive(Default)]
@@ -118,6 +124,10 @@ pub struct Snapshot {
     pub all_checks_place: Option<String>,
     /// Kills by kind with the drops each can give, while the Kills tab is open.
     pub kill_kinds: Option<Vec<KillKind>>,
+    /// Whether a newer release is out, and what an update did.
+    pub update: Option<UpdateInfo>,
+    /// True while an update check or install is under way.
+    pub updating: bool,
     pub poll: Option<Poll>,
     /// The last command that failed, shown until dismissed.
     pub notice: Option<String>,
@@ -187,6 +197,8 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
         Err(e) => log::write(&format!("Could not read the bosses: {e}")),
     }
     refresh(&native, &shared);
+    // At most about once a day, and only if the player has not turned it off (shared with the desktop app).
+    update(&native, &shared, json!({ "op": "checkUpdate", "force": false }));
 
     let mut last_poll: Option<Instant> = None;
     let mut last_inventory: Option<bool> = None;
@@ -201,6 +213,9 @@ fn run(directory: PathBuf, shared: Shared, commands: Receiver<Command>) {
             Ok(Command::LoadReport(name)) => load_report(&native, &shared, name),
             Ok(Command::LoadAll) => load_all(&native, &shared),
             Ok(Command::LoadKills) => load_kills(&native, &shared),
+            Ok(Command::CheckUpdate(force)) => update(&native, &shared, json!({ "op": "checkUpdate", "force": force })),
+            Ok(Command::InstallUpdate) => update(&native, &shared, json!({ "op": "installUpdate" })),
+            Ok(Command::SetCheckForUpdates(enabled)) => update(&native, &shared, json!({ "op": "setCheckForUpdates", "enabled": enabled })),
             Ok(command) => {
                 let restored = matches!(command, Command::RestoreBackup(..));
                 if let Err(e) = apply(&native, command) {
@@ -281,6 +296,7 @@ fn apply(native: &Native, command: Command) -> Result<(), String> {
         Command::LoadBackups => return Ok(()),
         Command::ToggleGoalBoss(id) => json!({ "op": "toggleGoalBoss", "id": id }),
         Command::LoadFound | Command::LoadReport(_) | Command::LoadAll | Command::LoadKills => return Ok(()),
+        Command::CheckUpdate(_) | Command::InstallUpdate | Command::SetCheckForUpdates(_) => return Ok(()),
         Command::SetAllChecked(id, checked) => json!({ "op": "setAllChecked", "id": id, "checked": checked }),
         Command::ToggleSkip(id) => json!({ "op": "toggleSkip", "id": id }),
         Command::SkipNearest => json!({ "op": "skipNearest" }),
@@ -345,6 +361,26 @@ fn load_report(native: &Native, shared: &Shared, name: Option<String>) {
             snapshot.generation += 1;
         }
         Err(e) => shared.lock().notice = Some(e),
+    }
+}
+
+/// Runs an update call (a check, an install, or turning checks on or off) and keeps its answer for the overlay.
+fn update(native: &Native, shared: &Shared, request: serde_json::Value) {
+    shared.lock().updating = true;
+    let result = native.call::<UpdateInfo>(request);
+    let mut snapshot = shared.lock();
+    snapshot.updating = false;
+    match result {
+        Ok(info) => {
+            if info.available && snapshot.update.as_ref().map_or(true, |u| !u.available) {
+                log::write(&format!("Version {} of the companion is available (this is {}).", info.latest.as_deref().unwrap_or("?").trim_start_matches('v'), info.current));
+            }
+            if let Some(message) = &info.message {
+                log::write(message);
+            }
+            snapshot.update = Some(info);
+        }
+        Err(e) => snapshot.notice = Some(e),
     }
 }
 

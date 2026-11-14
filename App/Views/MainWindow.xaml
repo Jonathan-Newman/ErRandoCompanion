@@ -174,6 +174,21 @@
                     </DockPanel>
                 </Border>
                 <Border DockPanel.Dock="Top" BorderBrush="{StaticResource Gold}" BorderThickness="1" CornerRadius="6" Padding="10,6" Margin="0,0,0,10"
+                        Background="{StaticResource GoldWash}" DataContext="{Binding Updater}"
+                        Visibility="{Binding HasMessage, Converter={StaticResource Visible}}">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <Button Style="{StaticResource SmallButton}" Content="Update" Command="{Binding Update}" Margin="0,0,6,0"
+                                    Visibility="{Binding CanUpdate, Converter={StaticResource Visible}}" />
+                            <Button Style="{StaticResource SmallButton}" Content="Restart" Command="{Binding Restart}" Margin="0,0,6,0"
+                                    Visibility="{Binding CanRestart, Converter={StaticResource Visible}}" />
+                            <Button Style="{StaticResource SmallButton}" Content="What's new" Command="{Binding Notes}" Margin="0,0,6,0" />
+                            <Button Style="{StaticResource SmallButton}" Content="Not now" Command="{Binding Later}" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding Message}" Foreground="{StaticResource GoldBright}" TextWrapping="Wrap" VerticalAlignment="Center" />
+                    </DockPanel>
+                </Border>
+                <Border DockPanel.Dock="Top" BorderBrush="{StaticResource Gold}" BorderThickness="1" CornerRadius="6" Padding="10,6" Margin="0,0,0,10"
                         Background="{StaticResource GoldWash}" Visibility="{Binding HasDeadEnd, Converter={StaticResource Visible}}">
                     <TextBlock Text="{Binding DeadEnd}" Foreground="{StaticResource GoldBright}" TextWrapping="Wrap" />
                 </Border>
@@ -581,6 +596,10 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+                                <CheckBox Margin="2,8,2,4" Content="Check GitHub for companion updates" DataContext="{Binding Updater}"
+                                          IsChecked="{Binding CheckForUpdates}" />
+                                <TextBlock Margin="2,0,2,11" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" DataContext="{Binding Updater}"
+                                           Text="{Binding Current, StringFormat='This is version {0}. At most once a day the app asks GitHub for the newest release, and offers it; nothing installs without a click.'}" />
                             </StackPanel>
                         </ScrollViewer>
                     </TabItem>

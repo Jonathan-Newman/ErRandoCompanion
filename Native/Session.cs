@@ -7,6 +7,7 @@ using ErRandoCompanion.Core.Models;
 using ErRandoCompanion.Core.Navigation;
 using ErRandoCompanion.Core.Persistence;
 using ErRandoCompanion.Core.SpoilerLog;
+using ErRandoCompanion.Core.Updates;
 using ErRandoCompanion.GameReader;
 
 namespace ErRandoCompanion.Native;
@@ -32,6 +33,11 @@ public sealed class Session : IDisposable
     private readonly ReceivedItems _received = new();
     private readonly DeathCounter _deaths = new();
     private readonly KillCounter _killCounter = new();
+    private readonly string _preferencesPath;
+    private readonly string _modDirectory;
+    private ReleaseInfo? _release;
+    private string? _updateMessage;
+    private bool _updateInstalled;
     private readonly RecentKills _recentKills = new();
     private int? _enemiesLoaded;
     private int? _enemiesDead;
@@ -80,6 +86,9 @@ public sealed class Session : IDisposable
         // The app remembers the randomizer folder; the mod is told it, as it lives there.
         _randomizerDirectory = randomizerDirectory
             ?? Preferences.Load(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(seedsDirectory))!, "preferences.json")).RandomizerDirectory;
+        _preferencesPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(seedsDirectory))!, "preferences.json");
+        _modDirectory = Path.GetDirectoryName(Path.GetFullPath(dataDirectory))!;
+        Updates.CleanUp(_modDirectory);
 
         _logic = new LogicEvaluator(_data, _state);
         OpenStartupSeed();
@@ -221,6 +230,76 @@ public sealed class Session : IDisposable
         RunTimeline.Compare(splits, best).Select(s => new SplitInfo(s.Number, s.Name, s.Seconds, s.Best)).ToList();
 
     /// <summary>Each region's checks by state, in the data's order.</summary>
+    private static Version CurrentVersion => Updates.CurrentOf(typeof(Session).Assembly);
+
+    /// <summary>
+    /// Looks on GitHub for a newer release, at most about once a day unless <paramref name="force"/>d, sharing what it
+    /// finds with the desktop app through the preferences. Off when the player turned update checks off.
+    /// </summary>
+    public UpdateInfo CheckUpdate(bool force)
+    {
+        var preferences = Preferences.Load(_preferencesPath);
+        if (preferences.CheckForUpdates
+            && (force || preferences.LastUpdateCheck is not { } last || DateTime.UtcNow - last >= Updates.CheckEvery))
+        {
+            try
+            {
+                using var client = Updates.Client();
+                _release = Updates.LatestAsync(client).GetAwaiter().GetResult();
+                preferences.LastUpdateCheck = DateTime.UtcNow;
+                preferences.LatestVersion = _release.Tag;
+                preferences.LatestPage = _release.Page;
+                preferences.Save(_preferencesPath);
+                _updateMessage = null;
+            }
+            catch (UpdateException e)
+            {
+                _updateMessage = force ? e.Message : null;
+            }
+        }
+        return UpdateStatus(preferences);
+    }
+
+    /// <summary>Downloads the newest overlay and puts it in place; the game uses it from its next start.</summary>
+    public UpdateInfo InstallUpdate()
+    {
+        var preferences = Preferences.Load(_preferencesPath);
+        try
+        {
+            using var client = Updates.Client();
+            _release ??= Updates.LatestAsync(client).GetAwaiter().GetResult();
+            if (_release.Version <= CurrentVersion)
+                throw new UpdateException("This is already the newest version.");
+            if (_release.Mod is not { } asset)
+                throw new UpdateException("The newest release has no overlay to download.");
+            var zip = Updates.DownloadAsync(client, asset).GetAwaiter().GetResult();
+            Updates.Install(zip, _modDirectory);
+            _updateInstalled = true;
+            _updateMessage = $"Updated to version {_release.Version}. Restart the game to use it.";
+        }
+        catch (UpdateException e)
+        {
+            _updateMessage = e.Message;
+        }
+        return UpdateStatus(preferences);
+    }
+
+    public UpdateInfo SetCheckForUpdates(bool enabled)
+    {
+        var preferences = Preferences.Load(_preferencesPath);
+        preferences.CheckForUpdates = enabled;
+        preferences.Save(_preferencesPath);
+        return enabled ? CheckUpdate(force: true) : UpdateStatus(preferences);
+    }
+
+    private UpdateInfo UpdateStatus(Preferences preferences)
+    {
+        var latest = _release?.Tag ?? preferences.LatestVersion;
+        var newer = Updates.Parse(latest ?? "") is { } version && version > CurrentVersion;
+        return new UpdateInfo(CurrentVersion.ToString(), latest, newer && !_updateInstalled, _release?.Page ?? preferences.LatestPage,
+            _updateMessage, _updateInstalled, preferences.CheckForUpdates);
+    }
+
     /// <summary>The full check list's places, or why there is none.</summary>
     public AllPlacesInfo AllPlaces()
     {

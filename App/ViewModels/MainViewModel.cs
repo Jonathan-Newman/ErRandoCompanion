@@ -91,6 +91,11 @@ public sealed class MainViewModel : ObservableObject, IDisposable
         _newLogTimer.Tick += OnNewLogSettled;
         OpenSeed = new RelayCommand(OpenEnteredSeed, () => !string.IsNullOrWhiteSpace(_seedInput));
         AllChecks = new AllChecksViewModel(OnAllChecksTicked);
+        Updater = new UpdateViewModel(_preferences, () => _preferences.Save(_preferencesPath), () => _preferences.RandomizerDirectory);
+        // Test runs (with their own Seeds folder) stay off the network unless testing the updater itself.
+        if (Environment.GetEnvironmentVariable(SeedsDirectoryOverride) is null
+            || Environment.GetEnvironmentVariable("ER_COMPANION_UPDATE_TEST_VERSION") is not null)
+            _ = Updater.CheckAsync();
 
         var dataDirectory = Path.Combine(AppContext.BaseDirectory, "Data");
         try
@@ -153,6 +158,9 @@ public sealed class MainViewModel : ObservableObject, IDisposable
     }
 
     public IReadOnlyList<RegionGroupViewModel> Regions { get; } = [];
+
+    /// <summary>The update banner, and whether to look for updates.</summary>
+    public UpdateViewModel Updater { get; }
 
     /// <summary>The All checks tab: every check the randomizer could fill in this seed.</summary>
     public AllChecksViewModel AllChecks { get; }

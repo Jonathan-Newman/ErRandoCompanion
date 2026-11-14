@@ -583,6 +583,13 @@ impl Overlay {
             None if !summary.spoiler.loaded => ui.text_colored(YELLOW, "No spoiler log loaded: tracking by hand only."),
             None => {}
         }
+        if let Some(update) = snapshot.update.as_ref().filter(|u| u.available) {
+            ui.text_colored(YELLOW, format!(
+                "Version {} of the companion is available (this is {}). Update it in the Settings tab.",
+                update.latest.as_deref().unwrap_or("?").trim_start_matches('v'),
+                update.current
+            ));
+        }
         if let Some(goal) = &summary.goal {
             if goal.met {
                 ui.text_colored(GOLD, format!("Run complete: {}", goal.description));
@@ -888,6 +895,8 @@ impl Overlay {
     }
 
     fn settings_tab(&mut self, ui: &Ui, snapshot: &mut Snapshot) {
+        self.updates_section(ui, snapshot);
+        ui.separator();
         ui.text("Overlay");
         if self.using_pad {
             ui.text_disabled(format!("Open or close: {} (change pad_toggle in ErRandoCompanionMod.ini)", self.config.pad_toggle));
@@ -1420,6 +1429,48 @@ impl Overlay {
                 ui.unindent_by(16.0);
             }
         });
+    }
+
+    /// Whether a newer version is out on GitHub, and a button to put it in place for the next start of the game.
+    fn updates_section(&self, ui: &Ui, snapshot: &Snapshot) {
+        ui.text("Updates");
+        let Some(update) = snapshot.update.as_ref() else {
+            ui.text_disabled(if snapshot.updating { "Looking for updates..." } else { "Not checked yet." });
+            return;
+        };
+        let mut enabled = update.check_enabled;
+        if ui.checkbox("Check GitHub for companion updates (at most once a day)", &mut enabled) {
+            self.send(Command::SetCheckForUpdates(enabled));
+        }
+        if update.installed {
+            ui.text_colored(GREEN, update.message.as_deref().unwrap_or("Updated. Restart the game to use it."));
+            return;
+        }
+        if update.available {
+            ui.text_colored(YELLOW, format!(
+                "Version {} is available; this is {}.",
+                update.latest.as_deref().unwrap_or("?").trim_start_matches('v'),
+                update.current
+            ));
+            if let Some(page) = &update.page {
+                ui.text_disabled(format!("What's new: {page}"));
+            }
+            if snapshot.updating {
+                ui.text_disabled("Updating...");
+            } else if ui.button("Update the overlay") {
+                self.send(Command::InstallUpdate);
+            }
+            ui.same_line();
+            ui.text_disabled("(the game uses it from its next start)");
+        } else {
+            ui.text_disabled(format!("This is version {}, the newest.", update.current));
+        }
+        if let Some(message) = update.message.as_deref().filter(|_| !update.installed) {
+            ui.text_colored(YELLOW, message);
+        }
+        if !snapshot.updating && ui.small_button("Check now") {
+            self.send(Command::CheckUpdate(true));
+        }
     }
 
     /// Enemies killed by kind, and under each kind the drops it can give: kills, the chance a kill gives each, and how

@@ -47,6 +47,12 @@ public sealed record TimedInfo(string Name, double Seconds);
 
 public sealed record PlaceCount(string Place, int Count);
 
+/// <summary>
+/// The overlay's update status: this version, the newest on GitHub if known, and whether it can be installed. Message
+/// says what happened (installed, or why not).
+/// </summary>
+public sealed record UpdateInfo(string Current, string? Latest, bool Available, string? Page, string? Message, bool Installed, bool CheckEnabled);
+
 /// <summary>An enemy kind killed in this run, how many, and the drops of every enemy of a kind it can give, with their odds.</summary>
 public sealed record KillKindInfo(string Kind, int Kills, IReadOnlyList<AllCheckInfo> Drops);
 
@@ -203,6 +209,7 @@ public sealed record PollInfo(string Status, string Message, bool Changed, Playe
 [JsonSerializable(typeof(SessionOptions))]
 [JsonSerializable(typeof(Summary))]
 [JsonSerializable(typeof(AllPlacesInfo))]
+[JsonSerializable(typeof(UpdateInfo))]
 [JsonSerializable(typeof(IReadOnlyList<KillKindInfo>))]
 [JsonSerializable(typeof(IReadOnlyList<AllCheckInfo>))]
 [JsonSerializable(typeof(IReadOnlyList<string>))]

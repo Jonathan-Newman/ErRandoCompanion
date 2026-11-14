@@ -107,6 +107,9 @@ public static unsafe partial class Exports
             "poll" => Ok(session.Poll(OptionalInt(request, "nearby") ?? 0), context.PollInfo),
             "allPlaces" => Ok(session.AllPlaces(), context.AllPlacesInfo),
             "kills" => Ok(session.KillKinds(), context.IReadOnlyListKillKindInfo),
+            "checkUpdate" => Ok(session.CheckUpdate(OptionalBool(request, "force") ?? false), context.UpdateInfo),
+            "installUpdate" => Ok(session.InstallUpdate(), context.UpdateInfo),
+            "setCheckForUpdates" => Ok(session.SetCheckForUpdates(Bool(request, "enabled")), context.UpdateInfo),
             "allChecks" => Ok(session.AllChecks(Text(request, "place")), context.IReadOnlyListAllCheckInfo),
             "setAllChecked" => Ok(session.SetAllChecked(Text(request, "id"), Bool(request, "checked")), context.Summary),
             _ => throw new SessionException($"Unknown op '{op}'."),
@@ -187,6 +190,9 @@ public static unsafe partial class Exports
         request.TryGetProperty(name, out var value) && value.ValueKind is JsonValueKind.True or JsonValueKind.False
             ? value.GetBoolean()
             : throw Missing(name);
+
+    private static bool? OptionalBool(JsonElement request, string name) =>
+        request.TryGetProperty(name, out var value) && value.ValueKind is JsonValueKind.True or JsonValueKind.False ? value.GetBoolean() : null;
 
     private static SessionException Missing(string name) => new($"The request needs '{name}'.");
 

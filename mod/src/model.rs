@@ -78,6 +78,19 @@ pub struct AllPlaces {
     pub overdue: i32,
 }
 
+/// The overlay's update status: this version, the newest on GitHub if known, and what happened.
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct UpdateInfo {
+    pub current: String,
+    pub latest: Option<String>,
+    pub available: bool,
+    pub page: Option<String>,
+    pub message: Option<String>,
+    pub installed: bool,
+    pub check_enabled: bool,
+}
+
 /// An enemy kind killed in this run, how many, and the drops it can give with their odds.
 #[derive(Clone, Debug, Default, Deserialize)]
 #[serde(rename_all = "camelCase", default)]

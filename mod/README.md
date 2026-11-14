@@ -164,6 +164,12 @@ only one place ticks that place; one it puts in several ticks the nearest such c
 and in the All tab, the only unticked place on your map that holds it. Key items, Great Runes and Stonesword Keys
 count toward what you own the same way. Each player tracks their own pickups with their own copy of the companion.
 
+**Updates.** At most once a day the companion asks GitHub whether a newer version is out (one request, with nothing
+about you in it). If one is, the header says so, and the Settings tab's **Update the overlay** downloads it, checks it
+against the SHA-256 GitHub publishes, and puts it in place; the game uses it from its next start. Nothing installs
+without that click. Turn the checks off in the Settings tab; the desktop app shares the same setting, and its
+banner can update both the app and the overlay at once.
+
 **Run timer.** Each run counts its played time (only while a character is in the world, so menus and loading screens
 do not count). The top of the checklist shows it with your pace in checks an hour; the small display shows the time too
 (`show_timer=false` hides it). Whichever of the overlay and the desktop app owns the run does the counting.

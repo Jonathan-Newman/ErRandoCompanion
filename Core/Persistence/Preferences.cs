@@ -13,6 +13,20 @@ public sealed class Preferences
     /// <summary>The newest spoiler log already offered to the player, so declining a seed is not asked again.</summary>
     public string? LastOfferedLog { get; set; }
 
+    /// <summary>Whether to look on GitHub for a newer version of the companion (at most about once a day).</summary>
+    public bool CheckForUpdates { get; set; } = true;
+
+    /// <summary>When the last look for updates was, so it is not done more than about once a day.</summary>
+    public DateTime? LastUpdateCheck { get; set; }
+
+    /// <summary>A version the player chose not to install ("Not now"), so it is not offered again; a newer one is.</summary>
+    public string? SkippedVersion { get; set; }
+
+    /// <summary>The newest release found at the last look ("v1.4.0") and its page, so the app and the overlay both know.</summary>
+    public string? LatestVersion { get; set; }
+
+    public string? LatestPage { get; set; }
+
     /// <summary>Missing or unreadable preferences are not worth bothering the player about, so they start fresh.</summary>
     public static Preferences Load(string path)
     {

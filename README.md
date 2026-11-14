@@ -46,6 +46,13 @@ Copy the `ErRandoCompanion` folder into your randomizer folder, then add `ErRand
 randomizer's **All dll mod** button. The [overlay guide](mod/README.md) has the keys, the controller and everything it
 shows.
 
+### Updates
+
+At most once a day the app and the overlay ask GitHub whether a newer release is out. If one is, the app shows a
+banner with **Update**, which installs the new app and the overlay in your randomizer folder, and the overlay offers
+the same in its Settings tab. Downloads are checked against the SHA-256 GitHub publishes for them, and nothing
+installs without a click. Turn the checks off in the app's Randomizer settings tab or the overlay's Settings tab.
+
 ### Map pictures
 
 The world map art belongs to FromSoftware, so it is not included. The first time you open the app's **Map** tab, click
